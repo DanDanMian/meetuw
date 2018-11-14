@@ -23,6 +23,6 @@
     "latest-version": "^4.0.0"
   },
   "script" : {
-    "web": "node app.js"
+    "start": "node app.js"
   }
 }
