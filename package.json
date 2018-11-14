@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,8 +22,5 @@
   },
   "dependencies": {
     "latest-version": "^4.0.0"
-  },
-  "script" : {
-    "start": "node app.js"
   }
 }
