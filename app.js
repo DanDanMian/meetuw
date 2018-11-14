@@ -1,6 +1,6 @@
 const http = require('http');
 
-let hostname = 'heroku.com';
+const hostname = '127.0.0.1';
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
@@ -13,6 +13,6 @@ const server = http.createServer((req, res) => {
   res.end('Hello World\n');
 });
 
-server.listen(port, hostname, () => {
+server.listen(port,hostname, function () {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
