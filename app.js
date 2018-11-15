@@ -1,7 +1,7 @@
 const http = require('http');
-const hostname = 'herokuapp.com';
+const hostname = "127.0.0.1";//'herokuapp.com';
 const port = process.env.PORT;
-console.log(port);
+console.log("current port: "+ process.env.PORT);
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
