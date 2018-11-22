@@ -20,7 +20,11 @@
     "node": "10.x"
   },
   "dependencies": {
-    "latest-version": "^4.0.0"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "latest-version": "^4.0.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^4.13.17"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
