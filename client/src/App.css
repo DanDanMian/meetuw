@@ -1,0 +1,9 @@
+.App {
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	background: -webkit-linear-gradient(top, #FFF23D 0%, #FF2205 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(bottom, #FFF23D, #FF2205);  Opera 11.1 - 12.0 
+	background: -moz-linear-gradient(bottom, #FFF23D, #FF2205); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to bottom, rgb(255,242,61, 0.5), rgb(255,34,5, 0.5)); /* 标准的语法（必须放在最后） */
+}
