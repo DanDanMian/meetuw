@@ -126,7 +126,71 @@ All request/response payloads, if applicable, should be in `application/json`. R
   }
 }
 ```
-###### System managed fields (like `id` and `verified`) cannot be updated. `email` cannot be updated once `verified` is `true`. 
+##### System managed fields (like `id`, `verified`, `name` and `initials`) cannot be updated (`name` and `initials` are updated automatically by polling UW API when email is verified). `email` cannot be updated once `verified` is `true`. 
+###### Send
+```json
+{
+  "id": "i really thought i could hack my user id"
+}
+```
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "Field `id` of user cannot be updated."
+}
+```
+##### User's data is updated via an object deep merge. For simplicity, arrays will be replaced.
+###### Send
+```json
+{
+  "extraData": {
+    "classesTaken": [
+      {
+        "term": 1159,
+        "subject": "CS",
+        "catalog_number": "343"
+      },
+      {
+        "term": 1189,
+        "subject": "CS",
+        "catalog_number": "493"
+      }
+    ]
+  }
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK",
+  "data": {
+    "id": "6f5e4d3c2b1a_im_a_user_id",
+    "term": "6A",
+    "program": "Computer Science",
+    "email": "d4wei@edu.uwaterloo.ca",
+    "verified": true,
+    "name": "Da Wei",
+    "initials": "DW",
+    "avatar": "another_cute_cat_picture.jpg",
+    "extraData": {
+      "classesTaken": [
+        {
+          "term": 1159,
+          "subject": "CS",
+          "catalog_number": "343"
+        },
+        {
+          "term": 1189,
+          "subject": "CS",
+          "catalog_number": "493"
+        }
+      ]
+    }
+  }
+}
+```
 
 ### /auth
 
