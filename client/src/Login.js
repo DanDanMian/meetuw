@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import './App.css';
 
 class Login extends Component {
-
     constructor(props){
         super(props);
     
@@ -28,7 +28,7 @@ class Login extends Component {
     }
     render() {
       return (
-        <div>
+        <div className="App">
             <h1 classname="name">MeetUW</h1>
             <form name="login" onSubmit={this.handleSubmit}>
                 <div classname="email">
