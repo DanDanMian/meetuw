@@ -23,8 +23,8 @@ class Login extends Component {
     }
     handleSubmit(event){
       event.preventDefault();
-      this.setStatet({submitted: true});
-      //process input data here
+      this.setState({submitted: true});
+      //process input here
     }
     render() {
       return (
@@ -41,13 +41,15 @@ class Login extends Component {
                     onChange={this.handleChange} />
                 </div>
                 <div>
-                    < input type="submit" value="submit" />
+                    < input type="submit" value="submit" 
+                    onChange ={this.handleSubmit} />
                 </div>
                 <div> 
-                    <input name="keepSignIn" type="checkbox" value="keep me sign in" 
+                    <input name="keepSignIn" type="checkbox"
                     checked={this.state.keepSignIn} 
                     onChange={this.handleChange}/>
-                    <input type="submit" value="Forget"/>
+                    <lable>Keep me sign in</lable>
+                    <lable>Forgot</lable>
                 </div>
             </form> 
         </div>
