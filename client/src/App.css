@@ -10,10 +10,8 @@
 	background: -moz-linear-gradient(bottom, #FFF23D, #FF2205); /* Firefox 3.6 - 15 */
 	background: linear-gradient(to bottom, rgb(255,242,61, 0.5), rgb(255,34,5, 0.5)); /* 标准的语法（必须放在最后） */
 }
-<<<<<<< HEAD
 
 .Logo{
 	font-family:sans-serif;
 }
-=======
->>>>>>> 006c33ee30b85a987a2f7bb22bd2c869e8d7343d
+
