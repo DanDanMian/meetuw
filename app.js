@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-//app.use(express.static(path.resolve(__dirname, './client/build')));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
