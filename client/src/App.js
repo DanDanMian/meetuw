@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 
 class App extends Component {
   constructor(props){
@@ -14,25 +15,35 @@ class App extends Component {
   }
 
   handleCateogryChange(event){
-    this.setStatet({category: event.target.value});
+    this.setState({category: event.target.value});
   }
 
+  handleTryout(event){
+    alert('A student submit with' + this.program.value + " with intended category" + this.category.value);
+    event.preventDefault();
+  }
 
   render() {
     return (
-       <form onSubmit={this.handleSubmit}>
-       <label>I am a UW student in</label>
-        <label>
-          <input type="text" value={this.state.program} onChange={this.handleProgramChange} />
-           Program.
-        </label>
-        <label>I am looking for </label>
-        <label>
-          <input type="text" value={this.state.category} onChange={this.handleCateogryChange} /> 
-        </label>
-        <input type="submit" value="Submit" />
-        <input type="submit" value="Tryout" />
-      </form>
+      <div className="App">
+        <div>
+          <div>Logo</div>
+          <div>UW Meet</div>
+        </div>
+        <form onSubmit={this.handleTryout}>
+           <label>I am a UW student in</label>
+            <label>
+              <input type="text" value={this.state.program} onChange={this.handleProgramChange} />
+               Program.
+            </label>
+            <label>I am looking for </label>
+            <label>
+              <input type="text" value={this.state.category} onChange={this.handleCateogryChange} /> 
+            </label>
+            <input type="submit" value="Tryout" />
+        </form>
+        <button onClick={this.handleLogin} value="Login">Login</button>
+      </div>
     );
   }
 }
