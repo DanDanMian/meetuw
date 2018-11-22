@@ -23,6 +23,23 @@ class App extends Component {
     event.preventDefault();
   }
 
+  handleLogin(event){
+    fetch('./login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        program: "CS",
+        category: "Academic",
+      })
+    }).then(response => response.json())
+    console.log('Login')
+    //alert('A student submit with' + this.program.value + " with intended category" + this.category.value);
+    //event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
@@ -43,6 +60,7 @@ class App extends Component {
             <input type="submit" value="Tryout" />
         </form>
         <button onClick={this.handleLogin} value="Login">Login</button>
+        <div>TEST: {this.props.program} {this.props.category}</div>
       </div>
     );
   }
