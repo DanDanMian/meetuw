@@ -29,6 +29,10 @@ app.get('/', function(req, res){
   res.send('CONNECTED');
 });
 
+app.get('/login', function(req, res){
+	res.send(req.program, req.catagory);
+})
+
 app.get('*', staticFiles);
 
 
