@@ -306,7 +306,7 @@ In this case, the user will receive an email to register instead of logging in.
 ### /email_verification
 
 `POST /email_verification`
-##### Ask the backend to send an email to verify an email address that will be tentatively associated with the current user. The association won't be final until the email address has been verified.
+##### Without a valid authentication token, this endpoint does nothing.
 ###### Send
 ```json
 {
@@ -322,6 +322,7 @@ In this case, the user will receive an email to register instead of logging in.
 ```
 
 `POST /email_verification?t=a1b2c3d4e5f6_im_a_valid_token`
+##### With a valid authentication token and a (seemingly) valid UW email address, the backend will now send an email to it to verify. This email contains a link to `GET /email_verification` with a special token.
 ###### Send
 ```json
 {
@@ -336,8 +337,8 @@ In this case, the user will receive an email to register instead of logging in.
 }
 ```
 
-If the user is already verified, then:
 `GET /email_verification?t=a1b2c3d4e5f6_im_a_valid_token`
+##### This endpoint does nothing if the current user is already verified.
 ###### Send
 ```json
 {
@@ -353,6 +354,7 @@ If the user is already verified, then:
 ```
 
 `GET /email_verification`
+##### Without a valid email verification token, this endpoint does nothing.
 ###### Receive
 ```json
 {
@@ -362,6 +364,7 @@ If the user is already verified, then:
 ```
 
 `GET /email_verification?evt=1a2b3c4d5e6f_im_a_valid_email_verification_token`
+##### With a valid token, this completes the email verification cycle and marks the user as verified. The user's email can no longer be changed from this point on.
 ###### Receive
 ```json
 {
@@ -371,3 +374,150 @@ If the user is already verified, then:
 ```
 
 ### /match_request
+
+`POST /match_request`
+##### Without a valid authentication token, this endpoint does nothing.
+###### Send
+```json
+{
+  "useCase": "academic",
+  "criteria": {
+    "course": {
+      "term": 1189,
+      "subject": "CS",
+      "catalog_number": "493"
+    }
+  }
+}
+```
+###### Receive
+```json
+{
+  "status": 401,
+  "message": "This endpoint requires authentication. Please provide a valid token."
+}
+```
+
+`POST /match_request?t=a1b2c3d4e5f6_im_a_valid_token`
+##### With a valid authentication token, the backend tries to perform the match as soon as possible.
+###### Send
+```json
+{
+  "useCase": "academic",
+  "criteria": {
+    "course": {
+      "term": 1189,
+      "subject": "CS",
+      "catalog_number": "493"
+    }
+  },
+  "timeOut": 15000
+}
+```
+If the backend was able to find a match within `timeOut`, it includes the match within the response.
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK",
+  "data": {
+    "name": "Da Wei",
+    "initials": "DW",
+    "avatar": "picture_of_cute_cat.jpg",
+    "program": "Computer Science",
+    "email": "d4wei@edu.uwaterloo.ca
+  }
+}
+```
+Otherwise, the backend will simply return an OK, meaning that the user will be notified as soon as a match happens.
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK",
+  "data": {
+    "requestId": "123456abcedf_im_a_match_request"
+  }
+}
+```
+
+`GET /match_request`
+##### Without a valid authentication token, this endpoint does nothing.
+###### Receive
+```json
+{
+  "status": 401,
+  "message": "This endpoint requires authentication. Please provide a valid token."
+}
+```
+
+`GET /match_request?t=a1b2c3d4e5f6_im_a_valid_token`
+##### With a valid authentication token, return list of all outstanding match requests of the current user.
+###### Receive
+```json
+{
+  "status": 200,
+  "message": OK,
+  "data": {
+    "outstandingRequests: [
+      {
+        "id": "123456abcedf_im_a_match_request",
+        "timeCreated": 1542940952,
+        "useCase": "academic",
+        "criteria": {
+          "course": {
+            "term": 1189,
+            "subject": "CS",
+            "catalog_number": "493"
+          }
+        }
+      },
+      {
+        "id": "654321abcedf_im_another_match_request",
+        "timeCreated": 1542940989,
+        "useCase": "academic",
+        "criteria": {
+          "course": {
+            "term": 1189,
+            "subject": "CS",
+            "catalog_number": "343"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+`GET /match_request?t=a1b2c3d4e5f6_im_a_valid_token&id=123456abcedf_im_a_match_request`
+##### With a valid authentication token and a valid request ID, return the match result.
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK",
+  "data": {
+    "name": "Da Wei",
+    "initials": "DW",
+    "avatar": "picture_of_cute_cat.jpg",
+    "program": "Computer Science",
+    "email": "d4wei@edu.uwaterloo.ca
+  }
+}
+```
+If the request has not yet been fulfilled:
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "This request has not yet been fulfilled"
+}
+```
+If the request ID is invalid or if it is valid but doesn't belong to the current user:
+###### Receive
+```json
+{
+  "status": 404
+  "message": "Invalid request ID"
+}
+```
