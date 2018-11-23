@@ -27,7 +27,6 @@ class NewEmailRegister extends Component {
         </h2> 
         <input type="text" value={this.state.email}
         onChange={this.handleEmailChange} />
-
         <button className="Button"  onClick={this.handleSubmit} value="">submit</button>
       </div>
     );
