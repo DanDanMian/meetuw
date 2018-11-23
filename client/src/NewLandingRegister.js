@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Picture1 from './picture/Picture1.png';
 import Picture2 from './picture/Picture2.png';
 import './App.css';
 
-class App extends Component {
+class NewLandingRegister extends Component {
   constructor(props){
     super(props);
     this.state = {program: '', category: '' };
@@ -71,11 +72,10 @@ class App extends Component {
             </label>
             <input  type="submit" value="Tryout" />
         </form>
-        <button onClick={this.handleLogin} value="Login">Login</button>
-        <div>TEST: {this.props.program} {this.props.category}</div>
+        <Link to="/login"><button>Login</button></Link>
       </div>
     );
   }
 }
 
-export default App;
+export default NewLandingRegister;
