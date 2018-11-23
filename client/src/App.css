@@ -3,6 +3,7 @@
 	text-align: center;
 	margin-left:auto;
 	margin-right: auto;
+	padding-top: 5%;
 	height: 480px;
 	width: 25%;
 	background: -webkit-linear-gradient(top, #FFF23D 0%, #FF2205 100%); /* Safari 5.1 - 6.0 */
@@ -12,6 +13,20 @@
 }
 
 .Logo{
-	font-family:sans-serif;
+	font-family: cursive;
+	color:#082038;
 }
 
+.Text{
+	text-align: left;
+	margin-left: 18%;
+	font-family:fantasy;
+	color:#382008;
+}
+
+.Notice{
+	text-align: left;
+	margin-left: 18%;
+	font-family:'Times New Roman', Times, serif;
+	color:#382008;
+}

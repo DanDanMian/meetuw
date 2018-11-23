@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import kubo from "./kubo.jpg"
+import kubo from "./picture/kubo.jpg"
 import './App.css';
 
 class NewPasswordRegister extends Component {

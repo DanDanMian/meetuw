@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Picture1 from './picture/Picture1.png';
+import Picture2 from './picture/Picture2.png';
 import './App.css';
 
 class App extends Component {
@@ -44,20 +46,26 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <div>Logo</div>
-          <div>UW Meet</div>
+          <div>                 
+             <img src={Picture2} width="100" height="80" />
+          </div>
+          <h2 className="Logo">MeetUW</h2>
         </div>
         <form onSubmit={this.handleTryout}>
-           <label>I am a UW student in</label>
+           <h3 className="Text">I am a UW student in</h3>
             <label>
-              <input type="text" value={this.state.program} onChange={this.handleProgramChange} />
-               Program.
+            <h3 className="Text"> in &nbsp;
+              <input  type="text" value={this.state.program} onChange={this.handleProgramChange} />
+            </h3>
             </label>
-            <label>I am looking for </label>
+            <h3 className="Text"> Program. I am looking </h3>
             <label>
-              <input type="text" value={this.state.category} onChange={this.handleCateogryChange} /> 
+            <h3 className="Text"> for &nbsp;
+                <input  type="text" value={this.state.category} onChange={this.handleCateogryChange} />
+                &nbsp;.
+              </h3>
             </label>
-            <input type="submit" value="Tryout" />
+            <input  type="submit" value="Tryout" />
         </form>
         <button onClick={this.handleLogin} value="Login">Login</button>
         <div>TEST: {this.props.program} {this.props.category}</div>
