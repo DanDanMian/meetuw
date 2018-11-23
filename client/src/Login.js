@@ -14,19 +14,26 @@ class Login extends Component {
             keepSignIn: false,
             error: ''
         };
-        this.handleChange = this.handleChange.bind(this);
+
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(event){
-      const target = event.target;
-      const value = target.type ==='checkbox' ? target.check : target.value;
-      const name = target.name;
-      this.setState({[name]:value});
+
+    handleEmail(event){
+      // const target = event.target;
+      // const value = target.type ==='checkbox' ? target.check : target.value;
+      // const name = target.name;
+      this.setState({email:event.target.value});
     }
+
+    handlePassword(event){
+        this.setState({password: event.target.value});
+    }
+
     handleSubmit(event){
       event.preventDefault();
       this.setState({submitted:true});
-     //process input here
     }
     render() {
       return (
@@ -36,12 +43,12 @@ class Login extends Component {
             <form  onSubmit={this.handleSubmit}>
                 <div classname="email">
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
-                    onChange={this.handleChange} />
+                    onChange={this.handleEmail} />
                 </div>
 
                 <div classname="password">
                     <input type="text" value={this.state.password} placeholder="*********"
-                    onChange={this.handleChange} />
+                    onChange={this.handlePassword} />
                 </div>
                 <div>
                     < input type="submit" value="submit" 
