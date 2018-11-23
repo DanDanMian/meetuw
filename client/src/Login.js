@@ -8,8 +8,8 @@ class Login extends Component {
         super(props);
     
         this.state = {
-            email:'userid@uwaterloo.ca',
-            password:'**********',
+            email:'',
+            password:'',
             submitted: false,
             keepSignIn: false,
             error: ''
@@ -35,12 +35,12 @@ class Login extends Component {
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
                 <div classname="email">
-                    <input type="text" value={this.state.email}
+                    <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
                     onChange={this.handleChange} />
                 </div>
 
                 <div classname="password">
-                    <input type="text" value={this.state.password}
+                    <input type="text" value={this.state.password} placeholder="*********"
                     onChange={this.handleChange} />
                 </div>
                 <div>
