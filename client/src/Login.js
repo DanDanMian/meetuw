@@ -54,15 +54,6 @@ class Login extends Component {
                     < input type="submit" value="submit" 
                     onChange ={this.handleSubmit} />
                 </div>
-                <div> 
-                    <h5 className="Notice">
-                        <input name="keepSignIn" type="checkbox"
-                        checked={this.state.keepSignIn} 
-                        onChange={this.handleChange}/>
-                        <lable>Keep me sign in &nbsp;</lable>
-                        <lable> Forgot</lable>
-                    </h5>
-                </div>
             </form> 
         </div>
         );
