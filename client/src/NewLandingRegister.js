@@ -22,7 +22,7 @@ class NewLandingRegister extends Component {
   handleSubmit = async e => {
     console.log(this.state.body);
     e.preventDefault();
-    const response = await fetch('/login', {
+    const response = await fetch('/testpost', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,23 +45,6 @@ class NewLandingRegister extends Component {
   handleTryout(event){
     alert('A student submit with' + this.program.value + " with intended category" + this.category.value);
     event.preventDefault();
-  }
-
-  handleLogin(event){
-    fetch('./login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        program: "CS",
-        category: "Academic",
-      })
-    }).then(response => response.json())
-    console.log('Login')
-    //alert('A student submit with' + this.program.value + " with intended category" + this.category.value);
-    //event.preventDefault();
   }
 
   render() {
