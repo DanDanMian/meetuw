@@ -288,7 +288,7 @@ An email will be sent to the user with a link that has an authentication token a
   "message": "OK"
 }
 ```
-In this case, the user will receive an email to register instead of log.
+In this case, the user will receive an email to register instead of logging in.
 ###### Send
 ```json
 {
@@ -304,5 +304,70 @@ In this case, the user will receive an email to register instead of log.
 ```
 
 ### /email_verification
+
+`POST /email_verification`
+##### Ask the backend to send an email to verify an email address that will be tentatively associated with the current user. The association won't be final until the email address has been verified.
+###### Send
+```json
+{
+  "email": "d4wei@edu.uwaterloo.ca"
+}
+```
+###### Receive
+```json
+{
+  "status": 401,
+  "message": "This endpoint requires authentication. Please provide a valid token."
+}
+```
+
+`POST /email_verification?t=a1b2c3d4e5f6_im_a_valid_token`
+###### Send
+```json
+{
+  "email": "d4wei@edu.uwaterloo.ca"
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK"
+}
+```
+
+If the user is already verified, then:
+`GET /email_verification?t=a1b2c3d4e5f6_im_a_valid_token`
+###### Send
+```json
+{
+  "email": "anything@anywhere.com"
+}
+```
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "You have already verified your email address"
+}
+```
+
+`GET /email_verification`
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "Please provide a valid email verification token"
+}
+```
+
+`GET /email_verification?evt=1a2b3c4d5e6f_im_a_valid_email_verification_token`
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK"
+}
+```
 
 ### /match_request
