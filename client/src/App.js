@@ -58,11 +58,13 @@ class App extends Component {
               <input  type="text" value={this.state.program} onChange={this.handleProgramChange} />
             </h3>
             </label>
-            <h3 className="Text"> Program. I am looking </h3>
+            <h3 className="Text"> Program. I am looking</h3>
             <label>
-            <h3 className="Text"> for &nbsp;
-                <input  type="text" value={this.state.category} onChange={this.handleCateogryChange} />
-                &nbsp;.
+            <h3 className="Text"> for a&nbsp;&nbsp;
+                    <select id="category" name="category">
+                      <option value={this.state.category} onChange={this.handleCateogryChange}>Study Buddy</option>
+                    </select>
+                &nbsp;&nbsp;.
               </h3>
             </label>
             <input  type="submit" value="Tryout" />
