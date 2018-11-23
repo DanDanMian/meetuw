@@ -6,6 +6,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import NewLandingRegister from './NewLandingRegister';
+import AcademeInfo from './AcademeInfo';
 import Login from './Login';
 import Results from './Results';
 import NewPasswordRegister from './NewPasswordRegister';
