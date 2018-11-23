@@ -457,7 +457,7 @@ Otherwise, the backend will simply return an OK, meaning that the user will be n
 ```json
 {
   "status": 200,
-  "message": OK,
+  "message": "OK",
   "data": {
     "outstandingRequests: [
       {
@@ -517,7 +517,7 @@ If the request ID is invalid or if it is valid but doesn't belong to the current
 ###### Receive
 ```json
 {
-  "status": 404
+  "status": 404,
   "message": "Invalid request ID"
 }
 ```
