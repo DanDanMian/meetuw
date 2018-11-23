@@ -194,6 +194,71 @@ All request/response payloads, if applicable, should be in `application/json`. R
 
 ### /auth
 
+`POST /auth`
+##### Without a token, this expects a pair of user email and password. Returns a token if the authentication attempt is successful.
+###### Send
+```json
+{
+  "email": "d4wei@edu.uwaterloo.ca",
+  "password": "this_is_not_my_password"
+}
+```
+###### Receive
+```json
+{
+  "status": 401,
+  "message": "Email and password do not match."
+}
+```
+###### Send
+```json
+{
+  "email": "d4wei@edu.uwaterloo.ca",
+  "password": "this_is_my_password"
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK",
+  "data": {
+    "authToken": "a1b2c3d4e5f6_im_a_valid_token"
+  }
+}
+```
+
+`POST /auth?t=a1b2c3d4e5f6_im_a_valid_token`
+##### With a valid authentication token, this sets/updates the password of the current user. Set `oldPassword` to `null` if the user has never set a password before.
+###### Send
+```json
+{
+  "oldPassword": "not_my_old_password",
+  "newPassword": "new_password"
+}
+```
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "Provided old password is incorrect"
+}
+```
+###### Send
+```json
+{
+  "oldPassword": "old_password",
+  "newPassword": "new_password"
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK"
+}
+```
+
 ### /email_verification
 
 ### /match_request
