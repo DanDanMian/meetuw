@@ -29,7 +29,7 @@ app.get('/', function(req, res){
   res.send('CONNECTED');
 });
 
-app.post('/login', function(req, res){
+app.post('/testpost', function(req, res){
   console.log(req.body);
 	res.send({program: `${req.body.program}`, category: `${req.body.category}`});
 });
