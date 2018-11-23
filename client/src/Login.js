@@ -37,7 +37,7 @@ class Login extends Component {
       this.setState({submitted:true});
       console.log(this.state.body);
 
-      const response = await fetch('/login', {
+      const response = await fetch('/api/login', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
