@@ -259,6 +259,50 @@ All request/response payloads, if applicable, should be in `application/json`. R
 }
 ```
 
+`POST /auth/email`
+##### Alternative authentication via sending an email to the address associated with an user. Useful when the user has forgotten their password.
+###### Send
+```json
+{
+  "email": "d4wei@edu.uwaterloo.ca"
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK"
+}
+```
+An email will be sent to the user with a link that has an authentication token attached to it.
+###### Send
+```json
+{
+  "email": "didnt_actually_register@edu.uwaterloo.ca"
+}
+```
+###### Receive
+```json
+{
+  "status": 200,
+  "message": "OK"
+}
+```
+In this case, the user will receive an email to register instead of log.
+###### Send
+```json
+{
+  "email": "random@gmail.com"
+}
+```
+###### Receive
+```json
+{
+  "status": 400,
+  "message": "Invalid email address. Only @edu.uwaterloo.ca addresses can signup."
+}
+```
+
 ### /email_verification
 
 ### /match_request
