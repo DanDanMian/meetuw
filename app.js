@@ -6,7 +6,7 @@ const path = require('path');
 
 MongoClient.connect("mongodb://admin:0000@meetuw-shard-00-00-5sqfz.mongodb.net:27017,meetuw-shard-00-01-5sqfz.mongodb.net:27017,meetuw-shard-00-02-5sqfz.mongodb.net:27017/test?ssl=true&replicaSet=meetuw-shard-0&authSource=admin", function(err, db) {
   if(!err) {
-    console.log("We are connected");
+    console.log("We are connected to DB");
   }
 });
 
@@ -29,8 +29,14 @@ app.get('/', function(req, res){
   res.send('CONNECTED');
 });
 
-app.get('/login', function(req, res){
-	res.send(req.program, req.catagory);
+app.post('/login', function(req, res){
+  console.log(req.body);
+	res.send({program: `${req.body.program}`, category: `${req.body.category}`});
+});
+
+app.post('/match_request', function(req, res){
+  console.log(req.body);
+  res.send();
 })
 
 app.get('*', staticFiles);
