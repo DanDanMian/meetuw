@@ -34,6 +34,16 @@ app.post('/testpost', function(req, res){
 	res.send({program: `${req.body.program}`, category: `${req.body.category}`});
 });
 
+app.post('/login', function(req, res){
+  console.log(req.body);
+  if(req.body.email == 'test@uwaterloo.ca' && req.body.password == '12345'){
+    res.send('login successful');
+  }
+  else{
+    res.send('Wrong Email or Password!');
+  }
+});
+
 app.post('/match_request', function(req, res){
   console.log(req.body);
   res.send();

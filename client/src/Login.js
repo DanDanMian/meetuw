@@ -12,6 +12,7 @@ class Login extends Component {
             password:'',
             submitted: false,
             keepSignIn: false,
+            responseToPost: '',
             error: ''
         };
 
@@ -31,10 +32,24 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit(event){
+    handleSubmit = async event => {
       event.preventDefault();
       this.setState({submitted:true});
+      console.log(this.state.body);
+
+      const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email: this.state.email, 
+            password: this.state.password}),
+      });
+      const body = await response.text();
+
+      this.setState({ responseToPost: body});
     }
+
     render() {
       return (
         <div className="App">
@@ -55,6 +70,7 @@ class Login extends Component {
                     onChange ={this.handleSubmit} />
                 </div>
             </form> 
+            <p>{this.state.responseToPost}</p>
         </div>
         );
     }
