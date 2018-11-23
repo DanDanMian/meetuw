@@ -32,13 +32,13 @@ class NewPasswordRegister extends Component {
   render() {
     return (
       <div className="App">
-          <h2>Hey! We find a matching for you.</h2> 
+          <h2 className="Text">Hey! We find a matching for you.</h2> 
           <form name="PasswordRegister" onSubmit={this.handleConfirm}>
               <div>
                   <img src={kubo} width="100" height="120" />
-                  <h3>DW</h3>
-                  <h4>computer science</h4>
-                  <h2>Register for better matching</h2>
+                  <h3 className="Notice">DW</h3>
+                  <h4 className="Notice">computer science</h4>
+                  <h2 className="Text">Register for better matching</h2>
               </div>
 
               <div classname="password">

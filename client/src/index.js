@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Login from './Login';
+import Results from './Results';
 import NewPasswordRegister from './NewPasswordRegister';
 import * as serviceWorker from './serviceWorker';
 

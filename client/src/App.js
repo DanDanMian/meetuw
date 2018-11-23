@@ -55,14 +55,16 @@ class App extends Component {
            <h3 className="Text">I am a UW student in</h3>
             <label>
             <h3 className="Text"> in &nbsp;
-              <input  type="text" value={this.state.program} onChange={this.handleProgramChange} />
+              <input  type="text" value={this.state.program} 
+              onChange={this.handleProgramChange} />
             </h3>
             </label>
             <h3 className="Text"> Program. I am looking</h3>
             <label>
             <h3 className="Text"> for a&nbsp;&nbsp;
                     <select id="category" name="category">
-                      <option value={this.state.category} onChange={this.handleCateogryChange}>Study Buddy</option>
+                      <option value={this.state.category} 
+                      onChange={this.handleCateogryChange}>Study Buddy</option>
                     </select>
                 &nbsp;&nbsp;.
               </h3>
