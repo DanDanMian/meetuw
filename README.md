@@ -459,7 +459,7 @@ Otherwise, the backend will simply return an OK, meaning that the user will be n
   "status": 200,
   "message": "OK",
   "data": {
-    "outstandingRequests: [
+    "outstandingRequests": [
       {
         "id": "123456abcedf_im_a_match_request",
         "timeCreated": 1542940952,
