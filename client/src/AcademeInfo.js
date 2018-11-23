@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
-
+import { Link } from 'react-router-dom';
 
 
 class AcademeInfo extends Component {
@@ -12,18 +11,18 @@ class AcademeInfo extends Component {
         subject:'',
         number: ''
     };
-    this.initData();
+    // this.initData();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  initData(){
-    var apiToken = 'blarg';
-    var uwapi = require('uwapi')(apiToken);
-    uwapi.foodservicesSearch({}, {
-      'calories.lt': 600}).
-      then(console.log, console.error);
-  }
+  // initData(){
+  //   // var apiToken = 'blarg';
+  //   // var uwapi = require('uwapi')(apiToken);
+  //   // uwapi.foodservicesSearch({}, {
+  //   //   'calories.lt': 600}).
+  //   //   then(console.log, console.error);
+  // }
 
   handleChange(event){
     const target = event.target;
@@ -69,7 +68,10 @@ class AcademeInfo extends Component {
                 <input  type="text" name="number" value={this.state.number}
                 onChange={this.handleChange}/>
             </label>
-            <input className="Button"  type="submit"  value="submit" />
+            <Link to="/match">
+                  <input type="submit" value="submit" 
+                      onChange ={this.handleSubmit} />
+            </Link>
         </form>
       </div>
     );

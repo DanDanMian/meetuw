@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import './App.css';
 import Picture1 from './picture/Picture1.png';
 import Picture2 from './picture/Picture2.png';
+
 
 class Login extends Component {
     constructor(props){
@@ -66,8 +69,10 @@ class Login extends Component {
                     onChange={this.handlePassword} />
                 </div>
                 <div>
-                    < input type="submit" value="submit" 
-                    onChange ={this.handleSubmit} />
+                    <Link to="/academic">
+                      < input type="submit" value="submit" 
+                              onChange ={this.handleSubmit} />
+                    </Link>
                 </div>
             </form> 
             <p>{this.state.responseToPost}</p>
