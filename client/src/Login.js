@@ -51,8 +51,8 @@ class Login extends Component {
         }
 
         // Validate user password
-        let minPasswordLength = 8;
-        if (password.length < minPasswordLength){
+        let minPasswordLength = 5;
+        if (password.length <= minPasswordLength){
             this.setState({ error: "Invalid Password" });
             return false;
         }
