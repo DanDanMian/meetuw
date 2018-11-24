@@ -34,7 +34,6 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-
     handleSubmit = async event => {
       event.preventDefault();
 
@@ -46,8 +45,6 @@ class Login extends Component {
 
       // TODO: Email/Password Format Validation
       // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
-      this.setState({ loginValid: true });
-      console.log(this.state.body);
 
       const response = await fetch('/api/login', {
           method: 'POST',
@@ -59,6 +56,10 @@ class Login extends Component {
       });
       const body = await response.text();
       this.setState({ responseToPost: body});
+
+      if (this.state.responseToPost == 'SUCCESS'){
+        this.setState({ loginValid: true });
+      }
 
     }
 
