@@ -56,15 +56,15 @@ class AcademeInfo extends Component {
     render() {
         const termOptions = ['Fall','Spring','Winter'];
         const termDfaultOption = this.state.term;
-        const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    
+        const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH','FINE'];
         const subDfaultOption = this.state.subject;
-        const numOptions = ['115','116','245','256','349','350','452','486','680','458'];
+        const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
         const numDfaultOption = this.state.number;
 
-        if (this.state.responseToPost === "SUCCESS"){
-            this.props.history.push("/matched")
-        } else if (this.state.responseToPost === "FAILED") {
-            this.props.history.push("/unmatched")
+        if (this.state.responseToPost === "unmatched"){
+            this.props.history.push("/unmatched");
+        } else if (this.state.responseToPost !== "") {
+            this.props.history.push("/matched");
         }
 
         return (
