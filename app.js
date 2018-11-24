@@ -34,7 +34,7 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-app.post('/api/match_request', require('./endpoints/matchRequest'));
+app.post('/api/match_request', require('./endpoints/matchRequest').post);
 
 app.listen(port, () => {
   logger.debug(`Server listening on port ${port}`);

@@ -1,4 +1,4 @@
-const logger = require('./utils/logger');
+const logger = require('../utils/logger');
 
 const post = (req, res) => {
     logger.debug(`/match_request => ${req.body.term} ${req.body.subject} ${req.body.number}`);
