@@ -11,6 +11,7 @@ import NewEmailRegister from './NewEmailRegister';
 import AcademeInfo from './AcademeInfo';
 import Login from './Login';
 import Results from './Results';
+import ResultNotMatched from './ResultNotMatched';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -18,7 +19,8 @@ ReactDOM.render(
 	    <Route exact path="/" component={NewLandingRegister} />
     	<Route path='/login' component={Login} />
     	<Route path='/academic' component={AcademeInfo} />
-    	<Route path='/match' component={Results} />
+    	<Route path='/matched' component={Results} />
+    	<Route path='/unmatched' component={ResultNotMatched} />
 	  </div>
 	</BrowserRouter>, document.getElementById('root'));
 

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter, BrowserRouter } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import './App.css';
-import Picture1 from './picture/Picture1.png';
 import Picture2 from './picture/Picture2.png';
 
 
@@ -45,13 +43,13 @@ class Login extends Component {
 
         let suffix = email.substring(start+1, email.length);
 
-        if (suffix != "edu.uwaterloo.ca" && suffix != "uwaterloo.ca"){
+        if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca"){
             this.setState({ error: "Invalid UWaterloo Email" });
             return false;
         }
 
         // Validate user password
-        let minPasswordLength = 5;
+        let minPasswordLength = 8;
         if (password.length < minPasswordLength){
             this.setState({ error: "Invalid Password" });
             return false;
@@ -63,8 +61,6 @@ class Login extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        // TODO: Email/Password Format Validation
-        // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
         if (!this.userInputValidation(this.state.email, this.state.password)){
             console.log("Validation False")
             return;
@@ -82,21 +78,16 @@ class Login extends Component {
             const body = await response.text();
             this.setState({ responseToPost: body });
 
-            if (this.state.responseToPost == 'SUCCESS'){
-
+            if (this.state.responseToPost === 'SUCCESS'){
                 this.setState({ loginValid: true });
-
             } else {
-
                 this.setState({ error: "Login failed" });
             }
     }
 
     render() {
-        const loginValid = this.state.loginValid;
-        let newPage;
-        if (loginValid){
-            this.props.history.push("/academic")
+        if (this.state.loginValid){
+            this.props.history.push("/academic");
         }
 
         return (
