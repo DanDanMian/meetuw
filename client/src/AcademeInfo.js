@@ -51,9 +51,6 @@ class AcademeInfo extends Component {
     const body = await response.text();
 
     this.setState({responseToPost:body});
-
-    
-
   }
 
 
@@ -82,7 +79,7 @@ class AcademeInfo extends Component {
             name = "term"
             options={termOptions}
             value={termDfaultOption}
-            placeholder="term"/>
+            placeholder=""/>
             <br/>
             <h3 className="Text"> Select a Subject</h3>
             <Dropdown
@@ -90,7 +87,7 @@ class AcademeInfo extends Component {
             name = "subject"
             options={subOptions}
             value={subDfaultOption}
-            placeholder="course id"/>
+            placeholder=""/>
             <br/>
             <h3 className="Text"> Select a Course Number</h3>
             <Dropdown
@@ -98,7 +95,7 @@ class AcademeInfo extends Component {
             name = "number"
             options={numOptions}
             value={numDfaultOption}
-            placeholder="course number"/>
+            placeholder=""/>
             <br/>
             <br/>
             <br/>
