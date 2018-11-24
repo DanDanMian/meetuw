@@ -58,7 +58,7 @@ class AcademeInfo extends Component {
 
   render() {
     const { error, subject,term,number, items } = this.state;
-    const termOptions = ['1185','1189','1191','1195'];
+    const termOptions = ['Fall','Spring','Winter'];
     const termDfaultOption = this.state.term;
 
     const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    const subDfaultOption = this.state.subject;
@@ -81,7 +81,7 @@ class AcademeInfo extends Component {
             name = "term"
             options={termOptions}
             value={termDfaultOption}
-            placeholder="1168"/>
+            placeholder="term"/>
             <br/>
             <h3 className="Text"> Select a Subject</h3>
             <Dropdown
@@ -89,7 +89,7 @@ class AcademeInfo extends Component {
             name = "subject"
             options={subOptions}
             value={subDfaultOption}
-            placeholder="CS"/>
+            placeholder="course id"/>
             <br/>
             <h3 className="Text"> Select a Course Number</h3>
             <Dropdown
@@ -97,7 +97,7 @@ class AcademeInfo extends Component {
             name = "number"
             options={numOptions}
             value={numDfaultOption}
-            placeholder="115"/>
+            placeholder="course number"/>
             <br/>
             <br/>
             <br/>
