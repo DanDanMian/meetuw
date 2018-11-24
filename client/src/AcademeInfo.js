@@ -73,19 +73,13 @@ class AcademeInfo extends Component {
             console.log("TEST END");
             this.props.history.push({
                 pathname: '/unmatched',
-                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
             })
         } else if (this.state.responseToPost !== "") {
             console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/matched',
-                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
+                state: { name: 'Da Wei', email: 'd4wei@uwaterloo.ca' }
             })
-            // this.props.history.push({
-            //   pathname: '/template',
-            //   search: '?query=abc',
-            //   state: { detail: response.data }
-            // })
         }
 
         return (

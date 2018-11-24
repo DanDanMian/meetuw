@@ -27,8 +27,8 @@ class Results extends Component {
               <form name="PasswordRegister" onSubmit={this.handleConfirm}>
                   <div>
                       <img src={kubo} width="100" height="120" />
-                      <h3 className="Result">{this.props.name}</h3>
-                      <div>{this.props.email}</div>
+                      <h3 className="Result">{this.props.location.state.name}</h3>
+                      <div>{this.props.location.state.email}</div>
                   </div>
               </form> 
           </div>
