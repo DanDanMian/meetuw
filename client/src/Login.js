@@ -16,6 +16,7 @@ class Login extends Component {
             password:'',
             responseToPost: '',
             loginValid: false,
+            error: ''
         };
 
         this.handleEmail = this.handleEmail.bind(this);
@@ -59,6 +60,11 @@ class Login extends Component {
 
       if (this.state.responseToPost == 'SUCCESS'){
         this.setState({ loginValid: true });
+
+      } else {
+
+        this.setState({ error: "Login failed" })
+
       }
 
     }
@@ -75,15 +81,17 @@ class Login extends Component {
             <img src={Picture2} width="100" height="80" />
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
+                <p>{this.state.error}</p>
                 <div className="email">
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
                     onChange={this.handleEmail} required />
                 </div>
-
+                <br/>
                 <div className="password">
-                    <input type="text" value={this.state.password} placeholder="*********"
+                    <input type="password" value={this.state.password} placeholder="*********"
                     onChange={this.handlePassword} required />
                 </div>
+                <br/>
                 <div>
                     < input type="submit" value="submit" 
                             onChange ={this.handleSubmit} />
