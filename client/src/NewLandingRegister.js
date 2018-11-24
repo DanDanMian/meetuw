@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
-import Picture1 from './picture/Picture1.png';
+
 import Picture2 from './picture/Picture2.png';
 import './App.css';
 

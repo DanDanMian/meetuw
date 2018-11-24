@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter, BrowserRouter } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import './App.css';
-import Picture1 from './picture/Picture1.png';
 import Picture2 from './picture/Picture2.png';
 
 
@@ -45,7 +43,7 @@ class Login extends Component {
 
         let suffix = email.substring(start+1, email.length);
 
-        if (suffix != "edu.uwaterloo.ca" && suffix != "uwaterloo.ca"){
+        if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca"){
             this.setState({ error: "Invalid UWaterloo Email" });
             return false;
         }
@@ -82,7 +80,7 @@ class Login extends Component {
             const body = await response.text();
             this.setState({ responseToPost: body });
 
-            if (this.state.responseToPost == 'SUCCESS'){
+            if (this.state.responseToPost === 'SUCCESS'){
 
                 this.setState({ loginValid: true });
 
@@ -93,9 +91,7 @@ class Login extends Component {
     }
 
     render() {
-        const loginValid = this.state.loginValid;
-        let newPage;
-        if (loginValid){
+        if (this.state.loginValid){
             this.props.history.push("/academic")
         }
 

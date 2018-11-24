@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
 
@@ -12,7 +12,7 @@ class AcademeInfo extends Component {
             subject:'',
             number: '',
             items: [],
-            error:''
+            matched: false
         };
         this.term_onSelect = this.term_onSelect.bind(this);
         this.sub_onSelect = this.sub_onSelect.bind(this);
@@ -47,66 +47,73 @@ class AcademeInfo extends Component {
           body: JSON.stringify({term: this.state.term,
           subject: this.state.subject, number: this.state.number}),
         });
+
         const body = await response.text();
 
         this.setState({responseToPost:body});
+
+        if (this.state.responseToPost === 'SUCCESS'){
+
+            this.setState({ matched: true });
+        }
     }
 
-
     render() {
-        const { error, subject,term,number, items } = this.state;
         const termOptions = ['Fall','Spring','Winter'];
         const termDfaultOption = this.state.term;
-
-        const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    const subDfaultOption = this.state.subject;
-
+        const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    
+        const subDfaultOption = this.state.subject;
         const numOptions = ['115','116','245','256','349','350','452','486','680','458'];
         const numDfaultOption = this.state.number;
+
+        if (this.state.matched){
+            this.props.history.push("/matched")
+        } else {
+            this.props.history.push("/not_matched")
+        }
 
         return (
           <div className="App">
             <div>
-              <h2 className="Logo">MeetUW</h2>
-              <h2 className="Text">Add More Info</h2>
+                <h2 className="Logo">MeetUW</h2>
+                <h2 className="Text">Add More Info</h2>
 
             </div>
             <form onSubmit={this.handleSubmit}>
               <label>
                 <h3 className="Text">Select a Term </h3>
                 <Dropdown
-                className="Dropdown"
-                name = "term"
-                options={termOptions}
-                value={termDfaultOption}
-                placeholder=""/>
+                    className="Dropdown"
+                    name = "term"
+                    options={termOptions}
+                    value={termDfaultOption}
+                    placeholder=""/>
                 <br/>
                 <h3 className="Text"> Select a Subject</h3>
                 <Dropdown
-                className="Dropdown"
-                name = "subject"
-                options={subOptions}
-                value={subDfaultOption}
-                placeholder=""/>
+                    className="Dropdown"
+                    name = "subject"
+                    options={subOptions}
+                    value={subDfaultOption}
+                    placeholder=""/>
                 <br/>
                 <h3 className="Text"> Select a Course Number</h3>
                 <Dropdown
-                className="Dropdown"
-                name = "number"
-                options={numOptions}
-                value={numDfaultOption}
-                placeholder=""/>
+                    className="Dropdown"
+                    name = "number"
+                    options={numOptions}
+                    value={numDfaultOption}
+                    placeholder=""/>
                 <br/>
                 <br/>
                 <br/>
               </label>
-                <Link to="/match">
-                      <input type="submit" value="submit" 
-                          onChange ={this.handleSubmit} />
-                </Link>
-                <button to="/match">
-                      <input type="submit" value="submit(test)" 
-                          onChange ={this.handleSubmit} />
-                </button>
+                <div>
+                    < input type="submit" value="submit" 
+                            onChange ={this.handleSubmit} />
+                    <input type="submit" value="submit(test)" 
+                        onChange ={this.handleSubmit} />
+                </div>
                 <p>{this.state.responseToPost}</p>
                 </form>
           </div>
@@ -114,4 +121,4 @@ class AcademeInfo extends Component {
     }
 }
 
-export default AcademeInfo;
+export default withRouter(AcademeInfo);
