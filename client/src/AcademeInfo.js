@@ -12,7 +12,6 @@ class AcademeInfo extends Component {
             subject:'',
             number: '',
             items: [],
-            matched: false
         };
         this.term_onSelect = this.term_onSelect.bind(this);
         this.sub_onSelect = this.sub_onSelect.bind(this);
@@ -50,12 +49,8 @@ class AcademeInfo extends Component {
 
         const body = await response.text();
 
-        this.setState({responseToPost:body});
+        this.setState({ responseToPost:body });
 
-        if (this.state.responseToPost === 'SUCCESS'){
-
-            this.setState({ matched: true });
-        }
     }
 
     render() {
@@ -66,9 +61,9 @@ class AcademeInfo extends Component {
         const numOptions = ['115','116','245','256','349','350','452','486','680','458'];
         const numDfaultOption = this.state.number;
 
-        if (this.state.matched){
+        if (this.state.responseToPost === "SUCCESS"){
             this.props.history.push("/matched")
-        } else {
+        } else if (this.state.responseToPost === "FAILED") {
             this.props.history.push("/unmatched")
         }
 
