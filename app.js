@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
-app.get('*', function(req,res){
+app.get('/*', function(req,res){
   res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
 });
 
@@ -54,7 +54,7 @@ app.post('/api/match_request', function(req, res){
       if(err){console.log(err); throw err;}
       console.log("db return arry: "+dbres);
       if(dbres.length < 1){
-        res.send('no match');
+        res.send('unmatched');
       }else{
         console.log('Matched!');
         var randMatched = dbres[Math.floor(Math.random()*dbres.length)];

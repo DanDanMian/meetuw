@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
-class Results extends Component {
+class ResultNotMatched extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,4 +25,4 @@ class Results extends Component {
     }
 }
 
-export default Results;
+export default ResultNotMatched;

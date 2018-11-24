@@ -61,8 +61,6 @@ class Login extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        // TODO: Email/Password Format Validation
-        // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
         if (!this.userInputValidation(this.state.email, this.state.password)){
             console.log("Validation False")
             return;
@@ -81,18 +79,15 @@ class Login extends Component {
             this.setState({ responseToPost: body });
 
             if (this.state.responseToPost === 'SUCCESS'){
-
                 this.setState({ loginValid: true });
-
             } else {
-
                 this.setState({ error: "Login failed" });
             }
     }
 
     render() {
         if (this.state.loginValid){
-            this.props.history.push("/academic")
+            this.props.history.push("/academic");
         }
 
         return (

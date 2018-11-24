@@ -61,7 +61,8 @@ class AcademeInfo extends Component {
     const termOptions = ['Fall','Spring','Winter'];
     const termDfaultOption = this.state.term;
 
-    const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    const subDfaultOption = this.state.subject;
+    const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH']; 
+    const subDfaultOption = this.state.subject;
 
     const numOptions = ['115','116','245','256','349','350','452','486','680','458'];
     const numDfaultOption = this.state.number;
