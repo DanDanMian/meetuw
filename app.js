@@ -54,15 +54,15 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/match_request', function(req, res){
-  console.log("search criteria: "+req.body.term.term+' '+req.body.subject.subject+' '+req.body.number.number);
-  var matchedUser = '1';
+  console.log("search criteria: "+req.body.term+' '+req.body.subject+' '+req.body.number);
+  var matchedUser = '';
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
     var Users = db.db('user');
     var query = {course:{ 
       subject: `${req.body.subject}`, 
       catelog_number: `${req.body.number}`,}};
-    console.log('query: '+query.course.term+' '+query.course.subject+' '+query.course.catelog_number);
+    console.log('query: '+query.course.subject+' '+query.course.catelog_number);
 
     Users.collection('matching').find(query).toArray(function(err, dbres){
     if(err){console.log(err); throw err;}
