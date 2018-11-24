@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
-import { withRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
+
+
 
 class AcademeInfo extends Component {
     constructor(props){
@@ -14,24 +17,24 @@ class AcademeInfo extends Component {
             items: [],
             responseToPost: ''
         };
-        this.term_onSelect = this.term_onSelect.bind(this);
-        this.sub_onSelect = this.sub_onSelect.bind(this);
-        this.num_onSelect = this.num_onSelect.bind(this);
+        this.handleTerm = this.handleTerm.bind(this);
+        this.handleCourseSubject = this.handleCourseSubject.bind(this);
+        this.handleCourseNumber = this.handleCourseNumber.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-    term_onSelect (option) {
+    handleTerm (option) {
         console.log('You selected ', )
         this.setState({term: option});
     }   
 
-    sub_onSelect (option) {
+    handleCourseSubject (option) {
         console.log('You selected ', )
         this.setState({subject: option});
     }   
 
-    num_onSelect (option) {
+    handleCourseNumber (option) {
         console.log('You selected ', )
         this.setState({number: option});
     }   
@@ -90,7 +93,8 @@ class AcademeInfo extends Component {
                     className="Dropdown"
                     name = "term"
                     options={termOptions}
-                    value={termDfaultOption}
+                    value={this.state.term}
+                    onChange={this.handleTerm}
                     placeholder=""/>
                 <br/>
                 <h3 className="Text"> Select a Subject</h3>
@@ -98,7 +102,8 @@ class AcademeInfo extends Component {
                     className="Dropdown"
                     name = "subject"
                     options={subOptions}
-                    value={subDfaultOption}
+                    value={this.state.subject}
+                    onChange={this.handleCourseSubject}
                     placeholder=""/>
                 <br/>
                 <h3 className="Text"> Select a Course Number</h3>
@@ -106,7 +111,8 @@ class AcademeInfo extends Component {
                     className="Dropdown"
                     name = "number"
                     options={numOptions}
-                    value={numDfaultOption}
+                    value={this.state.number}
+                    onChange={this.handleCourseNumber}
                     placeholder=""/>
                 <br/>
                 <br/>
@@ -125,4 +131,4 @@ class AcademeInfo extends Component {
     }
 }
 
-export default withRouter(AcademeInfo);
+export default AcademeInfo;
