@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import kubo from "./picture/kubo.jpg"
+import kubo from "./picture/kubo.jpg";
+import { Link } from 'react-router-dom';
 import './App.css';
 
 class Results extends Component {
     constructor(props){
         super(props);
         this.state = {
-            invited:false
+            email:'d57wei@uwaterloo.ca'
         };
         this.handleInvite = this.handleInvite.bind(this);
     }
@@ -22,7 +23,7 @@ class Results extends Component {
     render() {
         return (
           <div className="App">
-              <h2 className="Text">Hey! We find a matching for you.</h2> 
+              <h2 className="Text"> Hey! We find a matching for you.</h2> 
               <form name="PasswordRegister" onSubmit={this.handleConfirm}>
                   <div>
                       <img src={kubo} width="100" height="120" />
@@ -31,9 +32,8 @@ class Results extends Component {
                   </div>
 
                   <div>
-                      <button className="Button" 
-                      onClick={this.handleInvite} onChange ={this.handleInvite}
-                       value="Invite">Invite</button>
+                      <h4 className="Text">{this.state.email}</h4>
+                      <Link to="/academic"><button>Go back</button></Link>
                   </div>
               </form> 
           </div>

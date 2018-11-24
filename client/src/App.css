@@ -24,6 +24,7 @@
 .Text{
 	text-align: left;
 	margin-left: 18%;
+	margin-right: 18%;
 	font-family:fantasy;
 	color:#382008;
 }
@@ -42,8 +43,6 @@
 }
 
 .SubmitButton{
-	text-align: bottom;
-	text-align: center;
 	margin-bottom: 18%;
 	background-color: "#FE434C";
 	border-color: "transparent";
