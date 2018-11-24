@@ -20,6 +20,7 @@ class ResultNotMatched extends Component {
             <br/>
             <Link to="/login"><button>Go back</button></Link>
             <p>{this.state.response}</p>
+            <p>{this.props.history}</p>
           </div>
           );
     }

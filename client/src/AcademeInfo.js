@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
 
-
-
 class AcademeInfo extends Component {
     constructor(props){
         super(props);
@@ -66,8 +64,13 @@ class AcademeInfo extends Component {
         const numDfaultOption = this.state.number;
 
         if (this.state.responseToPost === "unmatched"){
-            this.props.history.push("/unmatched");
+            console.log(this.state.responseToPost);
+            this.props.history.push({
+                pathname: '/unmatched',
+                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
+            })
         } else if (this.state.responseToPost !== "") {
+            console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/matched',
                 state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
