@@ -14,11 +14,11 @@ class Results extends Component {
         this.handleInvite = this.handleInvite.bind(this);
     }
 
-    // handleInvite(event){
-    //     alert("We will send a email to him.");
-    //     this.setState({invite:true});
-    //     event.preventDefault(); //need to check if it is same as the password
-    // }
+    handleInvite(event){
+        alert("We will send a email to him.");
+        this.setState({invite:true});
+        event.preventDefault(); //need to check if it is same as the password
+    }
 
     render() {
         return (
@@ -29,7 +29,6 @@ class Results extends Component {
                       <img src={kubo} width="100" height="120" />
                       <h3 className="Result">{this.props.name}</h3>
                       <div>{this.props.email}</div>
-                      <div>{this.props.history}</div>
                   </div>
               </form> 
           </div>

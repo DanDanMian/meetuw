@@ -39,6 +39,7 @@ class AcademeInfo extends Component {
 
     handleSubmit = async e => {
         console.log(this.state.body);
+
         e.preventDefault();
         const response = await fetch('/api/match_request', {
           method: 'POST',
@@ -52,6 +53,9 @@ class AcademeInfo extends Component {
         const body = await response.text();
 
         this.setState({ responseToPost:body });
+        // console.log("TEST TEST: ")
+        console.log(this.state.responseToPost)
+        // console.log("TEST TEST END")
 
     }
 
@@ -64,7 +68,9 @@ class AcademeInfo extends Component {
         const numDfaultOption = this.state.number;
 
         if (this.state.responseToPost === "unmatched"){
+            console.log("TEST BEGIN");
             console.log(this.state.responseToPost);
+            console.log("TEST END");
             this.props.history.push({
                 pathname: '/unmatched',
                 state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
