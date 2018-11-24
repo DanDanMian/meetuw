@@ -9,9 +9,9 @@ class AcademeInfo extends Component {
     constructor(props){
         super(props);
         this.state = {
-            term: '',
-            subject:'',
-            number: '',
+            term: 'winter',
+            subject:'sssss',
+            number: '1122',
             items: [],
             responseToPost: ''
         };
@@ -23,22 +23,22 @@ class AcademeInfo extends Component {
 
 
     handleTerm (option) {
-        console.log('You selected ', )
-        this.setState({term: option});
+        console.log('You selected term'+option.label )
+        this.setState({term: option.label});
     }   
 
     handleCourseSubject (option) {
-        console.log('You selected ', )
-        this.setState({subject: option});
+        console.log('You selected subject'+option.label )
+        this.setState({subject: option.label});
     }   
 
     handleCourseNumber (option) {
-        console.log('You selected ', )
-        this.setState({number: option});
-    }   
-
+        console.log('You selected number'+option.label)
+        this.setState({number: option.label});
+    }   ls
+    
     handleSubmit = async e => {
-        console.log(this.state.body);
+        console.log(this.state,term );
         e.preventDefault();
         const response = await fetch('/api/match_request', {
           method: 'POST',
