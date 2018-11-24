@@ -7,7 +7,7 @@ const post = (req, res) => {
     const Users = db.db('user');
     const query = {
         course: {
-            term: `${req.body.term}`,
+            term: ``,
             subject: `${req.body.subject}`,
             catelog_number: `${req.body.number}`,
         },
