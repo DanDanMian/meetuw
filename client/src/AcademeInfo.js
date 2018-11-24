@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
 
-
-
 class AcademeInfo extends Component {
   constructor(props){
     super(props);
@@ -53,6 +51,9 @@ class AcademeInfo extends Component {
     const body = await response.text();
 
     this.setState({responseToPost:body});
+
+    
+
   }
 
 
