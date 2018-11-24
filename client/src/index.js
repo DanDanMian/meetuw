@@ -19,8 +19,11 @@ ReactDOM.render(
 	    <Route exact path="/" component={NewLandingRegister} />
     	<Route path='/login' component={Login} />
     	<Route path='/academic' component={AcademeInfo} />
-    	<Route path='/matched' component={Results} />
-    	<Route path='/unmatched' component={ResultNotMatched} />
+    	<Route
+    		path='/matched'
+    		render={(props) => <Results {...props} />}
+		/>
+		<Route path='/unmatched' component={ResultNotMatched}/>
 	  </div>
 	</BrowserRouter>, document.getElementById('root'));
 

@@ -5,9 +5,6 @@ import './App.css';
 class ResultNotMatched extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            response:''
-        }
     }
 
     render() {
@@ -19,8 +16,6 @@ class ResultNotMatched extends Component {
             <br/>
             <br/>
             <Link to="/login"><button>Go back</button></Link>
-            <p>{this.state.response}</p>
-            <p>{this.props.history}</p>
           </div>
           );
     }
