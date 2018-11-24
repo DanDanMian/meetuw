@@ -1,39 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
-const logger = require('./util/logger')
-const MongoClient = require('mongodb').MongoClient;
-
-const dbAddr = 'mongodb://admin:0000@meetuw-shard-00-00-5sqfz.mongodb.net:27017,meetuw-shard-00-01-5sqfz.mongodb.net:27017,meetuw-shard-00-02-5sqfz.mongodb.net:27017/test?ssl=true&replicaSet=meetuw-shard-0&authSource=admin';
-
-MongoClient.connect(dbAddr, function(err, db) {
-  if(!err) {
-    console.log("We are connected to DB");
-  }
-  var Users = db.db('user');
-  Users.collection('matching').findOne({}, function(err, res){
-    if(err) throw err;
-    console.log("first username: "+res.name);
-    db.close();
-  })
-});
 
 const app = express();
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const logger = require('./utils/logger');
+const loadModule = require('./utils/loadModule');
 
+const db = loadModule(require('./db/client'));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
-app.get('/test', (req, res) => {
-  res.send('TEST');
-});
+// Serve index.html to all non-JSON requests
+const serveClient = require('./middlewares/serveClient');
 
-app.get('/', (req, res) => {
-  res.send('CONNECTED');
-});
+app.use(serveClient);
 
 app.post('/testpost', (req, res) => {
   console.log(req.body);
@@ -49,44 +35,37 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-app.post('/api/match_request', function(req, res){
-  console.log("search criteria: "+req.body.term+' '+req.body.subject+' '+req.body.number);
-  var matchedUser = '1';
-  MongoClient.connect(dbAddr, function(err, db) {
-    if(err) throw err;
-    var Users = db.db('user');
-    var query = {course:{term: `${req.body.term}`, 
-      subject: `${req.body.subject}`, 
-      catelog_number: `${req.body.number}`,}};
-    console.log('query: '+query.course.term+' '+query.course.subject+' '+query.course.catelog_number);
+app.post('/api/match_request', (req, res) => {
+  console.log(`search criteria: ${req.body.term} ${req.body.subject} ${req.body.number}`);
+  const matchedUser = '1';
+  if (err) throw err;
+  const Users = db.db('user');
+  const query = {
+    course: {
+      term: `${req.body.term}`,
+      subject: `${req.body.subject}`,
+      catelog_number: `${req.body.number}`,
+    },
+  };
+  console.log(`query: ${query.course.term} ${query.course.subject} ${query.course.catelog_number}`);
 
-    Users.collection('matching').find(query).toArray(function(err, dbres){
-    if(err){console.log(err); throw err;}
-    console.log("db return arry: "+dbres);
-    if(dbres.length < 1){
+  Users.collection('matching').find(query).toArray((err, dbres) => {
+    if (err) { console.log(err); throw err; }
+    console.log(`db return arry: ${dbres}`);
+    if (dbres.length < 1) {
       res.send('no match');
-    }else{
+    } else {
       console.log('Matched!');
-      var randMatched = dbres[Math.floor(Math.random()*dbres.length)];
-      console.log("Matched data: "+randMatched.name+" "+randMatched.email);
-      res.send({name: `${randMatched.name}`, 
-                email: `${randMatched.email}`,
-    });
+      const randMatched = dbres[Math.floor(Math.random() * dbres.length)];
+      console.log(`Matched data: ${randMatched.name} ${randMatched.email}`);
+      res.send({
+        name: `${randMatched.name}`,
+        email: `${randMatched.email}`,
+      });
     }
-    db.close();
-    });
   });
 });
 
-
-app.get('*', staticFiles);
-
-
-app.listen(port, function(){
-  console.log('Run on port '+port);
-  console.log(`Server running at http://127.0.0.1:${port}/`);
+app.listen(port, () => {
+  logger.debug(`Server listening on port ${port}`);
 });
-
-// app.listen(port, () => {
-//   logger.debug(`Server listening on port ${port}`);
-// });
