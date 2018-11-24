@@ -42,7 +42,7 @@ class AcademeInfo extends Component {
         console.log(this.state.body);
         console.log(this.state.term);
         e.preventDefault();
-        
+
         const response = await fetch('/api/match_request', {
           method: 'POST',
           headers: {
@@ -55,9 +55,7 @@ class AcademeInfo extends Component {
         const body = await response.text();
 
         this.setState({ responseToPost:body });
-        // console.log("TEST TEST: ")
         console.log(this.state.responseToPost)
-        // console.log("TEST TEST END")
 
     }
 
@@ -80,7 +78,7 @@ class AcademeInfo extends Component {
             console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/matched',
-                state: { name: 'Da Wei', email: 'd4wei@uwaterloo.ca' }
+                state: { name: this.state.responseToPost.name, email: this.state.responseToPost.email }
             })
         }
 
