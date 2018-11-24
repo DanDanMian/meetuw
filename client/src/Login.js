@@ -35,38 +35,61 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
+    userInputValidation(email, password){
+        // Validate user email
+        let start = email.indexOf('@');
+        if (start < 0){
+            this.setState({ error: "Invalid Email" });
+            return false;
+        }
+
+        let suffix = email.substring(start+1, email.length);
+
+        if (suffix != "edu.uwaterloo.ca" && suffix != "uwaterloo.ca"){
+            this.setState({ error: "Invalid UWaterloo Email" });
+            return false;
+        }
+
+        // Validate user password
+        let minPasswordLength = 8;
+        if (password.length < minPasswordLength){
+            this.setState({ error: "Invalid Password" });
+            return false;
+        }
+
+        return true;
+    }
+
     handleSubmit = async event => {
-      event.preventDefault();
+        event.preventDefault();
 
-      if (!event.target.checkValidity()) {
-        console.log("Invalid Input")
-        this.setState({ loginValid: false });
-        return;
-      }
+        // TODO: Email/Password Format Validation
+        // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+        if (!this.userInputValidation(this.state.email, this.state.password)){
+            console.log("Validation False")
+            return;
+        }
 
-      // TODO: Email/Password Format Validation
-      // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({email: this.state.email, 
+                password: this.state.password}),
+            });
 
-      const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email: this.state.email, 
-            password: this.state.password}),
-      });
-      const body = await response.text();
-      this.setState({ responseToPost: body});
+            const body = await response.text();
+            this.setState({ responseToPost: body });
 
-      if (this.state.responseToPost == 'SUCCESS'){
-        this.setState({ loginValid: true });
+            if (this.state.responseToPost == 'SUCCESS'){
 
-      } else {
+                this.setState({ loginValid: true });
 
-        this.setState({ error: "Login failed" })
+            } else {
 
-      }
-
+                this.setState({ error: "Login failed" });
+            }
     }
 
     render() {
@@ -81,7 +104,6 @@ class Login extends Component {
             <img src={Picture2} width="100" height="80" />
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
-                <p>{this.state.error}</p>
                 <div className="email">
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
                     onChange={this.handleEmail} required />
@@ -98,7 +120,7 @@ class Login extends Component {
                 </div>
             </form> 
 
-            <p>{this.state.responseToPost}</p>
+            <p>{this.state.error}</p>
         </div>
         );
     }
