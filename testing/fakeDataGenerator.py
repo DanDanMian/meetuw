@@ -7,11 +7,11 @@
   #   "avatar": "picture_of_cute_cat.jpg",
   #   "program": "Computer Science",
   #   "email": "d4wei@edu.uwaterloo.ca,
-  #   "course": [{
+  #   "course": {
     #   "term": 1189,
     #   "subject": "CS",
     #   "catalog_number": "493"
-    # }]
+    # }
   # }
 
 import random
