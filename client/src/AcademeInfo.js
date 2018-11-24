@@ -9,7 +9,8 @@ class AcademeInfo extends Component {
     this.state = {
         term: '',
         subject:'',
-        number: ''
+        number: '',
+        responseToPost: '',
     };
     // this.initData();
     this.handleChange = this.handleChange.bind(this);
@@ -45,8 +46,20 @@ class AcademeInfo extends Component {
   }
 
 
-  handleSubmit(event){
-      //add here
+  handleSubmit = async e => {
+    console.log(this.state.body);
+    e.preventDefault();
+    const response = await fetch('/api/match_request', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({term: this.state.term,
+      subject: this.state.subject, number: this.state.number}),
+    });
+    const body = await response.text();
+
+    this.setState({responseToPost:body});
   }
 
 
@@ -72,6 +85,11 @@ class AcademeInfo extends Component {
                   <input type="submit" value="submit" 
                       onChange ={this.handleSubmit} />
             </Link>
+            <button to="/match">
+                  <input type="submit" value="submit(test)" 
+                      onChange ={this.handleSubmit} />
+            </button>
+            <p>{this.state.responseToPost}</p>
         </form>
       </div>
     );
