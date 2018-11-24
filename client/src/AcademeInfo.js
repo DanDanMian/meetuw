@@ -40,7 +40,7 @@ class AcademeInfo extends Component {
   }   
 
   handleSubmit = async e => {
-    console.log(this.state.body);
+    console.log("state body: "+this.state.term+' '+this.state.subject+' '+this.state.number);
     e.preventDefault();
     const response = await fetch('/api/match_request', {
       method: 'POST',
