@@ -7,7 +7,8 @@ class Results extends Component {
     constructor(props){
         super(props);
         this.state = {
-            email:'d57wei@uwaterloo.ca'
+            invite: true,
+            email:'d57wei@uwaterloo.ca',
         };
         this.handleInvite = this.handleInvite.bind(this);
     }
@@ -15,7 +16,7 @@ class Results extends Component {
 
     handleInvite(event){
         alert("We will send a email to him.");
-        this.setState({invited:true});
+        this.setState({invite:true});
         //need to check if it is same as the password
         event.preventDefault();
     }
@@ -33,7 +34,6 @@ class Results extends Component {
 
                   <div>
                       <h4 className="Text">{this.state.email}</h4>
-                      <Link to="/academic"><button>Go back</button></Link>
                   </div>
               </form> 
           </div>

@@ -16,7 +16,7 @@ import ResultNotMatched from './ResultNotMatched';
 ReactDOM.render(
 	<BrowserRouter>
 	  <div>
-	    <Route exact path="/" component={NewLandingRegister} />
+	    <Route exact path="/" component={AcademeInfo} />
     	<Route path='/login' component={Login} />
     	<Route path='/academic' component={AcademeInfo} />
     	<Route path='/matched' component={Results} />
