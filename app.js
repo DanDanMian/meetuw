@@ -27,6 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
+app.get('*', function(req,res){
+  res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
+});
+
 app.get('/test', (req, res) => {
   res.send('TEST');
 });
@@ -42,7 +46,7 @@ app.post('/testpost', (req, res) => {
 
 app.post('/api/login', (req, res) => {
   console.log(req.body);
-  if (req.body.email == 'test@uwaterloo.ca' && req.body.password == '12345') {
+  if (req.body.email == 'test@uwaterloo.ca' && req.body.password == '12345678') {
     res.send('SUCCESS');
   } else {
     res.send('FAIL');
@@ -77,9 +81,6 @@ app.post('/api/match_request', function(req, res){
     });
   });
 });
-
-
-app.get('*', staticFiles);
 
 
 app.listen(port, function(){
