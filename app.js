@@ -66,9 +66,9 @@ app.post('/api/match_request', function(req, res){
 
     Users.collection('matching').find(query).toArray(function(err, dbres){
     if(err){console.log(err); throw err;}
-    console.log("db return arry: "+dbres);
+    console.log("db return arry size: "+dbres.length);
     if(dbres.length < 1){
-      res.send('no match');
+      res.send('unmathed');
     }else{
       console.log('Matched!');
       var randMatched = dbres[Math.floor(Math.random()*dbres.length)];
