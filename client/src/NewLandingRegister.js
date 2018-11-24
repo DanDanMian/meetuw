@@ -58,7 +58,7 @@ class NewLandingRegister extends Component {
           <h2 className="Logo">MeetUW</h2>
         </div>
         <form onSubmit={this.handleTryout}>
-           <h3 className="Text">I am a UW student in</h3>
+            <h3 className="Text">I am a UW student in</h3>
             <label>
             <h3 className="Text"> in &nbsp;
               <input  type="text" value={this.state.program} 

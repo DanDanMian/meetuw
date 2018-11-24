@@ -4,8 +4,12 @@
 	margin-left:auto;
 	margin-right: auto;
 	padding-top: 5%;
-	height: 480px;
-	width: 25%;
+	height: 600px;
+	width: 300px;
+	min-width: 290px;
+    max-width: 310px;
+    min-height: 590px;
+    max-height: 610px;
 	background: -webkit-linear-gradient(top, #FFF23D 0%, #FF2205 100%); /* Safari 5.1 - 6.0 */
 	background: -o-linear-gradient(bottom, #FFF23D, #FF2205);  /*Opera 11.1 - 12.0 */
 	background: -moz-linear-gradient(bottom, #FFF23D, #FF2205); /* Firefox 3.6 - 15 */
@@ -37,8 +41,20 @@
 	color:#382008;
 }
 
-.InviteButton{
+.SubmitButton{
 	text-align: bottom;
 	text-align: center;
 	margin-bottom: 18%;
+	background-color: "#FE434C";
+	border-color: "transparent";
+    border-radius: 20;
+	width: 100;
+    height: 50;
+}
+
+.Dropdown{
+	margin-left: auto;
+    margin-right: auto;
+	height: 10px;
+	width: 60%;
 }

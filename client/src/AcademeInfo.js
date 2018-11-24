@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import Dropdown from 'react-dropdown';
 import { Link } from 'react-router-dom';
-
+import 'react-dropdown/style.css';
+import './App.css';
 
 class AcademeInfo extends Component {
   constructor(props){
@@ -10,41 +11,31 @@ class AcademeInfo extends Component {
         term: '',
         subject:'',
         number: '',
-        responseToPost: '',
+        items: [],
+        error:''
     };
-    // this.initData();
-    this.handleChange = this.handleChange.bind(this);
+    this.term_onSelect = this.term_onSelect.bind(this);
+    this.sub_onSelect = this.sub_onSelect.bind(this);
+    this.num_onSelect = this.num_onSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // initData(){
-  //   // var apiToken = 'blarg';
-  //   // var uwapi = require('uwapi')(apiToken);
-  //   // uwapi.foodservicesSearch({}, {
-  //   //   'calories.lt': 600}).
-  //   //   then(console.log, console.error);
-  // }
 
-  handleChange(event){
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({[name]:value});
-  }
+  term_onSelect (option) {
+    console.log('You selected ', )
+    this.setState({term: option});
 
-  handleCurrentTerm(event){
-    this.setState({program: event.target.value});
-  }
+  }   
+  sub_onSelect (option) {
+    console.log('You selected ', )
+    this.setState({subject: option});
 
+  }   
 
-  handleAddCourse(event){
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({[name]:value});  
-    event.preventDefault();
-  }
-
+  num_onSelect (option) {
+    console.log('You selected ', )
+    this.setState({number: option});
+  }   
 
   handleSubmit = async e => {
     console.log(this.state.body);
@@ -60,27 +51,58 @@ class AcademeInfo extends Component {
     const body = await response.text();
 
     this.setState({responseToPost:body});
+
+    
+
   }
 
 
   render() {
+    const { error, subject,term,number, items } = this.state;
+    const termOptions = ['Fall','Spring','Winter'];
+    const termDfaultOption = this.state.term;
+
+    const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH'];    const subDfaultOption = this.state.subject;
+
+    const numOptions = ['115','116','245','256','349','350','452','486','680','458'];
+    const numDfaultOption = this.state.number;
+
     return (
       <div className="App">
         <div>
           <h2 className="Logo">MeetUW</h2>
+          <h2 className="Text">Add More Info</h2>
+
         </div>
         <form onSubmit={this.handleSubmit}>
-            <label>
-            <h3 className="Text">Select Term </h3>
-                <input  type="text" name="term" value={this.state.term} 
-                onChange={this.handleChange} />
-            <h3 className="Text"> Select Subject</h3>
-                <input  type="text" name="subject" value={this.state.subject} 
-                onChange={this.handleChange}/>
-            <h3 className="Text"> Select Course Number</h3>
-                <input  type="text" name="number" value={this.state.number}
-                onChange={this.handleChange}/>
-            </label>
+          <label>
+            <h3 className="Text">Select a Term </h3>
+            <Dropdown
+            className="Dropdown"
+            name = "term"
+            options={termOptions}
+            value={termDfaultOption}
+            placeholder="term"/>
+            <br/>
+            <h3 className="Text"> Select a Subject</h3>
+            <Dropdown
+            className="Dropdown"
+            name = "subject"
+            options={subOptions}
+            value={subDfaultOption}
+            placeholder="course id"/>
+            <br/>
+            <h3 className="Text"> Select a Course Number</h3>
+            <Dropdown
+            className="Dropdown"
+            name = "number"
+            options={numOptions}
+            value={numDfaultOption}
+            placeholder="course number"/>
+            <br/>
+            <br/>
+            <br/>
+          </label>
             <Link to="/match">
                   <input type="submit" value="submit" 
                       onChange ={this.handleSubmit} />
@@ -90,7 +112,7 @@ class AcademeInfo extends Component {
                       onChange ={this.handleSubmit} />
             </button>
             <p>{this.state.responseToPost}</p>
-        </form>
+            </form>
       </div>
     );
   }

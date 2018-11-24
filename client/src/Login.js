@@ -16,6 +16,7 @@ class Login extends Component {
             password:'',
             responseToPost: '',
             loginValid: false,
+            error: ''
         };
 
         this.handleEmail = this.handleEmail.bind(this);
@@ -34,33 +35,61 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
+    userInputValidation(email, password){
+        // Validate user email
+        let start = email.indexOf('@');
+        if (start < 0){
+            this.setState({ error: "Invalid Email" });
+            return false;
+        }
+
+        let suffix = email.substring(start+1, email.length);
+
+        if (suffix != "edu.uwaterloo.ca" && suffix != "uwaterloo.ca"){
+            this.setState({ error: "Invalid UWaterloo Email" });
+            return false;
+        }
+
+        // Validate user password
+        let minPasswordLength = 5;
+        if (password.length < minPasswordLength){
+            this.setState({ error: "Invalid Password" });
+            return false;
+        }
+
+        return true;
+    }
+
     handleSubmit = async event => {
-      event.preventDefault();
+        event.preventDefault();
 
-      if (!event.target.checkValidity()) {
-        console.log("Invalid Input")
-        this.setState({ loginValid: false });
-        return;
-      }
+        // TODO: Email/Password Format Validation
+        // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+        if (!this.userInputValidation(this.state.email, this.state.password)){
+            console.log("Validation False")
+            return;
+        }
 
-      // TODO: Email/Password Format Validation
-      // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({email: this.state.email, 
+                password: this.state.password}),
+            });
 
-      const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email: this.state.email, 
-            password: this.state.password}),
-      });
-      const body = await response.text();
-      this.setState({ responseToPost: body});
+            const body = await response.text();
+            this.setState({ responseToPost: body });
 
-      if (this.state.responseToPost == 'SUCCESS'){
-        this.setState({ loginValid: true });
-      }
+            if (this.state.responseToPost == 'SUCCESS'){
 
+                this.setState({ loginValid: true });
+
+            } else {
+
+                this.setState({ error: "Login failed" });
+            }
     }
 
     render() {
@@ -79,18 +108,19 @@ class Login extends Component {
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
                     onChange={this.handleEmail} required />
                 </div>
-
+                <br/>
                 <div className="password">
-                    <input type="text" value={this.state.password} placeholder="*********"
+                    <input type="password" value={this.state.password} placeholder="*********"
                     onChange={this.handlePassword} required />
                 </div>
+                <br/>
                 <div>
                     < input type="submit" value="submit" 
                             onChange ={this.handleSubmit} />
                 </div>
             </form> 
 
-            <p>{this.state.responseToPost}</p>
+            <p>{this.state.error}</p>
         </div>
         );
     }
