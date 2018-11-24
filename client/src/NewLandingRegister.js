@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import Picture1 from './picture/Picture1.png';
 import Picture2 from './picture/Picture2.png';
 import './App.css';
@@ -61,7 +62,7 @@ class NewLandingRegister extends Component {
             <label>
             <h3 className="Text"> in &nbsp;
               <input  type="text" value={this.state.program} 
-              onChange={this.handleProgramChange} />
+              onChange={this.handleProgramChange} required/>
             </h3>
             </label>
             <h3 className="Text"> Program. I am looking</h3>
@@ -74,7 +75,7 @@ class NewLandingRegister extends Component {
                 &nbsp;&nbsp;.
               </h3>
             </label>
-            <input  type="submit" value="Tryout" />
+            <input type="submit" value="Tryout" required/>
         </form>
         <Link to="/login"><button>Login</button></Link>
       
@@ -102,4 +103,4 @@ class NewLandingRegister extends Component {
   }
 }
 
-export default NewLandingRegister;
+export default withRouter(NewLandingRegister)
