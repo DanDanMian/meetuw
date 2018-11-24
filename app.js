@@ -59,7 +59,7 @@ app.post('/api/match_request', function(req, res){
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
     var Users = db.db('user');
-    var query = {course:{ 
+    var query = {course:{term: '1189', 
       subject: `${req.body.subject}`, 
       catelog_number: `${req.body.number}`,}};
     console.log('query: '+query.course.subject+' '+query.course.catelog_number);
