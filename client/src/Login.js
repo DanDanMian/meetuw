@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, BrowserRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 import './App.css';
 import Picture1 from './picture/Picture1.png';
@@ -13,10 +14,8 @@ class Login extends Component {
         this.state = {
             email:'',
             password:'',
-            submitted: false,
-            keepSignIn: false,
             responseToPost: '',
-            error: ''
+            loginValid: false,
         };
 
         this.handleEmail = this.handleEmail.bind(this);
@@ -35,50 +34,66 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
+
     handleSubmit = async event => {
       event.preventDefault();
-      this.setState({submitted:true});
-      console.log(this.state.body);
 
-      const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email: this.state.email, 
-            password: this.state.password}),
-      });
-      const body = await response.text();
+      if (!event.target.checkValidity()) {
+        console.log("Invalid Input")
+        this.setState({ loginValid: false });
+        return;
+      }
 
-      this.setState({ responseToPost: body});
+      // TODO: Email/Password Format Validation
+      // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+
+      this.setState({ loginValid: true });
+      // console.log(this.state.body);
+
+      // const response = await fetch('/api/login', {
+      //     method: 'POST',
+      //     headers: {
+      //         'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({email: this.state.email, 
+      //       password: this.state.password}),
+      // });
+      // const body = await response.text();
+      // this.setState({ responseToPost: body});
+
     }
 
     render() {
-      return (
+        const loginValid = this.state.loginValid;
+        let newPage;
+        if (loginValid){
+            this.props.history.push("/academic")
+        }
+
+        return (
         <div className="App">
             <img src={Picture2} width="100" height="80" />
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
-                <div classname="email">
+                <div className="email">
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
-                    onChange={this.handleEmail} />
+                    onChange={this.handleEmail} required />
                 </div>
 
-                <div classname="password">
+                <div className="password">
                     <input type="text" value={this.state.password} placeholder="*********"
-                    onChange={this.handlePassword} />
+                    onChange={this.handlePassword} required />
                 </div>
                 <div>
-                    <Link to="/academic">
-                      < input type="submit" value="submit" 
-                              onChange ={this.handleSubmit} />
-                    </Link>
+                    < input type="submit" value="submit" 
+                            onChange ={this.handleSubmit} />
                 </div>
             </form> 
+
             <p>{this.state.responseToPost}</p>
         </div>
         );
     }
 }
 
-export default Login;
+export default withRouter(Login);
