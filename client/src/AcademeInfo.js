@@ -12,6 +12,7 @@ class AcademeInfo extends Component {
             subject:'',
             number: '',
             items: [],
+            responseToPost: ''
         };
         this.term_onSelect = this.term_onSelect.bind(this);
         this.sub_onSelect = this.sub_onSelect.bind(this);
