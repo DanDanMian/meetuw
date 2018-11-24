@@ -43,9 +43,9 @@ app.post('/testpost', (req, res) => {
 app.post('/api/login', (req, res) => {
   console.log(req.body);
   if (req.body.email == 'test@uwaterloo.ca' && req.body.password == '12345') {
-    res.send('login successful');
+    res.send('SUCCESS');
   } else {
-    res.send('Wrong Email or Password!');
+    res.send('FAIL');
   }
 });
 
