@@ -69,7 +69,7 @@ class AcademeInfo extends Component {
         if (this.state.matched){
             this.props.history.push("/matched")
         } else {
-            this.props.history.push("/not_matched")
+            this.props.history.push("/unmatched")
         }
 
         return (
