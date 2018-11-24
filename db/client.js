@@ -3,7 +3,7 @@ const logger = require('../utils/logger');
 
 const MongoClient = require('mongodb').MongoClient;
 
-const db = new Promise(resolve => {
+const db = new Promise((resolve) => {
     MongoClient.connect(config.DB_CONNECTION_STRING, (err, db) => {
         if (err) {
             logger.error('An error occurred while trying to connect to DB:');
@@ -22,7 +22,7 @@ const firstTimeSetup = (db) => {
         if (err) {
             logger.error(err);
         } else {
-            logger.debug('First username: ' + res.name);
+            logger.debug(`First username: ${res.name}`);
         }
     });
 };

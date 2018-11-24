@@ -1,4 +1,6 @@
 const logger = require('../utils/logger');
+const awaitModule = require('./utils/awaitModule');
+const db = awaitModule(require('./db/client'));
 
 const post = (req, res) => {
     logger.debug(`/match_request => ${req.body.term} ${req.body.subject} ${req.body.number}`);
@@ -33,5 +35,5 @@ const post = (req, res) => {
 };
 
 module.exports = {
-    post: post,
+    post,
 };
