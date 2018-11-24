@@ -46,20 +46,19 @@ class Login extends Component {
 
       // TODO: Email/Password Format Validation
       // https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
-
       this.setState({ loginValid: true });
-      // console.log(this.state.body);
+      console.log(this.state.body);
 
-      // const response = await fetch('/api/login', {
-      //     method: 'POST',
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({email: this.state.email, 
-      //       password: this.state.password}),
-      // });
-      // const body = await response.text();
-      // this.setState({ responseToPost: body});
+      const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email: this.state.email, 
+            password: this.state.password}),
+      });
+      const body = await response.text();
+      this.setState({ responseToPost: body});
 
     }
 
