@@ -27,9 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
-// app.get('*', function(req,res){
-//   res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
-// });
+app.get('*', function(req,res){
+  res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
+});
 
 app.get('/test', (req, res) => {
   res.send('TEST');
@@ -73,9 +73,9 @@ app.post('/api/match_request', function(req, res){
       console.log('Matched!');
       var randMatched = dbres[Math.floor(Math.random()*dbres.length)];
       console.log("Matched data: "+randMatched.name+" "+randMatched.email);
-      res.send({name: `${randMatched.name}`, 
-                email: `${randMatched.email}`,
-    });
+      var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
+      console.log(JSON.stringify(data));
+      res.send(JSON.stringify(data));
     }
     db.close();
     });

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
 
-var dict = [];
 
 class AcademeInfo extends Component {
     constructor(props){
@@ -61,10 +60,6 @@ class AcademeInfo extends Component {
           });
         }
 
-    handleSelect(){
-        const c = this.state.courses[this.state.subjects.indexOf(this.state.subject)];
-        return c;
-    }
 
     handleTerm (option) {
         console.log('You selected term'+option.label )
@@ -83,8 +78,15 @@ class AcademeInfo extends Component {
         this.setState({number: option.label});
     }   
     
+
+
+    componentWillUnmount() {
+        this.isCancelled = true;
+    }
+
     handleSubmit = async e => {
-        console.log(this.state.term);
+        console.log(this.state.body);
+        console.log(this.state.term);   
         e.preventDefault();
         const response = await fetch('/api/match_request', {
           method: 'POST',
@@ -103,23 +105,19 @@ class AcademeInfo extends Component {
 
     render() {
         const termOptions = ['Fall','Spring','Winter'];
-        const termDfaultOption = this.state.term;
-        const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
-        const numDfaultOption = this.state.number;
-
+        
         if (this.state.responseToPost === "unmatched"){
-            console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/unmatched',
-                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
             })
-        } else if (this.state.responseToPost !== "") {
-            console.log(this.state.responseToPost);
+        } else if (this.state.responseToPost != "") {
+            var userData = JSON.parse(this.state.responseToPost)
             this.props.history.push({
                 pathname: '/matched',
-                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
+                state: { name: userData.name, email: userData.email }
             })
         }
+
 
         return (
           <div className="App">
@@ -163,10 +161,7 @@ class AcademeInfo extends Component {
                 <div>
                     < input type="submit" value="submit" 
                             onChange ={this.handleSubmit} />
-                    <input type="submit" value="submit(test)" 
-                        onChange ={this.handleSubmit} />
                 </div>
-                <p>{this.state.responseToPost}</p>
                 </form>
           </div>
         );

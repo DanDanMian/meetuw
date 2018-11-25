@@ -79,15 +79,20 @@ class Login extends Component {
             this.setState({ responseToPost: body });
 
             if (this.state.responseToPost === 'SUCCESS'){
+
                 this.setState({ loginValid: true });
+
             } else {
+                
                 this.setState({ error: "Login failed" });
             }
     }
 
     render() {
         if (this.state.loginValid){
+
             this.props.history.push("/academic");
+
         }
 
         return (
