@@ -16,6 +16,7 @@ class ResultNotMatched extends Component {
             <br/>
             <br/>
             <Link to="/academic"><button>Go back</button></Link>
+            <Link to="/"><button>Main</button></Link>
           </div>
           );
     }

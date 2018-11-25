@@ -65,7 +65,7 @@ class NewLandingRegister extends Component {
               <h2 className="Logo">MeetUW</h2>
             </div>
             <form onSubmit={this.handleTryout}>
-                <h3 className="Text">Welcome. MeetUW helps you to match others with the similar intention</h3>
+                <h3 className="Text">Welcome. MeetUW helps you match others with the similar intentions</h3>
                 <label>
                   <h3 className="Text"> You are looking for a&nbsp;&nbsp;
                     <select id="category" name="category">
@@ -77,7 +77,7 @@ class NewLandingRegister extends Component {
                 </label>
                 <input type="submit" value="Tryout" required/>
             </form>
-            <Link to="/login"><button>Login</button></Link>
+            <Link to="/login"><button>Explore</button></Link>
           </div>
         );
     }

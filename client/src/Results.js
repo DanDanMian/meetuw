@@ -32,6 +32,7 @@ class Results extends Component {
                   </div>
                   <Link to="/academic"><button>Go back</button></Link>
               </form> 
+              <Link to="/"><button>Main</button></Link>
           </div>
           );
     }
