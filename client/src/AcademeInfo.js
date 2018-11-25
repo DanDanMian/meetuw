@@ -76,12 +76,6 @@ class AcademeInfo extends Component {
     handleCourseNumber (option) {
         console.log('You selected number'+option.label)
         this.setState({number: option.label});
-    }   
-    
-
-
-    componentWillUnmount() {
-        this.isCancelled = true;
     }
 
     handleSubmit = async e => {

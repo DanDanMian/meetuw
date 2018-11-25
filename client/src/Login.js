@@ -79,20 +79,15 @@ class Login extends Component {
             this.setState({ responseToPost: body });
 
             if (this.state.responseToPost === 'SUCCESS'){
-
                 this.setState({ loginValid: true });
-
             } else {
-                
                 this.setState({ error: "Login failed" });
             }
     }
 
     render() {
         if (this.state.loginValid){
-
             this.props.history.push("/academic");
-
         }
 
         return (
@@ -102,12 +97,12 @@ class Login extends Component {
             <form  onSubmit={this.handleSubmit}>
                 <div className="email">
                     <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
-                    onChange={this.handleEmail} required />
+                        onChange={this.handleEmail} required />
                 </div>
                 <br/>
                 <div className="password">
                     <input type="password" value={this.state.password} placeholder="*********"
-                    onChange={this.handlePassword} required />
+                        onChange={this.handlePassword} required />
                 </div>
                 <br/>
                 <div>

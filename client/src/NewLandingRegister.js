@@ -71,7 +71,7 @@ class NewLandingRegister extends Component {
                 <h3 className="Text"> for a&nbsp;&nbsp;
                         <select id="category" name="category">
                           <option value={this.state.category} 
-                          onChange={this.handleCateogryChange}>Study Buddy</option>
+                            onChange={this.handleCateogryChange}>Study Buddy</option>
                         </select>
                     &nbsp;&nbsp;.
                   </h3>
@@ -79,26 +79,6 @@ class NewLandingRegister extends Component {
                 <input type="submit" value="Tryout" required/>
             </form>
             <Link to="/login"><button>Login</button></Link>
-          
-            <p>{this.state.response}</p>
-            <form onSubmit={this.handleSubmit}>
-              <p>
-                <strong>Post to Server:</strong>
-              </p>
-              <input
-                type="text"
-                value={this.state.program}
-                onChange={e => this.setState({ program: e.target.value })}
-              />
-              <input
-                type="text"
-                value={this.state.category}
-                onChange={e => this.setState({ category: e.target.value })}
-              />
-              <button type="submit">Submit</button>
-            </form>
-            <p>{this.state.responseToPost}</p>
-
           </div>
         );
     }
