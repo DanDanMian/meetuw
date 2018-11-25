@@ -90,9 +90,9 @@ class NewEmailRegister extends Component {
               <h2 className="Logo">MeetUW</h2>
             </div>
             <form onSubmit={this.handleSubmit}>
-                <h2 className="Text">Thanks! Before we introduce you a new
+                <h3 className="Text">Thanks! Before we introduce you a new
                     friend, please enter your school email and password to register.
-                </h2> 
+                </h3> 
                 <div classname="email">
                 <input 
                     type="text" 
