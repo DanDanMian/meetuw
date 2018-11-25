@@ -52,8 +52,10 @@ class AcademeInfo extends Component {
             }
             this.setState({subjects:subjectList});
             this.setState({coursesLibrary:courseList});
+            // console.log("TEST BEGIN")
             console.log(data);
-            console.log(this.state.coursesLibrary);
+            // console.log("TEST END")
+            // console.log(this.state.coursesLibrary);
           })
           .catch(error => {
             console.log(error);

@@ -9,31 +9,38 @@ class NewLandingRegister extends Component {
     constructor(props){
         super(props);
 
+        this.state = {
+          response: '',
+          program: '',
+          category: '',
+          responseToPost: '',
+          loginValid: false
+        };
+
         this.handleProgramChange = this.handleProgramChange.bind(this);
         this.handleCateogryChange = this.handleCateogryChange.bind(this);
     }
 
-    state = {
-        response: '',
-        program: '',
-        category: '',
-        responseToPost: '',
-    };
+    userInputValidation(program){
+      // If a not valid program 
+      // return false
+      return true;
+    }
 
-    handleSubmit = async e => {
-        console.log(this.state.body);
+
+    handleTryout = async e => {
         e.preventDefault();
 
-        const response = await fetch('/testpost', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({program: this.state.program, category: this.state.category}),
-        });
-        const body = await response.text();
+        console.log("TEST PROGRAM: ")
+        console.log(this.state.program)
+        
+        if (!this.userInputValidation(this.state.program, this.state.category)){
+            console.log("Validation False")
+            return;
+        }
 
-        this.setState({ responseToPost: body});
+        this.setState({ loginValid: true });
+
     };
 
     handleProgramChange(event){
@@ -44,12 +51,11 @@ class NewLandingRegister extends Component {
         this.setState({category: event.target.value});
     }
 
-    handleTryout(event){
-        alert('A student submit with' + this.program.value + " with intended category" + this.category.value);
-        event.preventDefault();
-    }
-
     render() {
+        if (this.state.loginValid){
+          this.props.history.push("/email");
+        }
+
         return (
           <div className="App">
             <div>

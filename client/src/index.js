@@ -24,6 +24,8 @@ ReactDOM.render(
     		render={(props) => <Results {...props} />}
 		/>
 		<Route path='/unmatched' component={ResultNotMatched}/>
+		<Route path='/email' component={NewEmailRegister}/>
+		<Route path='/password' component={NewPasswordRegister}/>
 	  </div>
 	</BrowserRouter>, document.getElementById('root'));
 
