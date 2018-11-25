@@ -54,7 +54,6 @@ class AcademeInfo extends Component {
 
         const body = await response.text();
         this.setState({ responseToPost:body });
-
     }
 
     render() {
@@ -64,7 +63,7 @@ class AcademeInfo extends Component {
         const subDfaultOption = this.state.subject;
         const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
         const numDfaultOption = this.state.number;
-        var userData = JSON.parse(response);
+        var userData = JSON.parse(this.state.responseToPost);
 
         if (this.state.responseToPost === "unmatched"){
             this.props.history.push({

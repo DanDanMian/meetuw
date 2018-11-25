@@ -73,9 +73,9 @@ app.post('/api/match_request', function(req, res){
       console.log('Matched!');
       var randMatched = dbres[Math.floor(Math.random()*dbres.length)];
       console.log("Matched data: "+randMatched.name+" "+randMatched.email);
-      res.send({name: `${randMatched.name}`, 
-                email: `${randMatched.email}`,
-    });
+      var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
+      console.log(JSON.stringify(data));
+      res.send(JSON.stringify(data));
     }
     db.close();
     });
