@@ -5,14 +5,18 @@ import { Link } from 'react-router-dom';
 import 'react-dropdown/style.css';
 import './App.css';
 
+var dict = [];
+
 class AcademeInfo extends Component {
     constructor(props){
         super(props);
         this.state = {
-            term: 'winter',
-            subject:'sssss',
-            number: '1122',
-            items: [],
+            term: '',
+            subject:'',
+            number: '',
+            subjects: [],
+            coursesLibrary:[],
+            currentSujectCourses:[],
             responseToPost: ''
         };
         this.handleTerm = this.handleTerm.bind(this);
@@ -21,6 +25,46 @@ class AcademeInfo extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        fetch('https://api.uwaterloo.ca/v2/courses.json?key=3a9539294bd92db1e5c7587213a3e8dc')
+        .then(response => response.json())
+        .then(data => {
+            let subjectList =[];
+            let subjectSet = [];
+            console.log(data.data);
+            for (var i = 0; i < data.data.length; i++) {
+                const courseSubject = data.data[i].subject;
+                if (subjectList.indexOf(courseSubject) === -1 ) {
+                    subjectList.push(courseSubject);
+                }
+            }
+            const len = subjectList.length;
+            console.log("len"+len);
+            let courseList = new Array(len);
+            for (var i = 0; i < data.data.length; i++) {
+                const courseSubject = data.data[i].subject;
+                const num = data.data[i].catalog_number;
+                const index = subjectList.indexOf(courseSubject);
+                if (courseList[index]==null){
+                    courseList[index]=[];
+                } else {
+                    courseList[index].push(num);
+                }
+            }
+            this.setState({subjects:subjectList});
+            this.setState({coursesLibrary:courseList});
+            console.log(data);
+            console.log(this.state.coursesLibrary);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        }
+
+    handleSelect(){
+        const c = this.state.courses[this.state.subjects.indexOf(this.state.subject)];
+        return c;
+    }
 
     handleTerm (option) {
         console.log('You selected term'+option.label )
@@ -30,19 +74,18 @@ class AcademeInfo extends Component {
     handleCourseSubject (option) {
         console.log('You selected subject'+option.label )
         this.setState({subject: option.label});
+        const c = this.state.coursesLibrary[this.state.subjects.indexOf(option.label)];
+        this.setState({currentSujectCourses:c});
     }   
 
     handleCourseNumber (option) {
         console.log('You selected number'+option.label)
         this.setState({number: option.label});
-    }   ls
+    }   
     
     handleSubmit = async e => {
-
-        console.log(this.state.body);
         console.log(this.state.term);
         e.preventDefault();
-
         const response = await fetch('/api/match_request', {
           method: 'POST',
           headers: {
@@ -55,30 +98,26 @@ class AcademeInfo extends Component {
         const body = await response.text();
 
         this.setState({ responseToPost:body });
-        console.log(this.state.responseToPost)
 
     }
 
     render() {
         const termOptions = ['Fall','Spring','Winter'];
         const termDfaultOption = this.state.term;
-        const subOptions = ['AB','ACC','ACINTY','CLAS','CS','CM','MATH','SCI','PHYS','PMATH','FINE'];
-        const subDfaultOption = this.state.subject;
         const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
         const numDfaultOption = this.state.number;
 
         if (this.state.responseToPost === "unmatched"){
-            console.log("TEST BEGIN");
             console.log(this.state.responseToPost);
-            console.log("TEST END");
             this.props.history.push({
                 pathname: '/unmatched',
+                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
             })
         } else if (this.state.responseToPost !== "") {
             console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/matched',
-                state: { name: this.state.responseToPost.name, email: this.state.responseToPost.email }
+                state: { name: "Da Wei", email:"d4wei@uwaterloo.ca" }
             })
         }
 
@@ -104,7 +143,7 @@ class AcademeInfo extends Component {
                 <Dropdown
                     className="Dropdown"
                     name = "subject"
-                    options={subOptions}
+                    options={this.state.subjects}
                     value={this.state.subject}
                     onChange={this.handleCourseSubject}
                     placeholder=""/>
@@ -113,7 +152,7 @@ class AcademeInfo extends Component {
                 <Dropdown
                     className="Dropdown"
                     name = "number"
-                    options={numOptions}
+                    options = {this.state.currentSujectCourses}
                     value={this.state.number}
                     onChange={this.handleCourseNumber}
                     placeholder=""/>
