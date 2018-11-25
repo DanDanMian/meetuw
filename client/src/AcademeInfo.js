@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
+
+import Picture2 from './picture/Picture2.png';
 import 'react-dropdown/style.css';
 import './App.css';
 
@@ -52,10 +54,7 @@ class AcademeInfo extends Component {
             }
             this.setState({subjects:subjectList});
             this.setState({coursesLibrary:courseList});
-            // console.log("TEST BEGIN")
             console.log(data);
-            // console.log("TEST END")
-            // console.log(this.state.coursesLibrary);
           })
           .catch(error => {
             console.log(error);
@@ -118,9 +117,10 @@ class AcademeInfo extends Component {
         return (
           <div className="App">
             <div>
+                <div>                 
+                    <img src={Picture2} width="100" height="80" />
+                </div>
                 <h2 className="Logo">MeetUW</h2>
-                <h2 className="Text">Add More Info</h2>
-
             </div>
             <form onSubmit={this.handleSubmit}>
               <label>

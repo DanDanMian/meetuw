@@ -12,6 +12,7 @@ import AcademeInfo from './AcademeInfo';
 import Login from './Login';
 import Results from './Results';
 import ResultNotMatched from './ResultNotMatched';
+import NewRegisterSuccess from './NewRegisterSuccess';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -26,6 +27,7 @@ ReactDOM.render(
 		<Route path='/unmatched' component={ResultNotMatched}/>
 		<Route path='/email' component={NewEmailRegister}/>
 		<Route path='/password' component={NewPasswordRegister}/>
+		<Route path='/registered' component={NewRegisterSuccess}/>
 	  </div>
 	</BrowserRouter>, document.getElementById('root'));
 

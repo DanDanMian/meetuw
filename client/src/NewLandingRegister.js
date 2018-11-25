@@ -65,20 +65,13 @@ class NewLandingRegister extends Component {
               <h2 className="Logo">MeetUW</h2>
             </div>
             <form onSubmit={this.handleTryout}>
-                <h3 className="Text">I am a UW student in</h3>
+                <h3 className="Text">Welcome. MeetUW helps you to match others with the similar intention</h3>
                 <label>
-                <h3 className="Text"> in &nbsp;
-                  <input  type="text" value={this.state.program} 
-                  onChange={this.handleProgramChange} required/>
-                </h3>
-                </label>
-                <h3 className="Text"> Program. I am looking</h3>
-                <label>
-                <h3 className="Text"> for a&nbsp;&nbsp;
-                        <select id="category" name="category">
-                          <option value={this.state.category} 
-                            onChange={this.handleCateogryChange}>Study Buddy</option>
-                        </select>
+                  <h3 className="Text"> You are looking for a&nbsp;&nbsp;
+                    <select id="category" name="category">
+                      <option value={this.state.category} 
+                        onChange={this.handleCateogryChange}>Study Buddy</option>
+                    </select>
                     &nbsp;&nbsp;.
                   </h3>
                 </label>

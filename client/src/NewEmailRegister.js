@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Picture2 from './picture/Picture2.png';
 import './App.css';
 
 class NewEmailRegister extends Component {
@@ -7,61 +9,116 @@ class NewEmailRegister extends Component {
 
         this.state = {
             email: '',
-            emailValid: false
+            password: '',
+            secondpassword: '',
+            emailValid: false,
+            error: ''
         };
         
         this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleEmailChange(event){
         this.setState({ email: event.target.value });
     }
 
+    handlePasswordChange(event){
+        this.setState({ password: event.target.value });
+    }
+
+    handlePasswordConfirmationChange(event){
+        this.setState({ secondpassword: event.target.value });
+    }
+
+    userInputValidation(email, password, secondpassword){
+        // Validate user email
+        let start = email.indexOf('@');
+        if (start < 0){
+            this.setState({ error: "Invalid Email" });
+            return false;
+        }
+
+        let suffix = email.substring(start+1, email.length);
+
+        if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca"){
+            this.setState({ error: "Invalid UWaterloo Email" });
+            return false;
+        }
+
+        // Validate user password
+        let minPasswordLength = 8;
+        if (password.length < minPasswordLength || secondpassword.length < minPasswordLength){
+            this.setState({ error: "Password length must be greater than 8" });
+            return false;
+        }
+
+        if (password !== secondpassword){
+            this.setState({ error: "Password does not matched" });
+            return false;
+        }
+
+        return true;
+    }
+
     handleSubmit = async event => {
         event.preventDefault();
 
         // Validation For Email & Password (TODO)
-        
+        if (!this.userInputValidation(this.state.email, this.state.password, this.state.secondpassword)){
+            console.log("Validation False")
+            return;
+        }
+
 
         this.setState({ emailValid: true });
     }
 
     render() {
         if (this.state.emailValid){
-          this.props.history.push("/academic");
+          this.props.history.push("/registered");
         }
 
         return (
           <div className="App">
-            <h2 className="Text">Thanks! Before we introduce you a new
-            friend, please enter your school email and password to register.
-            </h2> 
+            <div>
+              <div>                 
+                 <img src={Picture2} width="100" height="80" />
+              </div>
+              <h2 className="Logo">MeetUW</h2>
+            </div>
             <form onSubmit={this.handleSubmit}>
+                <h2 className="Text">Thanks! Before we introduce you a new
+                    friend, please enter your school email and password to register.
+                </h2> 
                 <div classname="email">
                 <input 
                     type="text" 
                     value={this.state.email}
                     onChange={this.handleEmailChange}
-                    placeholder="userid@uwaterloo.ca" />
+                    placeholder="userid@uwaterloo.ca" required />
                 </div>
                 <br/>
                 <div classname="password">
-                    <input type="text" 
+                    <input type="password" 
                         value={this.state.password}
-                        onChange={this.handleChange}
-                        placeholder="password" />
+                        placeholder="password"
+                        onChange={this.handlePasswordChange} required />
                 </div>
                 <br/>
                 <div classname="confirmPassword">
-                    <input type="text" 
-                        value={this.state.confirmPassword}
-                        onChange={this.handleChange}
-                        placeholder="confirm password" />
+                    <input type="password" 
+                        value={this.state.secondpassword}
+                        onChange={this.handlePasswordConfirmationChange}
+                        placeholder="confirm password" required />
                 </div>
                 <br/>
                 <input type="submit" value="submit" 
                         onChange ={this.handleSubmit} />
             </form>
+            <p>{this.state.error}</p>
           </div>
         );
     }

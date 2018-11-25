@@ -96,18 +96,23 @@ class Login extends Component {
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
                 <div className="email">
-                    <input type="text" value={this.state.email} placeholder="userid@uwaterloo.ca"
+                    <input type="text" 
+                        value={this.state.email} 
+                        placeholder="userid@uwaterloo.ca"
                         onChange={this.handleEmail} required />
                 </div>
                 <br/>
                 <div className="password">
-                    <input type="password" value={this.state.password} placeholder="*********"
+                    <input type="password" 
+                        value={this.state.password} 
+                        placeholder="*********"
                         onChange={this.handlePassword} required />
                 </div>
                 <br/>
                 <div>
-                    < input type="submit" value="submit" 
-                            onChange ={this.handleSubmit} />
+                    < input type="submit" 
+                        value="submit" 
+                        onChange ={this.handleSubmit} />
                 </div>
             </form> 
 
