@@ -82,6 +82,27 @@ app.post('/api/match_request', function(req, res){
   });
 });
 
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
+  {
+    return (true)
+  }
+    alert("You have entered an invalid email address!")
+    return (false)
+}
+
+
+app.post('/api/register', function(req, res){
+  console.log("register called");
+
+  //email verification
+  var email = req.body.email;
+  if(ValidateEmail(email) == false){
+    res.status(400).send("invalid email");
+  }
+})
+
 
 app.listen(port, function(){
   console.log('Run on port '+port);
