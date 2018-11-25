@@ -155,10 +155,12 @@ class AcademeInfo extends Component {
                 <br/>
               </label>
                 <div>
-                    < input type="submit" value="submit" 
-                            onChange ={this.handleSubmit} />
+                    <input type="submit" 
+                        value="submit" 
+                        onChange ={this.handleSubmit} />
                 </div>
                 </form>
+                <Link to="/"><button>Main</button></Link>
           </div>
         );
     }
