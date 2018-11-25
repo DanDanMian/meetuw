@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 //const logger = require('./util/logger')
 const MongoClient = require('mongodb').MongoClient;
+var md5 = require('md5');
 
 const dbAddr = 'mongodb://admin:0000@meetuw-shard-00-00-5sqfz.mongodb.net:27017,meetuw-shard-00-01-5sqfz.mongodb.net:27017,meetuw-shard-00-02-5sqfz.mongodb.net:27017/test?ssl=true&replicaSet=meetuw-shard-0&authSource=admin';
 
@@ -101,6 +102,23 @@ app.post('/api/register', function(req, res){
   if(ValidateEmail(email) == false){
     res.status(400).send("invalid email");
   }
+  //encrypt password
+  var token = md5(req.body.password);
+
+  //insert to db
+  MongoClinet.connect(dbAddr, function(err, db){
+    if(err) throw err;
+    var dbo = db.db("user");
+    var userObj = {email: this.email, token: this.token};
+    console.log("userObj: "+uersObj);
+
+    dbo.collection("auth").insertOne(userObj, function(err, res){
+      if(err) throw err;
+      console.log("user data inserted");
+      db.close();
+    })
+  });
+  res.status(200).send();
 })
 
 
