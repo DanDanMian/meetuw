@@ -28,9 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
-app.get('*', function(req,res){
-  res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
-});
+app.use(require('./middlewares/serveClient'));
 
 app.get('/test', (req, res) => {
   res.send('TEST');
@@ -60,8 +58,8 @@ app.post('/api/match_request', function(req, res){
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
     var Users = db.db('user');
-    var query = {course:{term: '1189', 
-      subject: `${req.body.subject}`, 
+    var query = {course:{term: '1189',
+      subject: `${req.body.subject}`,
       catelog_number: `${req.body.number}`,}};
     console.log('query: '+query.course.subject+' '+query.course.catelog_number);
 
@@ -83,7 +81,7 @@ app.post('/api/match_request', function(req, res){
   });
 });
 
-function ValidateEmail(mail) 
+function ValidateEmail(mail)
 {
  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
   {
