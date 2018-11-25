@@ -30,6 +30,7 @@ class Results extends Component {
                       <h3 className="Result">{this.props.location.state.name}</h3>
                       <div>{this.props.location.state.email}</div>
                   </div>
+                  <Link to="/academic"><button>Go back</button></Link>
               </form> 
           </div>
           );

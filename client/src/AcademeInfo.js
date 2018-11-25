@@ -35,8 +35,12 @@ class AcademeInfo extends Component {
     handleCourseNumber (option) {
         console.log('You selected number'+option.label)
         this.setState({number: option.label});
-    }   ls
-    
+    }
+
+    componentWillUnmount() {
+        this.isCancelled = true;
+    }
+        
     handleSubmit = async e => {
 
         console.log(this.state.body);
@@ -53,7 +57,7 @@ class AcademeInfo extends Component {
         });
 
         const body = await response.text();
-        this.setState({ responseToPost:body });
+        this.setState({ responseToPost: body });
     }
 
     render() {
@@ -63,13 +67,13 @@ class AcademeInfo extends Component {
         const subDfaultOption = this.state.subject;
         const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
         const numDfaultOption = this.state.number;
-        var userData = JSON.parse(this.state.responseToPost);
 
         if (this.state.responseToPost === "unmatched"){
             this.props.history.push({
                 pathname: '/unmatched',
             })
-        } else if (this.state.responseToPost !== "") {
+        } else if (this.state.responseToPost != "") {
+            var userData = JSON.parse(this.state.responseToPost)
             this.props.history.push({
                 pathname: '/matched',
                 state: { name: userData.name, email: userData.email }
@@ -118,10 +122,7 @@ class AcademeInfo extends Component {
                 <div>
                     < input type="submit" value="submit" 
                             onChange ={this.handleSubmit} />
-                    <input type="submit" value="submit(test)" 
-                        onChange ={this.handleSubmit} />
                 </div>
-                <p>{this.state.responseToPost}</p>
                 </form>
           </div>
         );
