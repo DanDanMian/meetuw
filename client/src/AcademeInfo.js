@@ -56,7 +56,8 @@ class AcademeInfo extends Component {
 
         this.setState({ responseToPost:body });
         console.log(this.state.responseToPost)
-
+        var toString = JSON.parse(this.state.responseToPost);
+        console.log(toString.name);
     }
 
     render() {
