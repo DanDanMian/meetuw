@@ -53,9 +53,7 @@ class AcademeInfo extends Component {
         });
 
         const body = await response.text();
-
         this.setState({ responseToPost:body });
-        console.log(this.state.responseToPost)
 
     }
 
@@ -66,19 +64,16 @@ class AcademeInfo extends Component {
         const subDfaultOption = this.state.subject;
         const numOptions = ['115','116','245','256','349','350','452','486','680','458','493'];
         const numDfaultOption = this.state.number;
+        var userData = JSON.parse(response);
 
         if (this.state.responseToPost === "unmatched"){
-            console.log("TEST BEGIN");
-            console.log(this.state.responseToPost);
-            console.log("TEST END");
             this.props.history.push({
                 pathname: '/unmatched',
             })
         } else if (this.state.responseToPost !== "") {
-            console.log(this.state.responseToPost);
             this.props.history.push({
                 pathname: '/matched',
-                state: { name: this.state.responseToPost.name, email: this.state.responseToPost.email }
+                state: { name: userData.name, email: userData.email }
             })
         }
 

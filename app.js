@@ -27,9 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const staticFiles = express.static(path.join(__dirname, './client/build'));
 app.use(staticFiles);
 
-// app.get('*', function(req,res){
-//   res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
-// });
+app.get('*', function(req,res){
+  res.sendFile(path.resolve(__dirname, 'client', 'index.js'));
+});
 
 app.get('/test', (req, res) => {
   res.send('TEST');
