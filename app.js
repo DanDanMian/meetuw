@@ -47,11 +47,27 @@ app.post('/testpost', (req, res) => {
 
 app.post('/api/login', (req, res) => {
   console.log(req.body);
-  if (req.body.email == 'test@uwaterloo.ca' && req.body.password == '12345678') {
-    res.send('SUCCESS');
-  } else {
-    res.send('FAIL');
-  }
+
+  //find user on db
+  MongoClient.connect(dbAddr, function(err, db) {
+    if(err) throw err;
+    var Users = db.db('user');
+    var thisToken = md5(req.body.password);
+    var query = {email:`${req.body.email}`, token:`${thisToken}`};
+    console.log('query: '+query.email+' '+query.token);
+
+    Users.collection('auth').findOne(query, function(err, dbres){
+    if(err){console.log(err); throw err;}
+    console.log("db return  "+dbres);
+    if(dbres == null){
+      res.send('FAIL');
+    }else{
+      res.send('SUCCESS');
+      console.log('send success');
+    }
+    db.close();
+    });
+  });
 });
 
 app.post('/api/match_request', function(req, res){
@@ -83,15 +99,15 @@ app.post('/api/match_request', function(req, res){
   });
 });
 
-function ValidateEmail(mail) 
-{
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
-  {
-    return (true)
-  }
-    alert("You have entered an invalid email address!")
-    return (false)
-}
+// function ValidateEmail(mail) 
+// {
+//  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
+//   {
+//     return (true)
+//   }
+//     alert("You have entered an invalid email address!")
+//     return (false)
+// }
 
 
 app.post('/api/register', function(req, res){
@@ -99,18 +115,18 @@ app.post('/api/register', function(req, res){
 
   //email verification
   var email = req.body.email;
-  if(ValidateEmail(email) == false){
-    res.status(400).send("invalid email");
-  }
+  // if(ValidateEmail(email) == false){
+  //   res.status(400).send("invalid email");
+  // }
   //encrypt password
   var token = md5(req.body.password);
 
   //insert to db
-  MongoClinet.connect(dbAddr, function(err, db){
+  MongoClient.connect(dbAddr, function(err, db){
     if(err) throw err;
     var dbo = db.db("user");
-    var userObj = {email: this.email, token: this.token};
-    console.log("userObj: "+uersObj);
+    var userObj = {email: `${req.body.email}`, token: `${token}`};
+    console.log("userObj: "+userObj);
 
     dbo.collection("auth").insertOne(userObj, function(err, res){
       if(err) throw err;

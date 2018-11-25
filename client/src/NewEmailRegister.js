@@ -12,7 +12,8 @@ class NewEmailRegister extends Component {
             password: '',
             secondpassword: '',
             emailValid: false,
-            error: ''
+            error: '',
+            responseToPost: '400',
         };
         
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -71,9 +72,20 @@ class NewEmailRegister extends Component {
             console.log("Validation False")
             return;
         }
-
-
         this.setState({ emailValid: true });
+        //post to server
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email: this.state.email,
+            password: this.state.password,}),
+        });
+        const body = await response.text();
+        console.log('response from server :'+body);
+        this.setState({responseToPost:body});
+       
     }
 
     render() {
