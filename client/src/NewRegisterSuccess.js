@@ -40,7 +40,7 @@ class NewRegisterSuccess extends Component {
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <h3 className="Text">Registered Sucessfull. You could start explore now!</h3>
-                    <input type="submit" value="Let's Rock"
+                    <input type="submit" value="Explore"
                             onChange ={this.handleSubmit} />
                 </form>
             </div>
