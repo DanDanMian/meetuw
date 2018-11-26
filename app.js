@@ -68,48 +68,124 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
 app.post('/api/match_request', function(req, res){
-  console.log("search criteria: "+req.body.term+' '+req.body.subject+' '+req.body.number);
+  console.log("search criteria: "+req.body.name+' '+req.body.email+' '+req.body.term+' '+req.body.subject+' '+req.body.number);
   var matchedUser = '';
   var termNum;
-  
-  const baseTerm = 1139;
+  var termScore = '0';
+
   //translate term string to term number
   if(req.body.term == 'Fall'){ 
-    termNum = 1189; }
+    termNum = 1189; 
+    termScore = 1
+  }
   else if(req.body.term == 'Winter'){ 
     termNum = 1191;
+    termScore = 2;
   }
   else {
     termNum = 1195;
+    termScore = 3;
   }
-  var termScore = termNum - baseTerm;
+  var subjectHash = req.body.subject.hashCode();
+  console.log('subjectHash: '+subjectHash);
+  var totalScore = subjectHash*10000+req.body.number*10+termScore;
+  console.log('totalScore: '+totalScore);
+  var dbResult;
+  //fill in name
+  // if(req.body.name == ''){
+  //   req.body.name = req.body.email;
+  //   console.log("fill in name as : "+req.body.name);
+  // }
+  var userObj = 
+    { name: `${req.body.name}`, 
+      email: `${req.body.email}`,
+      course: { term: `${req.body.term}`,
+                subject: `${req.body.subject}`,
+                catelog_number: `${req.body.number}`,
+              },
+      score: `${totalScore}`,
+   };
+   console.log("userObj: "+JSON.stringify(userObj));
+
+  
 
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
     var Users = db.db('user');
-    var query = {course:{term: termNum,
-      subject: `${req.body.subject}`,
-      catelog_number: `${req.body.number}`,}};
-    console.log('query: '+query.course.term+' '+query.course.subject+' '+query.course.catelog_number);
+
+    //add user input to db
+    Users.collection("matching").findOne(userObj, function(err, res){
+      if(err) throw err;
+      if(res == null){
+        Users.collection("matching").insert(userObj, function(err,res){
+          if(err) throw err;
+          console.log("user match data inserted");
+        })
+      }
+    });
+
+    //find match
+    var lb, ub;
+    if(termScore == 1){
+      lb = 0; ub = 2;
+    }
+    else if(termScore == 2){
+      lb = 1; ub = 1
+    }
+    else{
+      lb = 2; ub = 0;
+    }
+    var query = {score: {$gte: totalScore - ub, $lte: totalScore + lb},};
+    console.log('query: '+JSON.stringify(query));
 
     Users.collection('matching').find(query).toArray(function(err, dbres){
-    if(err){console.log(err); throw err;}
-    console.log("db return arry size: "+dbres.length);
-    if(dbres.length < 1){
-      res.send('unmatched');
-    }else{
-      console.log('Matched!');
-      var randMatched = dbres[Math.floor(Math.random()*dbres.length)];
-      console.log("Matched data: "+randMatched.name+" "+randMatched.email);
-      var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
-      console.log(JSON.stringify(data));
-      res.send(JSON.stringify(data));
-    }
-    db.close();
+      if(err){console.log(err); throw err;}
+      
+      //send result back
+      console.log("db return arry size: "+dbres.length);
+      dbResult = dbres;
+      if(dbres.length < 1){
+        console.log('unmatched!');
+        res.send('unmatched');
+      }else{
+        dbres.sort(sortMatched);
+        var noSelfRes = dbres.filter(function(el){
+          return el.email != req.body.email;
+        });
+        var highestScore = noSelfRes[0].score;
+        var highestScroeRes = noSelfRes.filter(function(el){
+          return el.score == highestScore;
+        });
+        var randMatched = highestScroeRes[Math.floor(Math.random()*highestScroeRes.length)];
+        console.log("Matched data: "+randMatched.name+" "+randMatched.email);
+        var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
+        console.log(JSON.stringify(data));
+        res.send(JSON.stringify(data));
+      }
+      db.close();
     });
   });
 });
+
+function sortMatched(a,b){
+  if(a.score < b.score)
+    return -1;
+  if(a.score > b.score)
+    return 1;
+  return 0;
+}
 
 // function ValidateEmail(mail) 
 // {
