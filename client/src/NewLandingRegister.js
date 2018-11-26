@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
-
-import Picture2 from './picture/Picture2.png';
+import UW from './picture/uw.png';
+import Logo1 from './picture/Logo1.png';
 import './App.css';
 
 class NewLandingRegister extends Component {
@@ -56,16 +56,22 @@ class NewLandingRegister extends Component {
           this.props.history.push("/email");
         }
 
+        var sectionStyle = {
+          width: "100px",
+          height: "100px",
+          backgroundImage: "url(" + {UW } + ")"
+        };
+
         return (
           <div className="App">
             <div>
-              <div>                 
-                 <img src={Picture2} width="100" height="80" />
+              <div>  
+                 <img src={Logo1} width="100" height="100" />
               </div>
               <h2 className="Logo">MeetUW</h2>
-            </div>
+            </div >
             <form onSubmit={this.handleTryout}>
-                <h3 className="Text">Welcome. MeetUW helps you match others with the similar intentions</h3>
+                <h3 className="Text">Welcome. MeetUW helps you match people with the similar intentions</h3>
                 <label>
                   <h3 className="Text"> You are looking for a&nbsp;&nbsp;
                     <select id="category" name="category">
