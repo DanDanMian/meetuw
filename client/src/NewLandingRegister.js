@@ -13,41 +13,28 @@ class NewLandingRegister extends Component {
 
         this.state = {
           response: '',
-          program: '',
           category: '',
           responseToPost: '',
-          loginValid: false
+          loginValid: false,
+          error: ''
         };
-
-        this.handleProgramChange = this.handleProgramChange.bind(this);
+        
         this.handleCateogryChange = this.handleCateogryChange.bind(this);
-    }
-
-    userInputValidation(program){
-      // If a not valid program 
-      // return false
-      return true;
     }
 
 
     handleTryout = async e => {
         e.preventDefault();
-
-        console.log("TEST PROGRAM: ");
-        console.log(this.state.program);
         
-        if (!this.userInputValidation(this.state.program, this.state.category)){
-            console.log("Validation False")
+        // Input Validation
+        if (this.state.category === ''){
+            this.setState({ error:'Must select a category' })
             return;
         }
-
+        
         this.setState({ loginValid: true });
 
     };
-
-    handleProgramChange(event){
-        this.setState({program: event.target.value});
-    }
 
     handleCateogryChange(option){
         this.setState({category: option.label});
@@ -89,6 +76,7 @@ class NewLandingRegister extends Component {
                 <input type="submit" value="Tryout" required/>
             </form>
             <Link to="/login"><button>Explore</button></Link>
+            <p className="Error">{this.state.error}</p>
             </div>
         );
     }

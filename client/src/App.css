@@ -25,14 +25,14 @@
     background-size: cover;
 }
 
-.Logo{
+.Logo {
 	font-family: "Pattaya";
 	color:black;
 	font-size: 30px;
 	margin: 0px;
 }
 
-.Text{
+.Text {
 	text-align: left;
 	letter-spacing: 2px;
 	line-height: 20pt;
@@ -44,20 +44,24 @@
 	color:black;
 }
 
-.Notice{
+.Notice {
 	text-align: left;
 	margin-left: 18%;
 	font-family:'Roboto Slab';
 	color:black;
 }
 
-.Result{
+.Result {
 	text-align: center;
 	font-family:'Roboto Slab';
 	color:black;
 }
 
-button{
+.Error {
+	color:red;
+}
+
+button {
 	font-family: 'Rubik';
 	font-size: 15px;
 	background:#606060;
@@ -85,7 +89,7 @@ input[type="submit"] {
 	border-radius: 50px;
 }
 
-input[type="password"]{	
+input[type="password"] {	
 	font-family: 'Roboto Slab';
 	font-size: 15px;
 	background: white;
@@ -111,11 +115,11 @@ input[type="text"] {
 	margin: 5px;
 }
 
-.UW{
+.UW {
 	background-image: url("./picture/uw2.png");
 }
 
-.Dropdown{
+.Dropdown {
 	font-family:'Roboto Slab';
 	margin-left: auto;
 	margin-right: auto;

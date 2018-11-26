@@ -17,7 +17,8 @@ class AcademeInfo extends Component {
             subjects: [],
             coursesLibrary:[],
             currentSujectCourses:[],
-            responseToPost: ''
+            responseToPost: '',
+            error: ''
         };
         this.handleTerm = this.handleTerm.bind(this);
         this.handleCourseSubject = this.handleCourseSubject.bind(this);
@@ -79,9 +80,22 @@ class AcademeInfo extends Component {
     }
 
     handleSubmit = async e => {
-        console.log(this.state.body);
-        console.log(this.state.term);   
+        // console.log(this.state.body);
+        // console.log(this.state.term);   
         e.preventDefault();
+
+        // Form Validation
+        if (this.state.term === ''){
+            this.setState({ error: 'Term cannot be empty' });
+            return;
+        } else if (this.state.subject === ''){
+            this.setState({ error: 'Course Subject cannot be empty' });
+            return;
+        } else if (this.state.number === ''){
+            this.setState({ error: 'Course ID cannot be empty' });
+            return;
+        }
+
         const response = await fetch('/api/match_request', {
             method: 'POST',
             headers: {
@@ -138,7 +152,7 @@ class AcademeInfo extends Component {
                     options={termOptions}
                     value={this.state.term}
                     onChange={this.handleTerm}
-                    placeholder="--"/>
+                    placeholder="--" required/>
                 <h4 className="Text"> Select Subject</h4>
                 <Dropdown
                     className="Dropdown"
@@ -165,6 +179,7 @@ class AcademeInfo extends Component {
                         onChange ={this.handleSubmit} />
                 </div>
                 </form>
+                <p className="Error">{this.state.error}</p>
           </div>
         );
     }

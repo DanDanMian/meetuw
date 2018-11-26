@@ -154,7 +154,7 @@ class NewEmailRegister extends Component {
                 <input type="submit" value="submit" 
                         onChange ={this.handleSubmit} />
             </form>
-            <p>{this.state.error}</p>
+            <p className="Error">{this.state.error}</p>
           </div>
         );
     }

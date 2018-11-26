@@ -124,7 +124,7 @@ class Login extends Component {
                 </div>
                 
             </form> 
-            <p>{this.state.error}</p>
+            <p className="Error">{this.state.error}</p>
         </div>
         );
     }
