@@ -104,7 +104,7 @@ class Login extends Component {
                 </div>
                 <br/>
                 <div className="password">
-                    <input type="text" 
+                    <input type="password" 
                         value={this.state.password} 
                         placeholder="*********"
                         onChange={this.handlePassword} required />
@@ -115,8 +115,8 @@ class Login extends Component {
                         value="submit" 
                         onChange ={this.handleSubmit} />
                 </div>
+                
             </form> 
-
             <p>{this.state.error}</p>
         </div>
         );
