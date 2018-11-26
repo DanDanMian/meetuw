@@ -114,14 +114,14 @@ class NewEmailRegister extends Component {
                 </div>
                 <br/>
                 <div classname="text">
-                    <input type="text" 
+                    <input type="password" 
                         value={this.state.password}
                         placeholder="password"
                         onChange={this.handlePasswordChange} required />
                 </div>
                 <br/>
                 <div classname="confirmPassword">
-                    <input type="text" 
+                    <input type="password" 
                         value={this.state.secondpassword}
                         onChange={this.handlePasswordConfirmationChange}
                         placeholder="confirm password" required />

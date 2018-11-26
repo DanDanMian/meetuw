@@ -42,11 +42,11 @@ class NewPasswordRegister extends Component {
                   </div>
 
                   <div classname="password">
-                      <input type="text" value={this.state.password}
+                      <input type="password" value={this.state.password}
                       onChange={this.handleChange} />
                   </div>
                   <div classname="confirmPassword">
-                      <input type="text" value={this.state.confirmPassword}
+                      <input type="password" value={this.state.confirmPassword}
                       onChange={this.handleChange} />
                   </div>
                   <div>

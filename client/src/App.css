@@ -75,9 +75,22 @@ input[type="submit"] {
 }
 
 
+password{
+	font-family: 'Roboto Slab';
+	font-size: 20px;
+	background:white;
+	text-align: center;
+	width: 220px;
+	height:30px ;
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	border-radius: 60px;
+}
+
+
 
 input[type="text"] {
-	font-family: 'Rubik';
+	font-family: 'Roboto Slab';
 	font-size: 20px;
 	background:white;
 	text-align: center;
