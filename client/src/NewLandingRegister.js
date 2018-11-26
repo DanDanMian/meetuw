@@ -64,7 +64,7 @@ class NewLandingRegister extends Component {
 
         return (
           <div className="App">
-            <div>
+            <div >
               <div>  
                  <img src={Logo1} width="100" height="100" />
               </div>
@@ -82,6 +82,7 @@ class NewLandingRegister extends Component {
                   </h3>
                 </label>
                 <input type="submit" value="Tryout" required/>
+                <br/>
             </form>
             <Link to="/login"><button>Explore</button></Link>
           </div>

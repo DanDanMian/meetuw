@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './App.css';
-import Picture2 from './picture/Picture2.png';
+import Logo1 from './picture/Logo1.png';
+
 
 
 class Login extends Component {
@@ -92,7 +93,7 @@ class Login extends Component {
 
         return (
         <div className="App">
-            <img src={Picture2} width="100" height="80" />
+            <img src={Logo1} width="100" height="100" />
             <h2 className="Logo">MeetUW</h2>
             <form  onSubmit={this.handleSubmit}>
                 <div className="email">
@@ -103,14 +104,14 @@ class Login extends Component {
                 </div>
                 <br/>
                 <div className="password">
-                    <input type="password" 
+                    <input type="text" 
                         value={this.state.password} 
                         placeholder="*********"
                         onChange={this.handlePassword} required />
                 </div>
                 <br/>
                 <div>
-                    < input type="submit" 
+                    <input type="submit" 
                         value="submit" 
                         onChange ={this.handleSubmit} />
                 </div>

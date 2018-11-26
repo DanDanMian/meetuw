@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Tired+Of+Courier');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Pattaya');
+@import url('https://fonts.googleapis.com/css?family=Patue+One');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+
+
+
+
 
 .App {
 	text-align: center;
@@ -9,49 +20,99 @@
 	min-width: 290px;
     max-width: 310px;
     min-height: 590px;
-    max-height: 610px;
-	background: -webkit-linear-gradient(top, #FFF23D 0%, #FF2205 100%); /* Safari 5.1 - 6.0 */
-	background: -o-linear-gradient(bottom, #FFF23D, #FF2205);  /*Opera 11.1 - 12.0 */
-	background: -moz-linear-gradient(bottom, #FFF23D, #FF2205); /* Firefox 3.6 - 15 */
-	background: linear-gradient(to bottom, rgb(255,242,61, 0.5), rgb(255,34,5, 0.5)); /* 标准的语法（必须放在最后） */
+	max-height: 610px;
+	opacity: 0.9;
+	background-image: url("./picture/b1.jpeg");
+	background-repeat: no-repeat;
+    background-position: 50% 0;
+	-ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
 
+
 .Logo{
-	font-family: cursive;
-	color:#082038;
+	font-family: "Pattaya";
+	color:black;
 }
+
+
 
 .Text{
 	text-align: left;
+	letter-spacing: 2px;
+	line-height: 26pt;
 	margin-left: 18%;
 	margin-right: 18%;
-	font-family:fantasy;
-	color:#382008;
+	font-family:'Roboto Slab';
+	color:black;
 }
 
 .Notice{
 	text-align: left;
 	margin-left: 18%;
-	font-family:'Times New Roman', Times, serif;
-	color:#382008;
+	font-family:'Roboto Slab';
+	color:black;
 }
 
 .Result{
 	text-align: center;
-	font-family:'Times New Roman', Times, serif;
-	color:#382008;
+	font-family:'Roboto Slab';
+	color:black;
+}
+
+input[type="submit"] {
+	font-family: 'Rubik';
+	font-size: 20px;
+	background:#708090;
+	color: white;
+	width: 100px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+}
+
+
+
+input[type="text"] {
+	font-family: 'Rubik';
+	font-size: 20px;
+	background:white;
+	text-align: center;
+	width: 250px;
+	height:30px ;
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	border-radius: 60px;
+}
+
+button{
+	font-family: 'Rubik';
+	font-size: 20px;
+	background:#708090;
+	color: white;
+	width: 100px;
+	height: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
 }
 
 .SubmitButton{
+	font-family:'Roboto Slab';
 	margin-bottom: 18%;
 	background-color: "#FE434C";
 	border-color: "transparent";
-    border-radius: 20;
+	border-radius: 20;
+	background-image: url("./picture/uw.png");
 	width: 100;
     height: 50;
 }
 
 .Dropdown{
+	font-family:'Roboto Slab';
 	margin-left: auto;
     margin-right: auto;
 	height: 10px;
