@@ -19,7 +19,10 @@ ReactDOM.render(
 	  <div>
 	    <Route exact path="/" component={NewLandingRegister} />
     	<Route path='/login' component={Login} />
-    	<Route path='/academic' component={AcademeInfo} />
+    	<Route 
+    		path='/academic'
+    		render={(props) => <AcademeInfo {...props} />}
+    	/>
     	<Route
     		path='/matched'
     		render={(props) => <Results {...props} />}
