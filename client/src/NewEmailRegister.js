@@ -100,7 +100,9 @@ class NewEmailRegister extends Component {
         if (this.state.emailValid){
             this.props.history.push({
                 pathname: '/registered',
-                state: { name: this.state.name, email: this.state.email }
+                state: { 
+                    name: this.state.name, 
+                    email: this.state.email }
             });
         }
 

@@ -18,6 +18,11 @@ ReactDOM.render(
 	<BrowserRouter>
 	  <div>
 	    <Route exact path="/" component={NewLandingRegister} />
+	    <Route path='/email' component={NewEmailRegister}/>
+	    <Route 
+			path='/registered' 
+			render={(props) => <NewRegisterSuccess {...props} />}
+		/>
     	<Route path='/login' component={Login} />
     	<Route 
     		path='/academic'
@@ -31,9 +36,7 @@ ReactDOM.render(
 			path='/unmatched' 
 			render={(props) => <ResultNotMatched {...props} />}
 		/>
-		<Route path='/email' component={NewEmailRegister}/>
 		<Route path='/password' component={NewPasswordRegister}/>
-		<Route path='/registered' component={NewRegisterSuccess}/>
 	  </div>
 	</BrowserRouter>, document.getElementById('root'));
 

@@ -19,7 +19,6 @@ class NewRegisterSuccess extends Component {
     }
 
     render() {
-
         if (this.state.submitted){
             this.props.history.push({
                 pathname: '/registered',

@@ -106,11 +106,13 @@ class AcademeInfo extends Component {
         const termOptions = ['Fall','Spring','Winter'];
         console.log("TEST ACADEMIC INFO BEGIN");
         console.log(this.props.location.state.name);
+        console.log(this.props.location.state.email);
         console.log("TEST ACADEMIC INFO END");
         
         if (this.state.responseToPost === "unmatched"){
             this.props.history.push({
                 pathname: '/unmatched',
+                state: { name: this.props.location.state.name, email: this.props.location.state.email }
             })
         } else if (this.state.responseToPost != "") {
             var userData = JSON.parse(this.state.responseToPost)
