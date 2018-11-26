@@ -71,13 +71,23 @@ app.post('/api/login', (req, res) => {
 app.post('/api/match_request', function(req, res){
   console.log("search criteria: "+req.body.term+' '+req.body.subject+' '+req.body.number);
   var matchedUser = '';
+  var termNum;
+  var termScore;
+  const baseTerm = 1139;
+  //translate term string to term number
+  if(req.body.term == 'Fall'){ 
+    termNum = 1189; 
+    }
+  else if(req.body.term == 'Winter'){ termNum = 1191;}
+  else {termNum = 1195;}
+
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
     var Users = db.db('user');
-    var query = {course:{term: '1189',
+    var query = {course:{term: termNum,
       subject: `${req.body.subject}`,
       catelog_number: `${req.body.number}`,}};
-    console.log('query: '+query.course.subject+' '+query.course.catelog_number);
+    console.log('query: '+query.course.term+' '+query.course.subject+' '+query.course.catelog_number);
 
     Users.collection('matching').find(query).toArray(function(err, dbres){
     if(err){console.log(err); throw err;}
