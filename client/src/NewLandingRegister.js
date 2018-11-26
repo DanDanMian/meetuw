@@ -33,8 +33,8 @@ class NewLandingRegister extends Component {
     handleTryout = async e => {
         e.preventDefault();
 
-        console.log("TEST PROGRAM: ")
-        console.log(this.state.program)
+        console.log("TEST PROGRAM: ");
+        console.log(this.state.program);
         
         if (!this.userInputValidation(this.state.program, this.state.category)){
             console.log("Validation False")

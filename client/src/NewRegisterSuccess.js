@@ -12,16 +12,23 @@ class NewRegisterSuccess extends Component {
         this.state = {
             submitted: false
         }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event){
+    handleSubmit = async e => {
         this.setState({ submitted: true });
-    }
+    };
 
     render() {
         if (this.state.submitted){
+            console.log("TEST REGISTRED SUCESS");
+            console.log(this.props.location.state.name);
+            console.log(this.props.location.state.email);
+            console.log("TEST REGISTRED END");
+
             this.props.history.push({
-                pathname: '/registered',
+                pathname: '/academic',
                 state: {
                     name: this.props.location.state.name,
                     email: this.props.location.state.email

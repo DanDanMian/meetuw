@@ -98,6 +98,10 @@ class NewEmailRegister extends Component {
 
     render() {
         if (this.state.emailValid){
+            console.log("TEST EMAIL REGISTRATION");
+            console.log(this.state.name);
+            console.log(this.state.email);
+            console.log("TEST EMAIL REGISTRATION END");
             this.props.history.push({
                 pathname: '/registered',
                 state: { 
@@ -117,14 +121,14 @@ class NewEmailRegister extends Component {
             <form onSubmit={this.handleSubmit}>
                 <h3 className="Text">Thanks! Before we introduce you a new friend, please register.</h3> 
                 <br/>
-                <div classname="name">
+                <div className="name">
                     <input 
                         type="text" 
                         value={this.state.name}
                         onChange={this.handleNameChange}
                         placeholder="username" required />
                 </div>
-                <div classname="email">
+                <div className="email">
                     <input 
                         type="text" 
                         value={this.state.email}
@@ -132,14 +136,14 @@ class NewEmailRegister extends Component {
                         placeholder="userid@uwaterloo.ca" 
                         required />
                 </div>
-                <div classname="password">
+                <div className="password">
                     <input type="password" 
                         value={this.state.password}
                         placeholder="password"
                         onChange={this.handlePasswordChange} 
                         required />
                 </div>
-                <div classname="confirmPassword">
+                <div className="confirmPassword">
                     <input type="password" 
                         value={this.state.secondpassword}
                         onChange={this.handlePasswordConfirmationChange}
