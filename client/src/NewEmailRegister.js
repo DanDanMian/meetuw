@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Picture2 from './picture/Picture2.png';
+import Logo1 from './picture/Logo1.png';
 import './App.css';
 
 class NewEmailRegister extends Component {
@@ -97,7 +97,7 @@ class NewEmailRegister extends Component {
           <div className="App">
             <div>
               <div>                 
-                 <img src={Picture2} width="100" height="80" />
+                 <img src={Logo1} width="100" height="100" />
               </div>
               <h2 className="Logo">MeetUW</h2>
             </div>
@@ -113,15 +113,15 @@ class NewEmailRegister extends Component {
                     placeholder="userid@uwaterloo.ca" required />
                 </div>
                 <br/>
-                <div classname="password">
-                    <input type="password" 
+                <div classname="text">
+                    <input type="text" 
                         value={this.state.password}
                         placeholder="password"
                         onChange={this.handlePasswordChange} required />
                 </div>
                 <br/>
                 <div classname="confirmPassword">
-                    <input type="password" 
+                    <input type="text" 
                         value={this.state.secondpassword}
                         onChange={this.handlePasswordConfirmationChange}
                         placeholder="confirm password" required />

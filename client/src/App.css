@@ -15,7 +15,7 @@
 	margin-left:auto;
 	margin-right: auto;
 	padding-top: 5%;
-	height: 600px;
+	height: 800px;
 	width: 300px;
 	min-width: 290px;
     max-width: 310px;
@@ -43,7 +43,7 @@
 .Text{
 	text-align: left;
 	letter-spacing: 2px;
-	line-height: 26pt;
+	line-height: 22pt;
 	margin-left: 18%;
 	margin-right: 18%;
 	font-family:'Roboto Slab';
@@ -81,7 +81,7 @@ input[type="text"] {
 	font-size: 20px;
 	background:white;
 	text-align: center;
-	width: 250px;
+	width: 220px;
 	height:30px ;
 	-webkit-border-radius: 60px;
 	-moz-border-radius: 60px;
@@ -94,7 +94,7 @@ button{
 	background:#708090;
 	color: white;
 	width: 100px;
-	height: 50px;
+	height:30px ;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	border-radius: 50px;
@@ -115,6 +115,9 @@ button{
 	font-family:'Roboto Slab';
 	margin-left: auto;
     margin-right: auto;
-	height: 10px;
-	width: 60%;
+	width: 220px;
+	height:30px ;
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	border-radius: 60px;
 }

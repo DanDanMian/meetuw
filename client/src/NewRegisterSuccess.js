@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 
-import Picture2 from './picture/Picture2.png';
+import Logo1 from './picture/Logo1.png';
 import './App.css';
 
 class NewRegisterSuccess extends Component {
@@ -15,7 +15,7 @@ class NewRegisterSuccess extends Component {
           <div className="App">
             <div>
               <div>                 
-                 <img src={Picture2} width="100" height="80" />
+                 <img src={Logo1} width="100" height="100" />
               </div>
               <h2 className="Logo">MeetUW</h2>
             </div>
