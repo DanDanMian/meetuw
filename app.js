@@ -72,14 +72,18 @@ app.post('/api/match_request', function(req, res){
   console.log("search criteria: "+req.body.term+' '+req.body.subject+' '+req.body.number);
   var matchedUser = '';
   var termNum;
-  var termScore;
+  
   const baseTerm = 1139;
   //translate term string to term number
   if(req.body.term == 'Fall'){ 
-    termNum = 1189; 
-    }
-  else if(req.body.term == 'Winter'){ termNum = 1191;}
-  else {termNum = 1195;}
+    termNum = 1189; }
+  else if(req.body.term == 'Winter'){ 
+    termNum = 1191;
+  }
+  else {
+    termNum = 1195;
+  }
+  var termScore = termNum - baseTerm;
 
   MongoClient.connect(dbAddr, function(err, db) {
     if(err) throw err;
