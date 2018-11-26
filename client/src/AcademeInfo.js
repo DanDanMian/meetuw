@@ -110,7 +110,7 @@ class AcademeInfo extends Component {
             this.props.history.push({
                 pathname: '/matched',
                 state: { name: userData.name, email: userData.email }
-            })
+            });
         }
 
 
