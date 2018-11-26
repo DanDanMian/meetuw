@@ -90,7 +90,16 @@ class NewEmailRegister extends Component {
 
     render() {
         if (this.state.emailValid){
-          this.props.history.push("/registered");
+            // this.props.history.push("/registered");
+            console.log("TEST REGISTER BEGIN");
+            let end = this.state.email.indexOf('@');
+            let tempName = this.state.email.substring(0, end);
+            console.log(name);
+
+            this.props.history.push({
+                pathname: '/registered',
+                state: { name: tempName, email: this.state.email }
+            });
         }
 
         return (

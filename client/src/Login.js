@@ -89,15 +89,14 @@ class Login extends Component {
     render() {
         if (this.state.loginValid){
             // this.props.history.push("/academic");
-            console.log("TEST BEGIN")
+            console.log("TEST LOGIN BEGIN");
             let end = this.state.email.indexOf('@');
-            let name = this.state.email.substring(1, end);
-            console.log(name)
-            console.log("TEST END")
+            let tempName = this.state.email.substring(0, end);
+            console.log(name);
 
             this.props.history.push({
                 pathname: '/academic',
-                state: { name: name, email: this.state.email }
+                state: { name: tempName, email: this.state.email }
             });
         }
 

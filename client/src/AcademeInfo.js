@@ -84,12 +84,17 @@ class AcademeInfo extends Component {
         console.log(this.state.term);   
         e.preventDefault();
         const response = await fetch('/api/match_request', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({term: this.state.term,
-          subject: this.state.subject, number: this.state.number}),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: this.props.location.state.name,
+                email: this.props.location.state.email,
+                term: this.state.term,
+                subject: this.state.subject, 
+                number: this.state.number
+            }),
         });
 
         const body = await response.text();
