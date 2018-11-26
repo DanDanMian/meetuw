@@ -7,7 +7,6 @@ import Logo1 from './picture/Logo1.png';
 import 'react-dropdown/style.css';
 import './App.css';
 
-
 class AcademeInfo extends Component {
     constructor(props){
         super(props);
@@ -105,8 +104,9 @@ class AcademeInfo extends Component {
 
     render() {
         const termOptions = ['Fall','Spring','Winter'];
-        // console.log("TEST ACADEMIC INFO BEGIN");
-        // console.log(this.props.location.state.name)
+        console.log("TEST ACADEMIC INFO BEGIN");
+        console.log(this.props.location.state.name);
+        console.log("TEST ACADEMIC INFO END");
         
         if (this.state.responseToPost === "unmatched"){
             this.props.history.push({
@@ -124,7 +124,7 @@ class AcademeInfo extends Component {
         return (
           <div className="App">
             <div>
-                <div>                 
+                <div>              
                     <img src={Logo1} width="100" height="100" />
                 </div>
                 <h2 className="Logo">MeetUW</h2>
