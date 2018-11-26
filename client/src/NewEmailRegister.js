@@ -8,6 +8,7 @@ class NewEmailRegister extends Component {
         super(props);
 
         this.state = {
+            name: '',
             email: '',
             password: '',
             secondpassword: '',
@@ -16,10 +17,15 @@ class NewEmailRegister extends Component {
             responseToPost: '400',
         };
         
+        this.handleNameChange = this.handleNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleNameChange(event){
+        this.setState({ name: event.target.value });
     }
 
     handleEmailChange(event){
@@ -43,7 +49,6 @@ class NewEmailRegister extends Component {
         }
 
         let suffix = email.substring(start+1, email.length);
-
         if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca"){
             this.setState({ error: "Invalid UWaterloo Email" });
             return false;
@@ -79,8 +84,11 @@ class NewEmailRegister extends Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({email: this.state.email,
-            password: this.state.password,}),
+            body: JSON.stringify({
+                name: this.state.name,
+                email: this.state.email,
+                password: this.state.password
+            }),
         });
         const body = await response.text();
         console.log('response from server :'+body);
@@ -90,15 +98,9 @@ class NewEmailRegister extends Component {
 
     render() {
         if (this.state.emailValid){
-            // this.props.history.push("/registered");
-            console.log("TEST REGISTER BEGIN");
-            let end = this.state.email.indexOf('@');
-            let tempName = this.state.email.substring(0, end);
-            console.log(tempName);
-
             this.props.history.push({
                 pathname: '/registered',
-                state: { name: tempName, email: this.state.email }
+                state: { name: this.state.name, email: this.state.email }
             });
         }
 
@@ -114,12 +116,20 @@ class NewEmailRegister extends Component {
                 <h3 className="Text">Thanks! Before we introduce you a new
                     friend, please enter your school email and password to register.
                 </h3> 
+                <div classname="name">
+                    <input 
+                        type="text" 
+                        value={this.state.name}
+                        onChange={this.handleNameChange}
+                        placeholder="username" required />
+                </div>
+                <br/>
                 <div classname="email">
-                <input 
-                    type="text" 
-                    value={this.state.email}
-                    onChange={this.handleEmailChange}
-                    placeholder="userid@uwaterloo.ca" required />
+                    <input 
+                        type="text" 
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
+                        placeholder="userid@uwaterloo.ca" required />
                 </div>
                 <br/>
                 <div classname="password">

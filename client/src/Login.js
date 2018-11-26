@@ -24,9 +24,6 @@ class Login extends Component {
     }
 
     handleEmail(event){
-      // const target = event.target;
-      // const value = target.type ==='checkbox' ? target.check : target.value;
-      // const name = target.name;
       this.setState({email:event.target.value});
     }
 
@@ -88,15 +85,9 @@ class Login extends Component {
 
     render() {
         if (this.state.loginValid){
-            // this.props.history.push("/academic");
-            // console.log("TEST LOGIN BEGIN");
-            let end = this.state.email.indexOf('@');
-            let tempName = this.state.email.substring(0, end);
-            // console.log(tempName);
-
             this.props.history.push({
                 pathname: '/academic',
-                state: { name: tempName, email: this.state.email }
+                state: { name: '', email: this.state.email }
             });
         }
 
