@@ -114,10 +114,9 @@ button{
 .Dropdown{
 	font-family:'Roboto Slab';
 	margin-left: auto;
-    margin-right: auto;
-	width: 220px;
-	height:30px ;
-	-webkit-border-radius: 60px;
-	-moz-border-radius: 60px;
-	border-radius: 60px;
+	margin-right: auto;
+	font-size: 15px;
+	width: 200px;
+	height:25px ;
+
 }

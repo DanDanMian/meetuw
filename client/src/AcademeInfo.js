@@ -152,7 +152,6 @@ class AcademeInfo extends Component {
                     placeholder=""/>
                 <br/>
                 <br/>
-                <br/>
               </label>
                 <div>
                     <input type="submit" 
@@ -160,7 +159,6 @@ class AcademeInfo extends Component {
                         onChange ={this.handleSubmit} />
                 </div>
                 </form>
-                <Link to="/"><button>Main</button></Link>
           </div>
         );
     }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import UW from './picture/uw.png';
 import Logo1 from './picture/Logo1.png';
 import './App.css';
@@ -47,8 +49,8 @@ class NewLandingRegister extends Component {
         this.setState({program: event.target.value});
     }
 
-    handleCateogryChange(event){
-        this.setState({category: event.target.value});
+    handleCateogryChange(option){
+        this.setState({category: option.label});
     }
 
     render() {
@@ -61,7 +63,7 @@ class NewLandingRegister extends Component {
           height: "100px",
           backgroundImage: "url(" + {UW } + ")"
         };
-
+        const categoryList = ['study buddy'];
         return (
           <div className="App">
             <div >
@@ -74,15 +76,17 @@ class NewLandingRegister extends Component {
                 <h3 className="Text">Welcome. MeetUW helps you match people with the similar intentions</h3>
                 <label>
                   <h3 className="Text"> You are looking for a&nbsp;&nbsp;
-                    <select id="category" name="category">
-                      <option value={this.state.category} 
-                        onChange={this.handleCateogryChange}>Study Buddy</option>
-                    </select>
+                    <Dropdown
+                    className="Dropdown"
+                    name = "category"
+                    options = {categoryList}
+                    value={this.state.category}
+                    onChange={this.handleCateogryChange}
+                    placeholder=""/>
                     &nbsp;&nbsp;.
                   </h3>
                 </label>
                 <input type="submit" value="Tryout" required/>
-                <br/>
             </form>
             <Link to="/login"><button>Explore</button></Link>
           </div>
