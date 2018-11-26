@@ -113,9 +113,8 @@ class NewEmailRegister extends Component {
               <h2 className="Logo">MeetUW</h2>
             </div>
             <form onSubmit={this.handleSubmit}>
-                <h4 className="Text">Thanks! Before we introduce you a new
-                    friend, please enter your school email and password to register.
-                </h4> 
+                <h3 className="Text">Thanks! Before we introduce you a new friend, please register.</h3> 
+                <br/>
                 <div classname="name">
                     <input 
                         type="text" 
@@ -123,27 +122,27 @@ class NewEmailRegister extends Component {
                         onChange={this.handleNameChange}
                         placeholder="username" required />
                 </div>
-                <br/>
                 <div classname="email">
                     <input 
                         type="text" 
                         value={this.state.email}
                         onChange={this.handleEmailChange}
-                        placeholder="userid@uwaterloo.ca" required />
+                        placeholder="userid@uwaterloo.ca" 
+                        required />
                 </div>
-                <br/>
                 <div classname="password">
                     <input type="password" 
                         value={this.state.password}
                         placeholder="password"
-                        onChange={this.handlePasswordChange} required />
+                        onChange={this.handlePasswordChange} 
+                        required />
                 </div>
-                <br/>
                 <div classname="confirmPassword">
                     <input type="password" 
                         value={this.state.secondpassword}
                         onChange={this.handlePasswordConfirmationChange}
-                        placeholder="confirm password" required />
+                        placeholder="confirm password" 
+                        required />
                 </div>
                 <br/>
                 <input type="submit" value="submit" 

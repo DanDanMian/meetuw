@@ -104,7 +104,6 @@ class Login extends Component {
                         placeholder="userid@uwaterloo.ca"
                         onChange={this.handleEmail} required />
                 </div>
-                <br/>
                 <div className="password">
                     <input type="password" 
                         value={this.state.password} 
@@ -112,9 +111,10 @@ class Login extends Component {
                         onChange={this.handlePassword} required />
                 </div>
                 <br/>
+                <br/>
+                <br/>
+                <br/>
                 <div>
-                <br/>
-                <br/>
                     <input type="submit" 
                         value="submit" 
                         onChange ={this.handleSubmit} />

@@ -120,7 +120,6 @@ class AcademeInfo extends Component {
             });
         }
 
-
         return (
           <div className="App">
             <div>
@@ -130,36 +129,34 @@ class AcademeInfo extends Component {
                 <h2 className="Logo">MeetUW</h2>
             </div>
             <form onSubmit={this.handleSubmit}>
-              <label>
-                <h3 className="Text">Select a Term </h3>
+                <h4 className="Text">Select Term </h4>
                 <Dropdown
                     className="Dropdown"
                     name = "term"
                     options={termOptions}
                     value={this.state.term}
                     onChange={this.handleTerm}
-                    placeholder="term"/>
-                <br/>
-                <h3 className="Text"> Select a Subject</h3>
+                    placeholder="--"/>
+                <h4 className="Text"> Select Subject</h4>
                 <Dropdown
                     className="Dropdown"
                     name = "subject"
                     options={this.state.subjects}
                     value={this.state.subject}
                     onChange={this.handleCourseSubject}
-                    placeholder="subject"/>
-                <br/>
-                <h3 className="Text"> Select a Course Number</h3>
+                    placeholder="--"/>
+                <h4 className="Text"> Select Course Id</h4>
                 <Dropdown
                     className="Dropdown"
                     name = "number"
                     options = {this.state.currentSujectCourses}
                     value={this.state.number}
                     onChange={this.handleCourseNumber}
-                    placeholder="number"/>
+                    placeholder="--"/>
                 <br/>
                 <br/>
-              </label>
+                <br/>
+                <br/>
                 <div>
                     <input type="submit" 
                         value="submit" 

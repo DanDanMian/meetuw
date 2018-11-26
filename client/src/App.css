@@ -28,14 +28,18 @@
 .Logo{
 	font-family: "Pattaya";
 	color:black;
+	font-size: 30px;
+	margin: 0px;
 }
 
 .Text{
 	text-align: left;
 	letter-spacing: 2px;
-	line-height: 22pt;
-	margin-left: 18%;
-	margin-right: 18%;
+	line-height: 20pt;
+	margin-bottom: 0px;
+	margin-top: 30px;
+	margin-left: 15%;
+	margin-right: 15%;
 	font-family:'Roboto Slab';
 	color:black;
 }
@@ -53,14 +57,29 @@
 	color:black;
 }
 
+button{
+	font-family: 'Rubik';
+	font-size: 15px;
+	background:#606060;
+	opacity: 0.8;
+	color: white;
+	width: 210px;
+	height: 36px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+	margin: 5px;
+}
+
 input[type="submit"] {
 	font-family: 'Rubik';
 	font-size: 15px;
 	height: 30px;
 	opacity: 0.8;
-	background:#708090;
+	background:#606060;
 	color: white;
-	width: 100px;
+	width: 210px;
+	height: 36px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	border-radius: 50px;
@@ -69,50 +88,27 @@ input[type="submit"] {
 input[type="password"]{	
 	font-family: 'Roboto Slab';
 	font-size: 15px;
-	background:white;
+	background: white;
 	text-align: center;
-	width: 220px;
+	width: 210px;
 	height:30px ;
 	-webkit-border-radius: 60px;
 	-moz-border-radius: 60px;
 	border-radius: 60px;
+	margin: 5px;
 }
 
 input[type="text"] {
 	font-family: 'Roboto Slab';
-	background:white;
+	background: white;
 	text-align: center;
 	font-size: 15px;
-	width: 220px;
+	width: 210px;
 	height:30px ;
 	-webkit-border-radius: 60px;
 	-moz-border-radius: 60px;
 	border-radius: 60px;
-}
-
-button{
-	font-family: 'Rubik';
-	font-size: 15px;
-	background:#708090;
-	opacity: 0.8;
-	color: white;
-	width: 100px;
-	height: 30px;
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-}
-
-.SubmitButton{
-	font-family:'Roboto Slab';
-	margin-bottom: 18%;
-	font-size: 15px;
-	background-color: "#FE434C";
-	border-color: "transparent";
-	border-radius: 20;
-	background-image: url("./picture/uw.png");
-	width: 100;
-    height: 50;
+	margin: 5px;
 }
 
 .UW{
@@ -123,8 +119,10 @@ button{
 	font-family:'Roboto Slab';
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 0px;
 	font-size: 15px;
 	width: 200px;
-	height:25px!important;
-
+	height: 25px;
 }
+

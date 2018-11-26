@@ -55,43 +55,41 @@ class NewLandingRegister extends Component {
 
     render() {
         if (this.state.loginValid){
-          this.props.history.push("/email");
+            this.props.history.push("/email");
         }
 
         var sectionStyle = {
-          width: "100px",
-          height: "100px",
-          backgroundImage: "url(" + {UW } + ")"
+            width: "100px",
+            height: "100px",
+            backgroundImage: "url(" + {UW } + ")"
         };
         const categoryList = ['study buddy'];
         return (
-          <div className="App">
+            <div className="App">
             <div >
-              <div>  
-                 <img src={Logo1} width="100" height="100" />
-              </div>
-              <h2 className="Logo">MeetUW</h2>
+                <div>  
+                    <img src={Logo1} width="100" height="100" />
+                </div>
+                <h2 className="Logo">MeetUW</h2>
             </div >
             <form onSubmit={this.handleTryout}>
-                <h3 className="Text">Welcome. MeetUW helps you match people with the similar intentions</h3>
-                <label>
-                  <h3 className="Text"> You are looking for a&nbsp;&nbsp;
-                    <Dropdown
+                <h3 className="Text">Welcome! MeetUW helps you find people with the same preference.</h3>
+                <h3 className="Text"> You are looking for</h3>
+                <Dropdown
                     className="Dropdown"
                     name = "category"
                     options = {categoryList}
                     value={this.state.category}
                     onChange={this.handleCateogryChange}
-                    placeholder="category"/>
-                    &nbsp;&nbsp;.
-                  </h3>
-                </label>
+                    placeholder="--"/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
                 <input type="submit" value="Tryout" required/>
             </form>
-            <br/>
-
             <Link to="/login"><button>Explore</button></Link>
-          </div>
+            </div>
         );
     }
 }
