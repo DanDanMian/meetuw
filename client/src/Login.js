@@ -92,7 +92,7 @@ class Login extends Component {
             console.log("TEST LOGIN BEGIN");
             let end = this.state.email.indexOf('@');
             let tempName = this.state.email.substring(0, end);
-            console.log(name);
+            console.log(tempName);
 
             this.props.history.push({
                 pathname: '/academic',
