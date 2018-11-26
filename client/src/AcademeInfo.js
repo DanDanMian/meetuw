@@ -105,6 +105,8 @@ class AcademeInfo extends Component {
 
     render() {
         const termOptions = ['Fall','Spring','Winter'];
+        // console.log("TEST ACADEMIC INFO BEGIN");
+        // console.log(this.props.location.state.name)
         
         if (this.state.responseToPost === "unmatched"){
             this.props.history.push({
