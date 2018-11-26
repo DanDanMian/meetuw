@@ -27,7 +27,10 @@ ReactDOM.render(
     		path='/matched'
     		render={(props) => <Results {...props} />}
 		/>
-		<Route path='/unmatched' component={ResultNotMatched}/>
+		<Route 
+			path='/unmatched' 
+			render={(props) => <ResultNotMatched {...props} />}
+		/>
 		<Route path='/email' component={NewEmailRegister}/>
 		<Route path='/password' component={NewPasswordRegister}/>
 		<Route path='/registered' component={NewRegisterSuccess}/>

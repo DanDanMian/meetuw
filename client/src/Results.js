@@ -8,31 +8,48 @@ class Results extends Component {
         super(props);
 
         this.state = {
-            invite: true
+            submitted: false
         };
 
-        this.handleInvite = this.handleInvite.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
-    handleInvite(event){
-        alert("We will send a email to him.");
-        this.setState({invite:true});
-        event.preventDefault(); //need to check if it is same as the password
+    handleBack = async e => {
+        this.setState({ submitted: true });
     }
 
     render() {
+
+        if (this.state.submitted){
+            console.log("NOT MATCH BACK TO ACADEMIC");
+            console.log(this.props.location.state.name);
+            console.log(this.props.location.state.email);
+
+            this.props.history.push({
+                pathname: '/academic',
+                state: {
+                    name: this.props.location.state.name,
+                    email: this.props.location.state.email
+                }
+            });
+        }
+
         return (
-          <div className="App">
-              <h2 className="Text"> Hey! We find a matching for you.</h2> 
-              <form name="PasswordRegister" onSubmit={this.handleConfirm}>
-                  <div>
-                      <img src={kubo} width="100" height="120" />
-                      <h3 className="Text">{this.props.location.state.name}</h3>
-                      <div>{this.props.location.state.email}</div>
-                  </div>
-                  <Link to="/academic"><button>Go back</button></Link>
-              </form> 
-          </div>
+            <div className="App">
+                <h2 className="Text"> Hey! We find a matching for you.</h2> 
+                <form name="PasswordRegister" onSubmit={this.handleBack}>
+                    <div>
+                        <img src={kubo} width="100" height="120" />
+                        <h3 className="Text">{this.props.location.state.name}</h3>
+                        <div>{this.props.location.state.email}</div>
+                    </div>
+                    <div>
+                    <input type="submit" 
+                        value="Back" 
+                        onChange ={this.handleBack} />
+                    </div>
+                </form> 
+            </div>
           );
     }
 }

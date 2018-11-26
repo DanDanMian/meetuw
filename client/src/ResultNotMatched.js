@@ -10,21 +10,25 @@ class ResultNotMatched extends Component {
         this.state = {
             submitted: false
         }
+
+        this.handleBack = this.handleBack.bind(this);
     }
 
-    handleSubmit = async e => {
+    handleBack = async e => {
         this.setState({ submitted: true });
     }
 
     render() {
 
         if (this.state.submitted){
-            console.log("BACK TO ACADEMIC")
+            console.log("NOT MATCH BACK TO ACADEMIC");
+            console.log(this.props.location.state.name);
+            console.log(this.props.location.state.email)
             this.props.history.push({
                 pathname: '/academic',
                 state: {
-                    name: '',
-                    email: ''
+                    name: this.props.location.state.name,
+                    email: this.props.location.state.email
                 }
             });
         }
@@ -39,7 +43,7 @@ class ResultNotMatched extends Component {
                 </div>
                 <br/>
                 <br/>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleBack}>
                     <h3 className="Text">Sorry, we could not find a match for you.
                         When we find a match, we will notify you by email. Thanks!</h3>
                     <br/>
@@ -49,7 +53,7 @@ class ResultNotMatched extends Component {
                     <div>
                         <input type="submit" 
                             value="Back" 
-                            onChange ={this.handleSubmit} />
+                            onChange ={this.handleBack} />
                     </div>
                 </form>
             </div>
