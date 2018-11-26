@@ -73,9 +73,9 @@ class NewLandingRegister extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <input type="submit" value="Tryout" required/>
+                <input type="submit" value="Register" required/>
             </form>
-            <Link to="/login"><button>Explore</button></Link>
+            <Link to="/login"><button>Login</button></Link>
             <p className="Error">{this.state.error}</p>
             </div>
         );
