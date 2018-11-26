@@ -138,7 +138,7 @@ class AcademeInfo extends Component {
                     options={termOptions}
                     value={this.state.term}
                     onChange={this.handleTerm}
-                    placeholder=""/>
+                    placeholder="term"/>
                 <br/>
                 <h3 className="Text"> Select a Subject</h3>
                 <Dropdown
@@ -147,7 +147,7 @@ class AcademeInfo extends Component {
                     options={this.state.subjects}
                     value={this.state.subject}
                     onChange={this.handleCourseSubject}
-                    placeholder=""/>
+                    placeholder="subject"/>
                 <br/>
                 <h3 className="Text"> Select a Course Number</h3>
                 <Dropdown
@@ -156,7 +156,7 @@ class AcademeInfo extends Component {
                     options = {this.state.currentSujectCourses}
                     value={this.state.number}
                     onChange={this.handleCourseNumber}
-                    placeholder=""/>
+                    placeholder="number"/>
                 <br/>
                 <br/>
               </label>

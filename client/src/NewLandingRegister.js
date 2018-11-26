@@ -82,12 +82,14 @@ class NewLandingRegister extends Component {
                     options = {categoryList}
                     value={this.state.category}
                     onChange={this.handleCateogryChange}
-                    placeholder=""/>
+                    placeholder="category"/>
                     &nbsp;&nbsp;.
                   </h3>
                 </label>
                 <input type="submit" value="Tryout" required/>
             </form>
+            <br/>
+
             <Link to="/login"><button>Explore</button></Link>
           </div>
         );

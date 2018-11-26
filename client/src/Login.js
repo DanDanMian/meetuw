@@ -104,6 +104,8 @@ class Login extends Component {
         <div className="App">
             <img src={Logo1} width="100" height="100" />
             <h2 className="Logo">MeetUW</h2>
+            <br/>
+            <br/>
             <form  onSubmit={this.handleSubmit}>
                 <div className="email">
                     <input type="text" 
@@ -120,6 +122,8 @@ class Login extends Component {
                 </div>
                 <br/>
                 <div>
+                <br/>
+                <br/>
                     <input type="submit" 
                         value="submit" 
                         onChange ={this.handleSubmit} />
