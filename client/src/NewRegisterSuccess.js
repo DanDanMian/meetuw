@@ -20,7 +20,7 @@ class NewRegisterSuccess extends Component {
               <h2 className="Logo">MeetUW</h2>
             </div>
             <h3 className="Text">Registered Sucessfull. You could start explore now!</h3>
-            <Link to="/academic"><button>Let's Rock</button></Link>
+            <Link to="/academic"><button>start</button></Link>
           </div>
         );
     }
