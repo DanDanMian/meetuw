@@ -113,7 +113,7 @@ class NewEmailRegister extends Component {
                     placeholder="userid@uwaterloo.ca" required />
                 </div>
                 <br/>
-                <div classname="text">
+                <div classname="Password">
                     <input type="password" 
                         value={this.state.password}
                         placeholder="password"
