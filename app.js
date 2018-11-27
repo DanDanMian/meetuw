@@ -129,7 +129,7 @@ app.post('/api/match_request', function(req, res){
     Users.collection("matching").findOne(userObj, function(err, res){
       if(err) throw err;
       if(res == null){
-        Users.collection("matching").insert(userObj, function(err,res){
+        Users.collection("matching").insertOne(userObj, function(err,res){
           if(err) throw err;
           console.log("user match data inserted");
         })
