@@ -117,7 +117,7 @@ class AcademeInfo extends Component {
     }
 
     render() {
-        const termOptions = ['Fall','Spring','Winter'];
+        const termOptions = ['Fall 2018','Spring 2019','Winter 2019'];
         console.log("TEST ACADEMIC INFO BEGIN");
         console.log(this.props.location.state.name);
         console.log(this.props.location.state.email);
