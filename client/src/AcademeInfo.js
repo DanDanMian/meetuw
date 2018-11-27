@@ -32,7 +32,7 @@ class AcademeInfo extends Component {
         .then(data => {
             let subjectList =[];
             let subjectSet = [];
-            console.log(data.data);
+            console.log("pulled data: "+JSON.stringify(data.data));
             for (var i = 0; i < data.data.length; i++) {
                 const courseSubject = data.data[i].subject;
                 if (subjectList.indexOf(courseSubject) === -1 ) {
@@ -45,13 +45,15 @@ class AcademeInfo extends Component {
             for (var i = 0; i < data.data.length; i++) {
                 const courseSubject = data.data[i].subject;
                 const num = data.data[i].catalog_number;
+                const courseID = data.data[i].course_id;
                 const index = subjectList.indexOf(courseSubject);
                 if (courseList[index]==null){
                     courseList[index]=[];
                 } else {
-                    courseList[index].push(num);
+                    courseList[index].push({ id :courseID, number : num});
                 }
             }
+            console.log(JSON.stringify(courseList));
             this.setState({subjects:subjectList});
             this.setState({coursesLibrary:courseList});
             console.log(data);
