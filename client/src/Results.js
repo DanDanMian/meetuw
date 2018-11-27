@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import kubo from "./picture/kubo.jpg";
 import { Link } from 'react-router-dom';
+
 import './App.css';
+import Logo1 from './picture/Logo1.png';
 
 class Results extends Component {
     constructor(props){
@@ -36,17 +38,27 @@ class Results extends Component {
 
         return (
             <div className="App">
-                <h2 className="Text"> Hey! We find a matching for you.</h2> 
+                <div>
+                    <div>                 
+                        <img src={Logo1} width="100" height="100" />
+                    </div>
+                    <h2 className="Logo">MeetUW</h2>
+                </div>
                 <form name="PasswordRegister" onSubmit={this.handleBack}>
+                    <h2 className="Text"> Hey! We find a matching for you.</h2> 
                     <div>
                         <img src={kubo} width="100" height="120" />
-                        <h3 className="Text">{this.props.location.state.name}</h3>
-                        <div>{this.props.location.state.email}</div>
+                        <div className="Text">{this.props.location.state.name}</div>
+                        <div className="Text">{this.props.location.state.email}</div>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <div>
-                    <input type="submit" 
-                        value="Back" 
-                        onChange ={this.handleBack} />
+                        <input type="submit" 
+                            value="Back" 
+                            onChange ={this.handleBack} />
                     </div>
                 </form> 
             </div>
