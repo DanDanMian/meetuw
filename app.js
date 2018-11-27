@@ -160,7 +160,7 @@ app.post('/api/match_request', function(req, res){
         console.log('unmatched!');
         res.send('unmatched');
       }else{
-        dbres.sort(sortMatched);
+        
         var noSelfRes = dbres.filter(function(el){
           return el.email != req.body.email;
         });
@@ -168,6 +168,20 @@ app.post('/api/match_request', function(req, res){
           res.send('unmatched'); 
           return;
         }
+        //calculate difference
+        for(var i = 0; i < noSelfRes.length; i++){
+          if(noSelfRes[i].score - totalScore != 0){
+            noSelfRes[i].score = 1;
+          }
+          else{
+            noSelfRes[i].score = 0;
+          }
+        }
+
+        //sort low to high
+        noSelfRes.sort(sortMatched);
+        console.log("sorted matches: "+JSON.stringify(noSelfRes));
+
         var highestScore = noSelfRes[0].score;
         var highestScoreRes = noSelfRes.filter(function(el){
           return el.score == highestScore;
@@ -176,7 +190,10 @@ app.post('/api/match_request', function(req, res){
           res.send('unmatched');
           return;
         }
-        var randMatched = highestScoreRes[Math.floor(Math.random()*highestScoreRes.length)];
+        var randIndex = Math.floor(Math.random()*highestScoreRes.length);
+        console.log('randindex: '+randIndex);
+        var randMatched = highestScoreRes[randIndex];
+        
         console.log("Matched data: "+randMatched.name+" "+randMatched.email);
         var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
         console.log(JSON.stringify(data));
