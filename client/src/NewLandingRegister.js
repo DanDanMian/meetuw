@@ -15,6 +15,7 @@ class NewLandingRegister extends Component {
           response: '',
           category: '',
           responseToPost: '',
+          tryoutValid: false,
           loginValid: false,
           error: ''
         };
@@ -32,6 +33,19 @@ class NewLandingRegister extends Component {
             return;
         }
         
+        this.setState({ tryoutValid: true });
+
+    };
+
+    handleLogin = async e => {
+        e.preventDefault();
+        
+        // Input Validation
+        if (this.state.category === ''){
+            this.setState({ error:'Must select a category' })
+            return;
+        }
+        
         this.setState({ loginValid: true });
 
     };
@@ -41,8 +55,12 @@ class NewLandingRegister extends Component {
     }
 
     render() {
-        if (this.state.loginValid){
+        if (this.state.tryoutValid){
             this.props.history.push("/email");
+        }
+
+        if (this.state.loginValid){
+            this.props.history.push("/login");
         }
 
         var sectionStyle = {
@@ -75,7 +93,10 @@ class NewLandingRegister extends Component {
                 <br/>
                 <input type="submit" value="Register" required/>
             </form>
-            <Link to="/login"><button>Login</button></Link>
+            <br/>
+            <form onSubmit={this.handleLogin}>
+                <input type="submit" value="Login" required/>
+            </form>
             <p className="Error">{this.state.error}</p>
             </div>
         );

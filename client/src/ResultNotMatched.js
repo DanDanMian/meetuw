@@ -7,31 +7,31 @@ class ResultNotMatched extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            submitted: false
-        }
+        // this.state = {
+        //     submitted: false
+        // }
 
-        this.handleBack = this.handleBack.bind(this);
+        // this.handleBack = this.handleBack.bind(this);
     }
 
-    handleBack = async e => {
-        this.setState({ submitted: true });
-    }
+    // handleBack = async e => {
+    //     this.setState({ submitted: true });
+    // }
 
     render() {
 
-        if (this.state.submitted){
-            console.log("NOT MATCH BACK TO ACADEMIC");
-            console.log(this.props.location.state.name);
-            console.log(this.props.location.state.email)
-            this.props.history.push({
-                pathname: '/academic',
-                state: {
-                    name: this.props.location.state.name,
-                    email: this.props.location.state.email
-                }
-            });
-        }
+        // if (this.state.submitted){
+        //     console.log("NOT MATCH BACK TO ACADEMIC");
+        //     console.log(this.props.location.state.name);
+        //     console.log(this.props.location.state.email)
+        //     this.props.history.push({
+        //         pathname: '/academic',
+        //         state: {
+        //             name: this.props.location.state.name,
+        //             email: this.props.location.state.email
+        //         }
+        //     });
+        // }
 
         return (
             <div className="App">
@@ -51,9 +51,7 @@ class ResultNotMatched extends Component {
                     <br/>
                     <br/>
                     <div>
-                        <input type="submit" 
-                            value="Back" 
-                            onChange ={this.handleBack} />
+                        <Link to="/"><button>Start</button></Link>
                     </div>
                 </form>
             </div>
