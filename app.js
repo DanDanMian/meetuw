@@ -86,11 +86,11 @@ app.post('/api/match_request', function(req, res){
   var termScore = '0';
 
   //translate term string to term number
-  if(req.body.term == 'Fall'){ 
+  if(req.body.term == 'Fall 2018'){ 
     termNum = 1189; 
     termScore = 1
   }
-  else if(req.body.term == 'Winter'){ 
+  else if(req.body.term == 'Winter 2019'){ 
     termNum = 1191;
     termScore = 2;
   }
