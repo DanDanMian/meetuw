@@ -14,10 +14,13 @@ class AcademeInfo extends Component {
             term: '',
             subject:'',
             number: '',
+            courseIDState:'',
             subjects: [],
             coursesLibrary:[],
             currentSujectCourses:[],
+            currentSujectID: [],
             responseToPost: '',
+            specialtestcases: '',
             error: ''
         };
         this.handleTerm = this.handleTerm.bind(this);
@@ -73,12 +76,29 @@ class AcademeInfo extends Component {
         console.log('You selected subject'+option.label )
         this.setState({subject: option.label});
         const c = this.state.coursesLibrary[this.state.subjects.indexOf(option.label)];
-        this.setState({currentSujectCourses:c});
+        const numList = new Array(c.length);
+        const idList = new Array(c.length);
+        console.log("c: "+JSON.stringify(c));
+        for(var i = 0; i < c.length; i++){
+            console.log("in loop: "+c[i].number+' '+c[i].id);
+            numList[i]  = c[i].number;
+            idList[i] = c[i].id;
+        }
+        this.setState({currentSujectCourses:numList, currentSujectID:idList});
+        console.log("print numlist: "+ this.state.currentSujectCourses);
+        console.log('print idlist '+this.state.currentSujectID);
     }   
 
     handleCourseNumber (option) {
         console.log('You selected number'+option.label)
         this.setState({number: option.label});
+        this.setState({specialtestcases: option.label});
+        var index = this.state.currentSujectCourses.indexOf(option.label);
+        console.log('option label: '+option.label);
+        console.log('state course number: '+this.state.number);
+        console.log('test case: '+ this.state.specialtestcases);
+        console.log('id index: '+index);
+        this.setState({courseIDState: this.state.currentSujectID[index]});
     }
 
     handleSubmit = async e => {
@@ -98,6 +118,8 @@ class AcademeInfo extends Component {
             return;
         }
 
+        console.log('print course id before sumbit: '+this.state.courseIDState);
+
         const response = await fetch('/api/match_request', {
             method: 'POST',
             headers: {
@@ -108,7 +130,8 @@ class AcademeInfo extends Component {
                 email: this.props.location.state.email,
                 term: this.state.term,
                 subject: this.state.subject, 
-                number: this.state.number
+                number: this.state.number,
+                id: this.state.courseIDState,
             }),
         });
 

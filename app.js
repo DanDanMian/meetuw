@@ -80,7 +80,7 @@ String.prototype.hashCode = function() {
 };
 
 app.post('/api/match_request', function(req, res){
-  console.log("search criteria: "+req.body.name+' '+req.body.email+' '+req.body.term+' '+req.body.subject+' '+req.body.number);
+  console.log("search criteria: "+req.body.name+' '+req.body.email+' '+req.body.term+' '+req.body.subject+' '+req.body.number+' '+req.body.id);
   var matchedUser = '';
   var termNum;
   var termScore = '0';
@@ -98,9 +98,9 @@ app.post('/api/match_request', function(req, res){
     termNum = 1195;
     termScore = 3;
   }
-  var subjectHash = req.body.subject.hashCode();
-  console.log('subjectHash: '+subjectHash);
-  var totalScore = subjectHash*10000+req.body.number*10+termScore;
+  //var subjectHash = req.body.subject.hashCode();
+  //console.log('subjectHash: '+subjectHash);
+  var totalScore = req.body.id*10000+parseInt(req.body.number,10)*10+termScore;
   console.log('totalScore: '+totalScore);
   var dbResult;
   //fill in name
@@ -115,7 +115,7 @@ app.post('/api/match_request', function(req, res){
                 subject: `${req.body.subject}`,
                 catelog_number: `${req.body.number}`,
               },
-      score: `${totalScore}`,
+      score: totalScore,
    };
    console.log("userObj: "+JSON.stringify(userObj));
 
@@ -147,7 +147,7 @@ app.post('/api/match_request', function(req, res){
     else{
       lb = 2; ub = 0;
     }
-    var query = {score: {$gte: totalScore - ub, $lte: totalScore + lb},};
+    var query = {score: {$gte: totalScore - lb, $lte: totalScore + ub},};
     console.log('query: '+JSON.stringify(query));
 
     Users.collection('matching').find(query).toArray(function(err, dbres){
@@ -164,11 +164,19 @@ app.post('/api/match_request', function(req, res){
         var noSelfRes = dbres.filter(function(el){
           return el.email != req.body.email;
         });
+        if(noSelfRes.length == 0){ 
+          res.send('unmatched'); 
+          return;
+        }
         var highestScore = noSelfRes[0].score;
-        var highestScroeRes = noSelfRes.filter(function(el){
+        var highestScoreRes = noSelfRes.filter(function(el){
           return el.score == highestScore;
         });
-        var randMatched = highestScroeRes[Math.floor(Math.random()*highestScroeRes.length)];
+        if(highestScoreRes.length == 0){
+          res.send('unmatched');
+          return;
+        }
+        var randMatched = highestScoreRes[Math.floor(Math.random()*highestScoreRes.length)];
         console.log("Matched data: "+randMatched.name+" "+randMatched.email);
         var data = {name: `${randMatched.name}`, email: `${randMatched.email}`,};
         console.log(JSON.stringify(data));
