@@ -26,11 +26,12 @@
   ],
   "dependencies": {
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "latest-version": "^4.0.0",
     "log4js": "^3.0.6",
     "md5": "^2.2.1",
     "mongodb": "^3.1.10",
-    "mongoose": "^4.13.17"
+    "mongoose": "^4.13.18"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
