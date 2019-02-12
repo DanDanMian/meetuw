@@ -88,7 +88,6 @@ class NewEmailRegister extends Component {
       console.log("Validation False");
       return;
     }
-    this.setState({ emailValid: true });
     //post to server
     const response = await fetch("/api/register", {
       method: "POST",
@@ -104,6 +103,12 @@ class NewEmailRegister extends Component {
     const body = await response.text();
     console.log("response from server :" + body);
     this.setState({ responseToPost: body });
+
+    if (this.state.responseToPost === "SUCCESS") {
+      this.setState({ emailValid: true });
+    } else {
+      this.setState({ error: "Register failed" });
+    }
   };
 
   render() {
