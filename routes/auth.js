@@ -1,24 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const md5 = require("md5");
-const db = require("../db/db");
-const User = db.User;
+const User = require("../db/models/user");
 
-router.post("/api/login", (req, res) => {
-  var thisToken = md5(req.body.password);
-  var query = { email: `${req.body.email}`, token: `${thisToken}` };
+const passport = require("../passport");
 
-  User.findOne(query, function(err, dbResult) {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-    if (dbResult == null) {
-      res.send("FAIL");
-    } else {
-      res.send("SUCCESS");
-    }
-  });
+router.post("/api/login", passport.authenticate("local"), (req, res) => {
+  req.session.email = req.body.email;
+
+  res.send("SUCCESS");
 });
 
 router.post("/api/register", function(req, res) {

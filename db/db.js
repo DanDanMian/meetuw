@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 mongoose
   .connect(
     config.DB_CONNECTION_STRING,
-    { useMongoClient: true, useNewUrlParser: true }
+    { useNewUrlParser: true }
   );
   //.then(() => console.log("Connected to MongoDB!"))
   //.catch(err => console.error(err));
@@ -13,7 +13,4 @@ mongoose.Promise = global.Promise;
   console.log("mongodb is connected!!");
 }); */
 
-module.exports = {
-  User: require("./models/user"),
-  Matching: require("./models/matching")
-};
+module.exports = mongoose.connection;
