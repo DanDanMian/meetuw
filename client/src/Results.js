@@ -55,7 +55,7 @@ class Results extends Component {
           <br />
           <br />
           <div>
-            <Link to="/">
+            <Link to="/academic">
               <button>Start</button>
             </Link>
           </div>
