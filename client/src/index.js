@@ -11,6 +11,7 @@ import NewEmailRegister from './NewEmailRegister';
 import AcademeInfo from './AcademeInfo';
 import Login from './Login';
 import Results from './Results';
+import GymBuddy from './GymBuddy';
 import ResultNotMatched from './ResultNotMatched';
 import NewRegisterSuccess from './NewRegisterSuccess';
 
@@ -27,6 +28,10 @@ ReactDOM.render(
     	<Route 
     		path='/academic'
     		render={(props) => <AcademeInfo {...props} />}
+    	/>
+			<Route 
+    		path='/sport'
+    		render={(props) => <GymBuddy {...props} />}
     	/>
     	<Route
     		path='/matched'
