@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 import Logo1 from "./picture/Logo1.png";
@@ -17,30 +16,31 @@ class NewRegisterSuccess extends Component {
   }
 
   handleSubmit = async e => {
-    this.setState({ submitted: true });
+    e.preventDefault();
+    this.setState({ submitted: true }, () => {
+      if (this.state.submitted) {
+        /* console.log("TEST REGISTRED SUCESS");
+        console.log(this.props.location.state.name);
+        console.log(this.props.location.state.email);
+        console.log("TEST REGISTRED END"); */
+
+        this.props.history.push({
+          pathname: "/academic",
+          state: {
+            name: this.props.location.state.name,
+            email: this.props.location.state.email
+          }
+        });
+      }
+    });
   };
 
   render() {
-    if (this.state.submitted) {
-      console.log("TEST REGISTRED SUCESS");
-      console.log(this.props.location.state.name);
-      console.log(this.props.location.state.email);
-      console.log("TEST REGISTRED END");
-
-      this.props.history.push({
-        pathname: "/academic",
-        state: {
-          name: this.props.location.state.name,
-          email: this.props.location.state.email
-        }
-      });
-    }
-
     return (
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>

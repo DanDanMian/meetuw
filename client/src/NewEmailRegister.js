@@ -92,18 +92,18 @@ class NewEmailRegister extends Component {
 
     //send verificaiton email to user
     console.log("sending email");
-    var helper = require('sendgrid').mail;
-    var from_email = new helper.Email('app113928750@heroku.com');
+    var helper = require("sendgrid").mail;
+    var from_email = new helper.Email("app113928750@heroku.com");
     var to_email = new helper.Email(this.state.email);
-    var subject = 'Hello World from the SendGrid Node.js Library!';
-    var content = new helper.Content('text/plain', 'Hello, Email!');
+    var subject = "Hello World from the SendGrid Node.js Library!";
+    var content = new helper.Content("text/plain", "Hello, Email!");
     var mail = new helper.Mail(from_email, subject, to_email, content);
 
-    var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+    var sg = require("sendgrid")(process.env.SENDGRID_API_KEY);
     var request = sg.emptyRequest({
-      method: 'POST',
-      path: '/v3/mail/send',
-      body: mail.toJSON(),
+      method: "POST",
+      path: "/v3/mail/send",
+      body: mail.toJSON()
     });
 
     sg.API(request, function(error, response) {
@@ -127,9 +127,7 @@ class NewEmailRegister extends Component {
     const body = await response.text();
     console.log("response from server :" + body);
     this.setState({ responseToPost: body });
-  };
 
-  render() {
     if (this.state.emailValid) {
       console.log("TEST EMAIL REGISTRATION");
       console.log(this.state.name);
@@ -143,12 +141,14 @@ class NewEmailRegister extends Component {
         }
       });
     }
+  };
 
+  render() {
     return (
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>

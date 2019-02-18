@@ -78,25 +78,23 @@ class Login extends Component {
 
     if (this.state.responseToPost === "SUCCESS") {
       this.setState({ loginValid: true });
+
+      let end = this.state.email.indexOf("@");
+      let tempName = this.state.email.substring(0, end);
+
+      this.props.history.push({
+        pathname: "/academic",
+        state: { name: tempName, email: this.state.email }
+      });
     } else {
       this.setState({ error: "Login failed" });
     }
   };
 
   render() {
-    let end = this.state.email.indexOf("@");
-    let tempName = this.state.email.substring(0, end);
-
-    if (this.state.loginValid) {
-      this.props.history.push({
-        pathname: "/academic",
-        state: { name: tempName, email: this.state.email }
-      });
-    }
-
     return (
       <div className="App">
-        <img src={Logo1} width="100" height="100" />
+        <img src={Logo1} width="100" height="100" alt="Logo" />
         <h2 className="Logo">MeetUW</h2>
         <br />
         <br />

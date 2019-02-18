@@ -35,7 +35,7 @@ class NewPasswordRegister extends Component {
         <h2 className="Text">Hey! We found a matching for you.</h2>
         <form name="PasswordRegister" onSubmit={this.handleConfirm}>
           <div>
-            <img src={kubo} width="100" height="120" />
+            <img src={kubo} width="100" height="120" alt="Kubo" />
             <h3 className="Text">DW</h3>
             <h4 className="Text">computer science</h4>
             <h2 className="Text">Register for better matching</h2>

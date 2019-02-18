@@ -34,9 +34,9 @@ class AcademeInfo extends Component {
       .then(response => response.json())
       .then(data => {
         let subjectList = [];
-        let subjectSet = [];
+
         //    console.log("pulled data: "+JSON.stringify(data.data));
-        for (var i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.data.length; i++) {
           const courseSubject = data.data[i].subject;
           if (subjectList.indexOf(courseSubject) === -1) {
             subjectList.push(courseSubject);
@@ -45,7 +45,7 @@ class AcademeInfo extends Component {
         const len = subjectList.length;
         // console.log("len"+len);
         let courseList = new Array(len);
-        for (var i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.data.length; i++) {
           const courseSubject = data.data[i].subject;
           const num = data.data[i].catalog_number;
           const courseID = data.data[i].course_id;
@@ -80,6 +80,7 @@ class AcademeInfo extends Component {
     const numList = new Array(c.length);
     const idList = new Array(c.length);
     //    console.log("c: "+JSON.stringify(c));
+
     for (var i = 0; i < c.length; i++) {
       // console.log("in loop: "+c[i].number+' '+c[i].id);
       numList[i] = c[i].number;
@@ -139,14 +140,6 @@ class AcademeInfo extends Component {
     const body = await response.text();
 
     this.setState({ responseToPost: body });
-  };
-
-  render() {
-    const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
-    /* console.log("TEST ACADEMIC INFO BEGIN");
-        console.log(this.props.location.state.name);
-        console.log(this.props.location.state.email);
-        console.log("TEST ACADEMIC INFO END"); */
 
     if (this.state.responseToPost === "unmatched") {
       this.props.history.push({
@@ -156,19 +149,27 @@ class AcademeInfo extends Component {
           email: this.props.location.state.email
         }
       });
-    } else if (this.state.responseToPost != "") {
+    } else if (this.state.responseToPost !== "") {
       var userData = JSON.parse(this.state.responseToPost);
       this.props.history.push({
         pathname: "/matched",
         state: { name: userData.name, email: userData.email }
       });
     }
+  };
+
+  render() {
+    const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
+    /* console.log("TEST ACADEMIC INFO BEGIN");
+        console.log(this.props.location.state.name);
+        console.log(this.props.location.state.email);
+        console.log("TEST ACADEMIC INFO END"); */
 
     return (
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>

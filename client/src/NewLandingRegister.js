@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import UW from "./picture/uw.png";
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
 
@@ -33,6 +31,7 @@ class NewLandingRegister extends Component {
     }
 
     this.setState({ tryoutValid: true });
+    this.props.history.push("/email");
   };
 
   handleLogin = async e => {
@@ -45,6 +44,7 @@ class NewLandingRegister extends Component {
     }
 
     this.setState({ loginValid: true });
+    this.props.history.push("/login");
   };
 
   handleCateogryChange(option) {
@@ -52,25 +52,13 @@ class NewLandingRegister extends Component {
   }
 
   render() {
-    if (this.state.tryoutValid) {
-      this.props.history.push("/email");
-    }
-
-    if (this.state.loginValid) {
-      this.props.history.push("/login");
-    }
-
-    var sectionStyle = {
-      width: "100px",
-      height: "100px",
-      backgroundImage: "url(" + { UW } + ")"
-    };
     const categoryList = ["study buddy"];
+
     return (
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>

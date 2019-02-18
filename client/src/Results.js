@@ -39,14 +39,14 @@ class Results extends Component {
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
         <form name="PasswordRegister" onSubmit={this.handleBack}>
           <h2 className="Text"> Hey! We found a matching for you.</h2>
           <div>
-            <img src={kubo} width="100" height="120" />
+            <img src={kubo} width="100" height="120" alt="Kubo" />
             <div className="Text">{this.props.location.state.name}</div>
             <div className="Text">{this.props.location.state.email}</div>
           </div>
@@ -55,7 +55,7 @@ class Results extends Component {
           <br />
           <br />
           <div>
-            <Link to="/academic">
+            <Link to="/">
               <button>Start</button>
             </Link>
           </div>

@@ -36,7 +36,7 @@ class ResultNotMatched extends Component {
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" />
+            <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
@@ -52,7 +52,7 @@ class ResultNotMatched extends Component {
           <br />
           <br />
           <div>
-            <Link to="/academic">
+            <Link to="/">
               <button>Start</button>
             </Link>
           </div>
