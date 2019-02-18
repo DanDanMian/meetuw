@@ -27,13 +27,19 @@ router.post("/api/register", function(req, res) {
   //encrypt password
   var token = md5(req.body.password);
 
+  var userByEmail = { email: `${req.body.email}` };
   var userObj = { email: `${req.body.email}`, token: `${token}` };
 
-  User.create(userObj, function(err, res) {
-    if (err) throw err;
+  User.findOne(userByEmail, function(err, dbResult) {
+    if (dbResult !== null) {
+      res.send("FAIL");
+    } else {
+      User.create(userObj, function(err, res) {
+        if (err) throw err;
+      });
+      res.send("SUCCESS");
+    }
   });
-
-  res.status(200).send();
 });
 
 // function ValidateEmail(mail)

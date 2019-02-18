@@ -88,7 +88,6 @@ class NewEmailRegister extends Component {
       console.log("Validation False");
       return;
     }
-    this.setState({ emailValid: true });
 
     //send verificaiton email to user
     console.log("sending email");
@@ -128,7 +127,8 @@ class NewEmailRegister extends Component {
     console.log("response from server :" + body);
     this.setState({ responseToPost: body });
 
-    if (this.state.emailValid) {
+    if (this.state.responseToPost === "SUCCESS") {
+      this.setState({ emailValid: true });
       console.log("TEST EMAIL REGISTRATION");
       console.log(this.state.name);
       console.log(this.state.email);
@@ -140,6 +140,8 @@ class NewEmailRegister extends Component {
           email: this.state.email
         }
       });
+    } else {
+      this.setState({ error: "Register failed" });
     }
   };
 
