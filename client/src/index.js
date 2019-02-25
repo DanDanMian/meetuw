@@ -16,6 +16,7 @@ import Casual from './casual/Casual';
 
 import ResultNotMatched from './ResultNotMatched';
 import NewRegisterSuccess from './NewRegisterSuccess';
+import Daily from './casual/Daily';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -42,6 +43,11 @@ ReactDOM.render(
 		<Route
     		path='/casual'
     		render={(props) => <Casual {...props} />}
+		/>
+
+		<Route
+    		path='/daily'
+    		render={(props) => <Daily {...props} />}
 		/>
 		<Route 
 			path='/unmatched' 

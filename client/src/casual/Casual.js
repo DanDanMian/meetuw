@@ -18,19 +18,6 @@ class Casual extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      response: "",
-      category: "",
-      responseToPost: "",
-      error: ""
-    };
-
-    this.handleCateogryChange = this.handleCateogryChange.bind(this);
-  }
-
-
-  handleCateogryChange(option) {
-    this.setState({ category: option.label });
   }
 
   render() {
@@ -38,21 +25,20 @@ class Casual extends Component {
     return (
       <div className="App">
         <div>
-          <h2 className="Logo">MeetUW</h2>
+          <h2 className="Logo">Casual</h2>
+          <br />
         </div>
-          <h2 className="Text">
-          Casual
-          </h2>
           <div>
           <br/>
           <Grid container spacing={0} direction="column"
           alignItems="center" justify="center" style={{minHeight: '100vh'}}>
-          <Card style = {{width:'75%'}} >
+          <Card style = {{width:'80%'}} >
             <CardMedia style={{height:0,paddingTop:'100%'}} image={daily}></CardMedia>
 
           </Card>
           <br />
-          <Card style = {{width:'75%'}} >
+          <br />
+          <Card style = {{width:'80%'}} >
 
             <CardMedia style={{height:0,paddingTop:'100%'}} 
             image={hobby}
@@ -66,7 +52,6 @@ class Casual extends Component {
           <br />
           <br />
         <br />
-        <p className="Error">{this.state.error}</p>
       </div>
     );
   }
