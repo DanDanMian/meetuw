@@ -12,6 +12,8 @@ import AcademeInfo from './AcademeInfo';
 import Login from './Login';
 import Results from './Results';
 import GymBuddy from './GymBuddy';
+import Casual from './casual/Casual';
+
 import ResultNotMatched from './ResultNotMatched';
 import NewRegisterSuccess from './NewRegisterSuccess';
 
@@ -36,6 +38,10 @@ ReactDOM.render(
     	<Route
     		path='/matched'
     		render={(props) => <Results {...props} />}
+		/>
+		<Route
+    		path='/casual'
+    		render={(props) => <Casual {...props} />}
 		/>
 		<Route 
 			path='/unmatched' 
