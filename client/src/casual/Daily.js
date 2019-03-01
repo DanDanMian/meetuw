@@ -26,9 +26,12 @@ class Daily extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        category:""
+        category:"",
+        preference:""
     };
 this.handleCategory = this.handleCategory.bind(this);
+this.handlePreference = this.handlePreference.bind(this);
+
 this.handleSubmit = this.handleSubmit.bind(this);
 }
 
@@ -36,14 +39,18 @@ handleCategory(option) {
 //console.log('You selected term'+option.label )
     this.setState({ category: option.label });
 }
-
+handlePreference(option) {
+  //console.log('You selected term'+option.label )
+      this.setState({ preference: option.label });
+}
 
 handleSubmit(){
 
 }
 
 render() {
-  const categories = ["gym buddy","game buddy","shopping buddy","meal buddy"];
+  const categories = ["gym buddy","game buddy","shopping buddy","meal buddy","traveling partner",];
+  const preferences = ["male","female","no"];
     return (
       <div className="App">
         <div>
@@ -52,12 +59,8 @@ render() {
         <h3 className="Text">Find the category</h3>
 
           <div>
-          <Grid container spacing={0} direction="column"
-          alignItems="center" justify="center" style={{minHeight: '100vh'}}>
-          <img src={P1} width="80%" height="80%" />
           <br/>
-          <br/>
-          <br/>
+
 
           <Dropdown
                     className="Dropdown"
@@ -68,8 +71,21 @@ render() {
                     placeholder="--"
                     required
                     />
+                    <br/>
+           <h3 className="Text">Select Gender Preference</h3>
+           <br/>
 
-          </Grid>
+                <Dropdown
+                    className="Dropdown"
+                    name="category"
+                    options={preferences}
+                    value={this.state.preference}
+                    onChange={this.handlePreference}
+                    placeholder="--"
+                    required
+                    />
+          <br/>
+          <br/>
           <br/>
           <br/>
           <br/>
