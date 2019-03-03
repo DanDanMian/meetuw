@@ -8,11 +8,8 @@ import daily from "../picture/daily.png";
 
 import Card from "@material-ui/core/Card";
 
-
 import "../App.css";
 import { CardHeader, CardMedia, CardContent, Grid } from "@material-ui/core";
-
-
 
 class Casual extends Component {
   constructor(props) {
