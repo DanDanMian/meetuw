@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const db = require("../db/db");
-const Matching = db.Matching;
+const Matching = require("../db/models/matching");
 
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;

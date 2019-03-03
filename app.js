@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+const passport = require("passport");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const db = require("./db/db");
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -10,6 +15,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const staticFiles = express.static(path.join(__dirname, "./client/build"));
 app.use(staticFiles);
+
+app.use(require("body-parser").urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: "fraggle-rock", //need to pick a random string to make the hash that is generated secure
+    store: new MongoStore({ mongooseConnection: db }),
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(require("./middlewares/serveClient"));
 
