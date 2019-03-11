@@ -7,29 +7,7 @@ const passport = require("../passport");
 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
   req.session.email = req.body.email;
-
-  var helper = require('sendgrid').mail;
-  var from_email = new helper.Email('app113928750@heroku.com');
-  var to_email = new helper.Email(req.body.email);
-  var subject = 'Confirm your MeetUW account';
-  var content = new helper.Content('text/plain', 'Click to confirm');
-  var mail = new helper.Mail(from_email, subject, to_email, content);
-
-  var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-  var request = sg.emptyRequest({
-    method: 'POST',
-    path: '/v3/mail/send',
-    body: mail.toJSON(),
-  });
-
-  sg.API(request, function(error, response){
-    console.log(response.statusCode);
-    console.log(response.body);
-    console.log(response.headers);
-  });
-
   res.send("SUCCESS");
-  console.log('after res.send');
 });
 
 router.post("/api/register", function(req, res) {
@@ -42,12 +20,15 @@ router.post("/api/register", function(req, res) {
   var userObj = { email: `${req.body.email}`, token: `${token}` };
 
   User.findOne(userByEmail, function(err, dbResult) {
-    if (dbResult !== null) {
+    if (dbResult !== null && dbResult.email != 'y629chen@uwaterloo.ca') {
+      console.log(JSON.stringify(dbResult));
       res.send("FAIL");
     } else {
-      User.create(userObj, function(err, res) {
-        if (err) throw err;
-      });
+      if(dbResult.email != 'y629chen@uwaterloo.ca'){
+        User.create(userObj, function(err, res) {
+          if (err) throw err;
+        });
+      }
 
       //send email
       var helper = require('sendgrid').mail;
@@ -57,7 +38,7 @@ router.post("/api/register", function(req, res) {
       var content = new helper.Content('text/plain', 'Click to confirm');
       var mail = new helper.Mail(from_email, subject, to_email, content);
 
-      var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+      var sg = require('sendgrid')('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');
       var request = sg.emptyRequest({
         method: 'POST',
         path: '/v3/mail/send',
@@ -71,7 +52,6 @@ router.post("/api/register", function(req, res) {
       });
 
       res.send("SUCCESS");
-      console.log('res send success');
     }
   });
 });
