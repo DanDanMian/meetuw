@@ -9,13 +9,40 @@ import daily from "../picture/daily.png";
 import Card from "@material-ui/core/Card";
 
 import "../App.css";
-import { CardHeader, CardMedia, CardContent, Grid } from "@material-ui/core";
+import { ButtonBase, CardHeader, CardMedia, CardContent, Grid } from "@material-ui/core";
 
 class Casual extends Component {
   constructor(props) {
     super(props);
+    this.state ={
+      selected: false
+    }
 
+  this.handleDaily = this.handleDaliy.bind(this);
+  this.handleHobby = this.handleHobby.bind(this);
   }
+
+  handleDaliy = async e =>{
+      e.preventDefault();
+      this.setState({selected:true},()=>{
+        if (this.state.selected){
+          this.props.history.push({
+            pathname:"/daily",
+          });
+        }
+      });
+  };
+
+  handleHobby = async e =>{
+    e.preventDefault();
+    this.setState({selected:true},()=>{
+      if (this.state.selected){
+        this.props.history.push({
+          pathname:"/hobby",
+        });
+      }
+    });
+};
 
   render() {
 
@@ -24,25 +51,40 @@ class Casual extends Component {
         <div>
           <h2 className="Logo">Casual</h2>
           <br />
+          <br />
         </div>
           <div>
-          <br/>
-          <Grid container spacing={0} direction="column"
-          alignItems="center" justify="center" style={{minHeight: '100vh'}}>
-          <Card style = {{width:'80%'}} >
+          <Grid container spacing={10} direction="column"
+          alignItems="center" justify="center" >
+             <ButtonBase onClick={this.handleDaliy}  style={{ display:'block',
+    textAlign: 'initial'}}>
+          <Card style = {{width:'100%'}} >
             <CardMedia style={{height:0,paddingTop:'100%'}} image={daily}></CardMedia>
 
           </Card>
+          </ButtonBase>
           <br />
           <br />
-          <Card style = {{width:'80%'}} >
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <ButtonBase onClick={this.handleHobby}  style={{ display:'block',
+              textAlign: 'initial'}}>
+          <Card style = {{width:'100%'}} >
 
             <CardMedia style={{height:0,paddingTop:'100%'}} 
+    
             image={hobby}
             title="Hobby"></CardMedia>
-
+    
           </Card>
-
+          </ButtonBase>
           </Grid>
           </div>
 

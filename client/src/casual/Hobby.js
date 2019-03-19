@@ -93,7 +93,7 @@ render() {
     return (
       <div className="App">
         <div>
-          <h2 className="Logo">Daily Life</h2>
+          <h2 className="Logo">Hobby</h2>
         </div>
         <h3 className="Text">Find Your Hobby</h3>
 
