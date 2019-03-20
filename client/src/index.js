@@ -12,7 +12,6 @@ import AcademeInfo from './AcademeInfo';
 import Career from './Career';
 import Login from './Login';
 import Results from './Results';
-import GymBuddy from './GymBuddy';
 import Casual from './casual/Casual';
 import Hobby from './casual/Hobby';
 
@@ -38,10 +37,6 @@ ReactDOM.render(
     	<Route 
     		path='/career'
     		render={(props) => <Career {...props} />}
-    	/>
-		<Route 
-    		path='/sport'
-    		render={(props) => <GymBuddy {...props} />}
     	/>
     	<Route
     		path='/matched'
