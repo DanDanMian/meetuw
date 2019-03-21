@@ -32,20 +32,6 @@ class Results extends Component {
   };
 
   render() {
-    // if (this.state.submitted){
-    //     console.log("NOT MATCH BACK TO ACADEMIC");
-    //     console.log(this.props.location.state.name);
-    //     console.log(this.props.location.state.email);
-
-    //     this.props.history.push({
-    //         pathname: '/academic',
-    //         state: {
-    //             name: this.props.location.state.name,
-    //             email: this.props.location.state.email
-    //         }
-    //     });
-    // }
-
     return (
       <div className="App">
         <div>

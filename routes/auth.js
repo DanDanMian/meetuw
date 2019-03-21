@@ -28,39 +28,46 @@ router.post("/api/register", function(req, res) {
   //encrypt password
   var token = md5(req.body.password);
   var verified = false;
-  var confirmToken= crypto.randomBytes(20).toString('hex');
+  var confirmToken = crypto.randomBytes(20).toString("hex");
 
   var userByEmail = { email: `${req.body.email}` };
-  var userObj = { email: `${req.body.email}`, token: `${token}`, confirmToken: `${confirmToken}`,  verified: `${verified}`};
+  var userObj = {
+    email: `${req.body.email}`,
+    token: `${token}`,
+    confirmToken: `${confirmToken}`,
+    verified: `${verified}`
+  };
 
   User.findOne(userByEmail, function(err, dbResult) {
     if (dbResult !== null && req.body.devNoDB != "on") {
       console.log(JSON.stringify(dbResult));
       res.send("FAIL");
     } else {
-      if(req.body.devNoDB != "on"){
+      if (req.body.devNoDB != "on") {
         User.create(userObj, function(err, res) {
           if (err) throw err;
         });
       }
 
-      if(req.body.devNoEmail != "on"){
+      if (req.body.devNoEmail != "on") {
         //send email
-        var helper = require('sendgrid').mail;
-        var from_email = new helper.Email('app113928750@heroku.com');
+        var helper = require("sendgrid").mail;
+        var from_email = new helper.Email("app113928750@heroku.com");
         var to_email = new helper.Email(email);
-        var subject = 'Confirm your MeetUW account';
-        var content = new helper.Content('text/plain', 'Click to confirm');
+        var subject = "Confirm your MeetUW account";
+        var content = new helper.Content("text/plain", "Click to confirm");
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
-        var sg = require('sendgrid')('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');
+        var sg = require("sendgrid")(
+          "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"
+        );
         var request = sg.emptyRequest({
-          method: 'POST',
-          path: '/v3/mail/send',
-          body: mail.toJSON(),
+          method: "POST",
+          path: "/v3/mail/send",
+          body: mail.toJSON()
         });
 
-        sg.API(request, function(error, response){
+        sg.API(request, function(error, response) {
           console.log(response.statusCode);
           console.log(response.body);
           console.log(response.headers);
@@ -73,10 +80,9 @@ router.post("/api/register", function(req, res) {
 
 router.post("/api/isloggedin", function(req, res) {
   if (req.user) {
-    console.log("loggedin");
     res.send("SUCCESS");
   } else {
-    res.send("FAIL")
+    res.send("FAIL");
   }
 });
 
@@ -92,15 +98,17 @@ router.post("/api/getProfile", function(req, res) {
     Profile.findOne(userByEmail, function(err, dbResult) {
       if (err) throw err;
       if (dbResult != null) {
-        res.send({course:
-          dbResult.courseSelection.term + " " +
+        res.send({
+          course:
+            dbResult.courseSelection.term +
+            " " +
             dbResult.courseSelection.subject +
-            dbResult.courseSelection.number, match: dbResult.courseSelection.match}
-        );
+            dbResult.courseSelection.number,
+          match: dbResult.courseSelection.match
+        });
       }
     });
   }
 });
-
 
 module.exports = router;

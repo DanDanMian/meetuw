@@ -33,18 +33,30 @@ ReactDOM.render(
         render={props => <NewRegisterSuccess {...props} />}
       />
       <Route path="/login" component={Login} />
-      <Route path="/menu" render={props => <Menu {...props} />} />
+      <Route path="/menu" render={props => requireAuth(Menu)({ ...props })} />
 
       <Route path="/profile" component={requireAuth(Profile)} />
-      <Route path="/academic" render={props => <AcademeInfo {...props} />} />
-      <Route path="/career" render={props => <Career {...props} />} />
-      <Route path="/matched" render={props => <Results {...props} />} />
-      <Route path="/casual" render={props => <Casual {...props} />} />
-      <Route path="/hobby" render={props => <Hobby {...props} />} />
-      <Route path="/daily" render={props => <Daily {...props} />} />
+      <Route
+        path="/academic"
+        render={props => requireAuth(AcademeInfo)({ ...props })}
+      />
+      <Route
+        path="/career"
+        render={props => requireAuth(Career)({ ...props })}
+      />
+      <Route
+        path="/matched"
+        render={props => requireAuth(Results)({ ...props })}
+      />
+      <Route
+        path="/casual"
+        render={props => requireAuth(Casual)({ ...props })}
+      />
+      <Route path="/hobby" render={props => requireAuth(Hobby)({ ...props })} />
+      <Route path="/daily" render={props => requireAuth(Daily)({ ...props })} />
       <Route
         path="/unmatched"
-        render={props => <ResultNotMatched {...props} />}
+        render={props => requireAuth(ResultNotMatched)({ ...props })}
       />
       <Route path="/password" component={NewPasswordRegister} />
     </div>

@@ -19,11 +19,6 @@ class NewRegisterSuccess extends Component {
     e.preventDefault();
     this.setState({ submitted: true }, () => {
       if (this.state.submitted) {
-        /* console.log("TEST REGISTRED SUCESS");
-        console.log(this.props.location.state.name);
-        console.log(this.props.location.state.email);
-        console.log("TEST REGISTRED END"); */
-
         this.props.history.push({
           pathname: "/academic",
           state: {

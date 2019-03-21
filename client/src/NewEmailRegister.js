@@ -47,13 +47,13 @@ class NewEmailRegister extends Component {
     this.setState({ secondpassword: event.target.value });
   }
 
-  handleSaveDBChange(event){
+  handleSaveDBChange(event) {
     console.log(event.target.value);
-    this.setState({saveDB: event.target.value});
+    this.setState({ saveDB: event.target.value });
   }
 
-  handleSendEmailChange(event){
-    this.setState({sendEmail: event.target.value});
+  handleSendEmailChange(event) {
+    this.setState({ sendEmail: event.target.value });
   }
 
   userInputValidation(email, password, secondpassword) {
@@ -214,20 +214,14 @@ class NewEmailRegister extends Component {
           <div className="devOpt">
             Store in DB
             <label class="switch">
-              <input 
-                type="checkbox"
-                onChange={this.handleSaveDBChange}
-                />
-              <span class="slider round"></span>
+              <input type="checkbox" onChange={this.handleSaveDBChange} />
+              <span class="slider round" />
             </label>
-            <br></br>
+            <br />
             Don't send email
             <label class="switch">
-              <input 
-                type="checkbox"
-                onChange={this.handleSendEmailChange}
-                />
-              <span class="slider round"></span>
+              <input type="checkbox" onChange={this.handleSendEmailChange} />
+              <span class="slider round" />
             </label>
           </div>
           <br />
