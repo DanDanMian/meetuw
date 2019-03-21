@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const Matching = require("../db/models/matching");
+const DailyMatching = require("../db/models/new_matching");
+
 
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;
@@ -111,9 +113,89 @@ router.post("/api/match_request", function(req, res) {
       res.send(JSON.stringify(data));
     }
   });
-  }
-  else if (req.body.userCase =="CasualDaily"){
-    
+  } else if (req.body.userCase =="CasualDaily"){
+
+    var score = 0;
+    if (req.body.preference == "male") {
+        score = 3;
+    } else if (req.body.preference == "female"){
+        score = 6;
+    } 
+
+    if (req.body.gender == "male") {
+      score *= 3;
+  } else if (req.body.preference == "female"){
+      score *= 6;
+  } 
+
+    var totalScore = req.body.id*100 + score;
+    var userObj = {
+      name:`${req.body.name}`,
+      email:`${req.body.email}`,
+      userCase:`${req.body.userCase}`,
+      content:{
+        field:`${req.body.category}`,
+      },
+      score: totalScore
+    };
+
+
+    var user = {
+      name:`${req.body.name}`,
+      email:`${req.body.email}`,
+      userCase:`${req.body.userCase}`,
+      gender:`${req.body.gender}`,
+      content:{
+        field:`${req.body.category}`,
+        subfield:`${req.body.preference}`,
+      },
+      score: totalScore
+    };
+
+    DailyMatching.findOne(userObj, function(err, dbResult) {
+      if (err) throw err;
+      if (dbResult == null){
+
+        DailyMatching.create(user, function(err, dbResult) {
+          console.log("created");
+          if (err) throw err;
+        });
+      }
+    });
+
+    var query = {
+      userCase:`${req.body.userCase}`,
+      content:{
+        field:`${req.body.category}`,
+      },
+      score: totalScore
+    };
+    DailyMatching.find(query, function(err, dbResult) {
+       if (err) throw err;
+        //console.log(JSON.stringify(dbResult));
+        var MatchedList = dbResult;
+        const length = MatchedList.length;
+        var index = -1;
+        const email = req.body.email;
+        for (var i = 0; i < length; ++i) {
+            if (MatchedList[i].email != email) {
+              index = i;
+              break;
+            }
+        }
+        if (index == -1) {
+          res.send("unmatched");
+          return;
+        }
+        var Matched = MatchedList[index];
+        var data = {
+          name: `${Matched.name}`,
+          email:`${Matched.email}`,
+          gender:`${Matched.gender}`,
+        };
+        res.send(JSON.stringify(data));
+        return;
+    });
   }
 });
 

@@ -79,7 +79,7 @@ class Menu extends Component {
         </div>
         <form onSubmit={this.handleTryout}>
           <h3 className="Text">
-            Welcome! MeetUW helps you find people with the same preference.
+            MeetUW can help you find people with the same preference.
           </h3>
           <h3 className="Text"> You are looking for a </h3>
           <Dropdown
