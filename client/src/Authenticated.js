@@ -1,41 +1,62 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
-/* export default function requireAuth(Component){
+export default function requireAuth(Component) {
   class AuthenticatedComponent extends React.Component {
-    async componentWillMount() {
+    constructor() {
+      super();
+
+      this.state = {
+        isLoggedIn: false
+      };
+    }
+
+    componentWillMount() {
       this.checkAuth();
     }
 
-    checkAuth = async event => {
-      event.preventDefault();
+    componentDidMount() {
+      this.checkAuth();
+    }
 
-      const response = await fetch("/api/isloggedin", {
-        method: "GET",
+    checkAuth() {
+      fetch("/api/isloggedin", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         }
-      });
+      })
+        .then(res => res.text())
+        .then(data => {
+          if (data === "FAIL") {
+            console.log(data);
+            this.setState({ isLoggedIn: false });
+            this.props.history.push({ pathname: "/login" });
+          } else {
+            this.setState({ isLoggedIn: true });
+          }
+        });
 
-      const body = await response.text();
+      /* const body = await response.text();
       console.log(body);
 
       if (body !== "SUCCESS") {
         this.props.history.push({ pathname: "/login" });
-      }
-    };
+      } */
+    }
 
     render() {
-      return this.props.isLoggedIn ? <Component {...this.props} /> : null;
+      return <Component {...this.props} />;
+      //return this.state.isLoggedIn ? <Component {...this.props} /> : <Redirect to={"/login"} />;
     }
   }
 
   return withRouter(AuthenticatedComponent);
 }
 
-export default withRouter(AuthenticatedComponent) */
+//export default withRouter(AuthenticatedComponent)
 
-export default Component =>
+/* export default (Component) =>
   class AuthenticatedComponent extends React.Component {
     constructor() {
       super();
@@ -102,3 +123,4 @@ export default Component =>
       return this.state.isLoggedIn ? <Component {...this.props} /> : null;
     }
   };
+ */

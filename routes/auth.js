@@ -73,7 +73,10 @@ router.post("/api/register", function(req, res) {
 
 router.post("/api/isloggedin", function(req, res) {
   if (req.user) {
+    console.log("loggedin");
     res.send("SUCCESS");
+  } else {
+    res.send("FAIL")
   }
 });
 
