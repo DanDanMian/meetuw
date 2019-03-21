@@ -113,38 +113,52 @@ router.post("/api/match_request", function(req, res) {
       res.send(JSON.stringify(data));
     }
   });
-  } else if (req.body.userCase =="CasualDaily"){
-
+  } else if (req.body.userCase =="CasualDaily" 
+  || req.body.userCase =="CasualHobby"){
     var score = 0;
-    if (req.body.preference == "male") {
-        score = 3;
-    } else if (req.body.preference == "female"){
-        score = 6;
+    var totalScore = 0;
+    if (req.body.userCase =="CasualDaily" ) {
+      if (req.body.preference == "male") {
+          score = 3;
+      } else if (req.body.preference == "female"){
+         score = 6;
+      } 
+      if (req.body.gender == "male") {
+        score *= 3;
+      } else if (req.body.preference == "female"){
+        score *= 6;
+      } 
+      totalScore = req.body.id*100 + score;
+    } else{
+      totalScore = req.body.id1*1000 + req.body.id2*20;
     } 
-
-    if (req.body.gender == "male") {
-      score *= 3;
-  } else if (req.body.preference == "female"){
-      score *= 6;
-  } 
-
-    var totalScore = req.body.id*100 + score;
     var userObj = {
       name:`${req.body.name}`,
       email:`${req.body.email}`,
       userCase:`${req.body.userCase}`,
       content:{
         field:`${req.body.category}`,
+        subfield:`${req.body.preference}`,
       },
       score: totalScore
     };
 
-
-    var user = {
+    var daily = {
       name:`${req.body.name}`,
       email:`${req.body.email}`,
       userCase:`${req.body.userCase}`,
       gender:`${req.body.gender}`,
+      content:{
+        field:`${req.body.category}`,
+        subfield:`${req.body.preference}`,
+      },
+      score: totalScore
+    };    
+
+    var hobby = {
+      name:`${req.body.name}`,
+      email:`${req.body.email}`,
+      userCase:`${req.body.userCase}`,
       content:{
         field:`${req.body.category}`,
         subfield:`${req.body.preference}`,
@@ -155,24 +169,23 @@ router.post("/api/match_request", function(req, res) {
     DailyMatching.findOne(userObj, function(err, dbResult) {
       if (err) throw err;
       if (dbResult == null){
-
-        DailyMatching.create(user, function(err, dbResult) {
+        var ub = null;
+        if (req.body.userCase == "CasualDaily") {
+            ub = daily; 
+        } else {
+            ub = hobby; 
+        }
+        DailyMatching.create(ub, function(err, dbResult) {
           console.log("created");
           if (err) throw err;
         });
       }
     });
 
-    var query = {
-      userCase:`${req.body.userCase}`,
-      content:{
-        field:`${req.body.category}`,
-      },
-      score: totalScore
-    };
+    var query = {score: totalScore};
     DailyMatching.find(query, function(err, dbResult) {
        if (err) throw err;
-        //console.log(JSON.stringify(dbResult));
+        console.log(JSON.stringify(dbResult));
         var MatchedList = dbResult;
         const length = MatchedList.length;
         var index = -1;
@@ -191,7 +204,7 @@ router.post("/api/match_request", function(req, res) {
         var data = {
           name: `${Matched.name}`,
           email:`${Matched.email}`,
-          gender:`${Matched.gender}`,
+
         };
         res.send(JSON.stringify(data));
         return;

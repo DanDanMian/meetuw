@@ -45,7 +45,7 @@ class Casual extends Component {
           pathname:"/hobby",
           state:{
             name:this.props.location.state.name,
-            email:this.props.location.email
+            email:this.props.location.state.email
           }
         });
       }
