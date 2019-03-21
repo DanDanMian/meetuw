@@ -1,24 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "react-dropdown/style.css";
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
-import Select from '@material-ui/core/Select';
-import hobby from "../picture/hobby.png";
-import daily from "../picture/daily.png";
-import P1 from "../picture/P1.png";
-
 import Dropdown from "react-dropdown";
-
-
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-
-
 import "../App.css";
-import { CardHeader, CardMedia, CardContent, Grid, GridListTile,GridList } from "@material-ui/core";
 
-
+const categories = ["gym buddy","game buddy","shopping buddy","meal buddy","traveling mate"];
+const preferences = ["female","male"];
+const genders = ["female", "male"];
 
 
 
@@ -27,10 +15,12 @@ class Daily extends Component {
     super(props);
     this.state = {
         category:"",
-        preference:""
+        preference:"",
+        gender:"",
     };
 this.handleCategory = this.handleCategory.bind(this);
 this.handlePreference = this.handlePreference.bind(this);
+this.handleGender = this.handleGender.bind(this);
 this.handleSubmit = this.handleSubmit.bind(this);
 }
 
@@ -47,9 +37,15 @@ handlePreference(option) {
   console.log(JSON.stringify(this.state));
 }
 
+
+handleGender(option){
+  //console.log('You selected term'+option.label )
+  this.state.gender = option.label;
+  console.log(JSON.stringify(this.state));
+}
+
 handleSubmit = async e => {
   e.preventDefault();
-  console.log("kkkkkkkkkkkkkkkkk");
   // Form Validation
   if (this.state.category === "") {
     this.setState({ error: "category cannot be empty" });
@@ -60,6 +56,7 @@ handleSubmit = async e => {
   }
   console.log("print course id before sumbit: ");
 
+  var index= categories.indexOf(this.state.category);
 
   const response = await fetch("api/match_request", {
     method: "POST",
@@ -69,9 +66,11 @@ handleSubmit = async e => {
     body: JSON.stringify({
       name: this.props.location.state.name,
       email: this.props.location.state.email,
-      category: this.props.location.state.category,
-      preference:this.props.location.state.preference,
-      useCase:"casualDaily"
+      category: this.state.category,
+      preference:this.state.preference,
+      gender:this.state.gender,
+      id: index+1,
+      userCase:"CasualDaily"
     })
   });
 
@@ -98,8 +97,6 @@ handleSubmit = async e => {
 
 
 render() {
-  const categories = ["gym buddy","game buddy","shopping buddy","meal buddy","traveling partner",];
-  const preferences = ["male","female","no"];
     return (
       <div className="App">
         <div>
@@ -133,11 +130,20 @@ render() {
                     required
                     />
           <br/>
+          < h3 className="Text">Select Your Gender</h3>
+          <br/>
+          <Dropdown
+                    className="Dropdown"
+                    name="category"
+                    options={genders}
+                    value={this.state.gender}
+                    onChange={this.handleGender}
+                    placeholder="--"
+                    required
+                    />
           <br/>
           <br/>
           <br/>
-          <br/>
-
           </div>
           <input type="submit" value="submit" onChange={this.handleSubmit} />
           </form>

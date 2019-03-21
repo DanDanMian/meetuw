@@ -1,22 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "react-dropdown/style.css";
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
-import Select from '@material-ui/core/Select';
-import hobby from "../picture/hobby.png";
-import daily from "../picture/daily.png";
-import P1 from "../picture/P1.png";
-
 import Dropdown from "react-dropdown";
-
-
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-
-
 import "../App.css";
-import { CardHeader, CardMedia, CardContent, Grid, GridListTile,GridList } from "@material-ui/core";
 
 
 
