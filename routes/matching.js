@@ -172,8 +172,7 @@ router.post("/api/match_request", function(req, res) {
     };
     DailyMatching.find(query, function(err, dbResult) {
        if (err) throw err;
-        console.log("noSSSSSS");
-        console.log(JSON.stringify(dbResult));
+        //console.log(JSON.stringify(dbResult));
         var MatchedList = dbResult;
         const length = MatchedList.length;
         var index = -1;
