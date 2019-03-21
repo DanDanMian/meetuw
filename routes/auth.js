@@ -1,14 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const md5 = require("md5");
-const User = require("../db/models/user");
 var crypto = require("crypto");
+
+const User = require("../db/models/user");
+const Profile = require("../db/models/profile");
 
 const passport = require("../passport");
 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
-  req.session.email = req.body.email;
+  //req.session.email = req.body.email;
   res.send("SUCCESS");
+});
+
+router.post("/api/logout", function(req, res) {
+  req.logout();
+  req.session.destroy(err => {
+    if (err) return next(err);
+    res.clearCookie("connect.sid");
+    res.send("SUCCESS");
+  });
 });
 
 router.post("/api/register", function(req, res) {
@@ -60,6 +71,33 @@ router.post("/api/register", function(req, res) {
   });
 });
 
+router.post("/api/isloggedin", function(req, res) {
+  if (req.user) {
+    res.send("SUCCESS");
+  }
+});
+
+router.post("/api/getEmail", function(req, res) {
+  if (req.user) {
+    res.send(req.user.email);
+  }
+});
+
+router.post("/api/getProfile", function(req, res) {
+  if (req.user) {
+    var userByEmail = { email: `${req.user.email}` };
+    Profile.findOne(userByEmail, function(err, dbResult) {
+      if (err) throw err;
+      if (dbResult != null) {
+        res.send({course:
+          dbResult.courseSelection.term + " " +
+            dbResult.courseSelection.subject +
+            dbResult.courseSelection.number, match: dbResult.courseSelection.match}
+        );
+      }
+    });
+  }
+});
+
 
 module.exports = router;
-

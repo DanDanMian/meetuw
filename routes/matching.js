@@ -4,6 +4,7 @@ const router = express.Router();
 const Matching = require("../db/models/matching");
 const DailyMatching = require("../db/models/new_matching");
 
+const Profile = require("../db/models/profile");
 
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;
@@ -43,6 +44,30 @@ router.post("/api/match_request", function(req, res) {
     },
     score: totalScore
   };
+
+  var profObj = {
+    email: `${req.body.email}`,
+    courseSelection: {
+      term: `${req.body.term}`,
+      subject: `${req.body.subject}`,
+      number: `${req.body.number}`,
+      match: ""
+    }
+  };
+
+  // Add to profile
+  Profile.findOne(profObj, function(err, dbResult) {
+    if (err) throw err;
+    if (dbResult == null) {
+      Profile.create(profObj, function(err, dbResult) {
+        if (err) throw err;
+      });
+    } else {
+      Profile.updateOne(profObj, function(err, dbResult) {
+        if (err) throw err;
+      });
+    }
+  });
 
   Matching.findOne(userObj, function(err, dbResult) {
     if (err) throw err;
@@ -109,6 +134,20 @@ router.post("/api/match_request", function(req, res) {
         name: `${randMatched.name}`,
         email: `${randMatched.email}`
       };
+
+      var userByEmail = {
+        email: `${req.body.email}`,
+        courseSelection: {
+          term: `${req.body.term}`,
+          subject: `${req.body.subject}`,
+          number: `${req.body.number}`,
+          match: randMatched.email
+        }
+      };
+      
+      Profile.updateOne(userByEmail, function(err, dbResult) {
+        if (err) throw err;
+      });
 
       res.send(JSON.stringify(data));
     }

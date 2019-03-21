@@ -6,30 +6,30 @@ import "./App.css";
 import Logo1 from "./picture/Logo1.png";
 
 class Results extends Component {
-    constructor(props){
-         super(props);
+  constructor(props) {
+    super(props);
 
-   this.state = {
-       submitted: false
-   };
+    this.state = {
+      submitted: false
+    };
 
-  this.handleBack = this.handleBack.bind(this);
+    this.handleBack = this.handleBack.bind(this);
   }
 
-   handleBack = async e => {
-      e.preventDefault();
-      this.setState({submitted:true},()=>{
-        if (this.state.submitted){
-          this.props.history.push({
-            pathname:"/menu",
-            state:{
-              name: this.props.location.state.name,
-              email:this.props.location.state.email
-            }
-          });
-        }
-      });
-  }; 
+  handleBack = async e => {
+    e.preventDefault();
+    this.setState({ submitted: true }, () => {
+      if (this.state.submitted) {
+        this.props.history.push({
+          pathname: "/menu",
+          state: {
+            name: this.props.location.state.name,
+            email: this.props.location.state.email
+          }
+        });
+      }
+    });
+  };
 
   render() {
     // if (this.state.submitted){
@@ -65,8 +65,11 @@ class Results extends Component {
           <br />
           <div>
             <form onSubmit={this.handleBack}>
-              <input type = "submit" value="Back to Menu Page" />
+              <input type="submit" value="Back to Menu Page" />
             </form>
+            <Link to="/profile">
+              <button>Profile</button>
+            </Link>
           </div>
         </form>
       </div>

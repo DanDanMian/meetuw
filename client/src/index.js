@@ -20,6 +20,8 @@ import ResultNotMatched from './ResultNotMatched';
 import NewRegisterSuccess from './NewRegisterSuccess';
 
 import Daily from './casual/Daily';
+import Profile from './Profile';
+import RequireAuth from './Authenticated'
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -27,7 +29,7 @@ ReactDOM.render(
 	    <Route exact path="/" component={NewLandingRegister} />
 	    <Route path='/email' component={NewEmailRegister}/>
 	    <Route 
-			path='/registered' 
+			path='/registered'
 			render={(props) => <NewRegisterSuccess {...props} />}
 		/>
     	<Route path='/login' component={Login} />
@@ -35,6 +37,7 @@ ReactDOM.render(
 			render={(props) => <Menu {...props}/>}
 	     />
 
+		<Route path='/profile' component={Profile} />
     	<Route 
     		path='/academic'
     		render={(props) => <AcademeInfo {...props} />}
