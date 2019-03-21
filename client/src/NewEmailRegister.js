@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
+import "./slider.css";
 
 class NewEmailRegister extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class NewEmailRegister extends Component {
       secondpassword: "",
       emailValid: false,
       error: "",
-      responseToPost: "400"
+      responseToPost: "400",
+      saveDB: "",
+      sendEmail: ""
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -24,6 +27,8 @@ class NewEmailRegister extends Component {
       this
     );
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSendEmailChange = this.handleSendEmailChange.bind(this);
+    this.handleSaveDBChange = this.handleSaveDBChange.bind(this);
   }
 
   handleNameChange(event) {
@@ -40,6 +45,15 @@ class NewEmailRegister extends Component {
 
   handlePasswordConfirmationChange(event) {
     this.setState({ secondpassword: event.target.value });
+  }
+
+  handleSaveDBChange(event){
+    console.log(event.target.value);
+    this.setState({saveDB: event.target.value});
+  }
+
+  handleSendEmailChange(event){
+    this.setState({sendEmail: event.target.value});
   }
 
   userInputValidation(email, password, secondpassword) {
@@ -120,7 +134,9 @@ class NewEmailRegister extends Component {
       body: JSON.stringify({
         name: this.state.name,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        devNoDB: this.state.saveDB,
+        devNoEmail: this.state.sendEmail
       })
     });
     const body = await response.text();
@@ -194,6 +210,25 @@ class NewEmailRegister extends Component {
               placeholder="confirm password"
               required
             />
+          </div>
+          <div className="devOpt">
+            Store in DB
+            <label class="switch">
+              <input 
+                type="checkbox"
+                onChange={this.handleSaveDBChange}
+                />
+              <span class="slider round"></span>
+            </label>
+            <br></br>
+            Don't send email
+            <label class="switch">
+              <input 
+                type="checkbox"
+                onChange={this.handleSendEmailChange}
+                />
+              <span class="slider round"></span>
+            </label>
           </div>
           <br />
           <input type="submit" value="submit" onChange={this.handleSubmit} />
