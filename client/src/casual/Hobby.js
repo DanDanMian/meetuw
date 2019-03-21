@@ -70,23 +70,65 @@ this.handleSubmit = this.handleSubmit.bind(this);
 handleCategory(option) {
 
     this.state.field = option.label;
-    console.log(option.label);
-
+    //console.log(option.label);
+    this.state.subfeild = "";
     const index = categories.indexOf(this.state.field);
     const select = subFields.subfeild[index].fields;
     this.setState({ fields: select});
-    console.log( select);
-
-
 }
 
 handleSubField(option) {
-    this.setState({ subfeild: option.label });
+  this.state.subfeild = option.label;
+  //console.log(JSON.stringify(this.state));
+
  }
 
-handleSubmit(){
+ handleSubmit = async e => {
+  e.preventDefault();
+  //console.log(JSON.stringify(this.state));
+  // Form Validation
+  if (this.state.field === "") {
+    this.setState({ error: "field cannot be empty" });
+    return;
+  } else if (this.state.fields === "") {
+    this.setState({ error: "subfields" });
+    return;
+  }
 
-}
+
+  const response = await fetch("/api/match_request", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: this.props.location.state.name,
+      email: this.props.location.state.email,
+      category: this.props.location.state.field,
+      preference:this.props.location.state.subfeild
+    })
+  });
+
+  const body = await response.text();
+
+  this.setState({ responseToPost: body });
+
+  if (this.state.responseToPost === "unmatched") {
+    this.props.history.push({
+      pathname: "/unmatched",
+      state: {
+        name: this.props.location.state.name,
+        email: this.props.location.state.email
+      }
+    });
+  } else if (this.state.responseToPost !== "") {
+    var userData = JSON.parse(this.state.responseToPost);
+    this.props.history.push({
+      pathname: "/matched",
+      state: { name: userData.name, email: userData.email }
+    });
+  }
+};
 
 render() {
   
@@ -95,14 +137,11 @@ render() {
         <div>
           <h2 className="Logo">Hobby</h2>
         </div>
+        <form onSubmit={this.handleSubmit}>
         <h3 className="Text">Find Your Hobby</h3>
-
           <div>
-
           <br/>
           <br/>
-
-
           <Dropdown
                     className="Dropdown"
                     name="category"
@@ -132,6 +171,7 @@ render() {
           <br/>
           <br/>
           <input type="submit" value="submit" onChange={this.handleSubmit} />
+          </form>
           <br />
           <br />
         <br />

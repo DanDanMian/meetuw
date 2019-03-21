@@ -133,7 +133,8 @@ class AcademeInfo extends Component {
         term: this.state.term,
         subject: this.state.subject,
         number: this.state.number,
-        id: this.state.courseIDState
+        id: this.state.courseIDState,
+        userCase: "Academic"
       })
     });
 

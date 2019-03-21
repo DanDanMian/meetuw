@@ -5,7 +5,7 @@ import Logo1 from "./picture/Logo1.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
-class AcademeInfo extends Component {
+class Career extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,4 +124,4 @@ class AcademeInfo extends Component {
   }
 }
 
-export default AcademeInfo;
+export default Career;

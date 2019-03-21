@@ -83,7 +83,7 @@ class Login extends Component {
       let tempName = this.state.email.substring(0, end);
 
       this.props.history.push({
-        pathname: "/academic",
+        pathname: "/menu",
         state: { name: tempName, email: this.state.email }
       });
     } else {

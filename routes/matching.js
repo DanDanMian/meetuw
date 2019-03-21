@@ -10,8 +10,12 @@ function sortMatched(a, b) {
 }
 
 router.post("/api/match_request", function(req, res) {
-  var termScore = "0";
 
+
+  //try to match a study buddy
+  if (req.body.userCase == "Academic") {
+  var termScore = "0";
+  console.log("Academic");
   //translate term string to term number
   if (req.body.term == "Fall 2018") {
     termNum = 1189;
@@ -107,6 +111,10 @@ router.post("/api/match_request", function(req, res) {
       res.send(JSON.stringify(data));
     }
   });
+  }
+  else if (req.body.userCase =="CasualDaily"){
+    
+  }
 });
 
 module.exports = router;

@@ -31,22 +31,71 @@ class Daily extends Component {
     };
 this.handleCategory = this.handleCategory.bind(this);
 this.handlePreference = this.handlePreference.bind(this);
-
 this.handleSubmit = this.handleSubmit.bind(this);
 }
 
 handleCategory(option) {
+
 //console.log('You selected term'+option.label )
-    this.setState({ category: option.label });
+    this.state.category = option.label;
+    console.log(JSON.stringify(this.state));
+
 }
 handlePreference(option) {
   //console.log('You selected term'+option.label )
-      this.setState({ preference: option.label });
+  this.state.preference = option.label;
+  console.log(JSON.stringify(this.state));
 }
 
-handleSubmit(){
+handleSubmit = async e => {
+  e.preventDefault();
+  console.log("kkkkkkkkkkkkkkkkk");
+  // Form Validation
+  if (this.state.category === "") {
+    this.setState({ error: "category cannot be empty" });
+    return;
+  } else if (this.state.preference === "") {
+    this.setState({ error: "preference" });
+    return;
+  }
+  console.log("print course id before sumbit: ");
 
-}
+
+  const response = await fetch("api/match_request", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: this.props.location.state.name,
+      email: this.props.location.state.email,
+      category: this.props.location.state.category,
+      preference:this.props.location.state.preference,
+      useCase:"casualDaily"
+    })
+  });
+
+  const body = await response.text();
+
+  this.setState({ responseToPost: body });
+
+  if (this.state.responseToPost === "unmatched") {
+    this.props.history.push({
+      pathname: "/unmatched",
+      state: {
+        name: this.props.location.state.name,
+        email: this.props.location.state.email
+      }
+    });
+  } else if (this.state.responseToPost !== "") {
+    var userData = JSON.parse(this.state.responseToPost);
+    this.props.history.push({
+      pathname: "/matched",
+      state: { name: userData.name, email: userData.email }
+    });
+  }
+};
+
 
 render() {
   const categories = ["gym buddy","game buddy","shopping buddy","meal buddy","traveling partner",];
@@ -56,12 +105,11 @@ render() {
         <div>
           <h2 className="Logo">Daily Life</h2>
         </div>
+        <form onSubmit={this.handleSubmit}>
         <h3 className="Text">Find the category</h3>
 
           <div>
           <br/>
-
-
           <Dropdown
                     className="Dropdown"
                     name="category"
@@ -92,6 +140,7 @@ render() {
 
           </div>
           <input type="submit" value="submit" onChange={this.handleSubmit} />
+          </form>
           <br />
           <br />
         <br />

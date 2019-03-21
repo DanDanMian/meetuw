@@ -14,6 +14,7 @@ import Login from './Login';
 import Results from './Results';
 import Casual from './casual/Casual';
 import Hobby from './casual/Hobby';
+import Menu from './Menu';
 
 import ResultNotMatched from './ResultNotMatched';
 import NewRegisterSuccess from './NewRegisterSuccess';
@@ -30,6 +31,10 @@ ReactDOM.render(
 			render={(props) => <NewRegisterSuccess {...props} />}
 		/>
     	<Route path='/login' component={Login} />
+		<Route path='/menu'
+			render={(props) => <Menu {...props}/>}
+	     />
+
     	<Route 
     		path='/academic'
     		render={(props) => <AcademeInfo {...props} />}

@@ -28,6 +28,10 @@ class Casual extends Component {
         if (this.state.selected){
           this.props.history.push({
             pathname:"/daily",
+            state:{
+              name: this.props.location.state.name,
+              email:this.props.location.state.email
+            }
           });
         }
       });
@@ -39,6 +43,10 @@ class Casual extends Component {
       if (this.state.selected){
         this.props.history.push({
           pathname:"/hobby",
+          state:{
+            name:this.props.location.state.name,
+            email:this.props.location.email
+          }
         });
       }
     });
