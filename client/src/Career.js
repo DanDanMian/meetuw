@@ -5,6 +5,9 @@ import Logo1 from "./picture/Logo1.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
+const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
+const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area"];
+
 class Career extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +43,9 @@ class Career extends Component {
       return;
     }
 
-    console.log("print course id before sumbit: " + this.state.courseIDState);
+    var index1= termOptions.indexOf(this.state.term);
+    var index2= cityOptions.indexOf(this.state.city);
+
 
     const response = await fetch("/api/match_request", {
       method: "POST",
@@ -48,12 +53,13 @@ class Career extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        id1:index1+1,
+        id2:index2+2,
         name: this.props.location.state.name,
         email: this.props.location.state.email,
-        term: this.state.term,
-        subject: this.state.subject,
-        number: this.state.number,
-        id: this.state.courseIDState
+        category: this.state.term,
+        preference: this.state.city,
+        userCase: "Career"
       })
     });
 
@@ -79,9 +85,7 @@ class Career extends Component {
   };
 
   render() {
-    const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
-    const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area"];
-
+  
     return (
       <div className="App">
         <div>
