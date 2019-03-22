@@ -77,10 +77,11 @@ router.post("/api/activite", function(req,res){
   User.findOne(userByToken, function(err, result){
     if(err) throw err;
     if(result != null){
-      userByToken.confirmToken = null;
-      userByToken.verified = true;
-      User.updateOne(userByToken,function(err, res){
-
+      console.log(JSON.stringify(result));
+      var newvalues = {$set:{confirmToken:null, verified:true}};
+      console.log(JSON.stringify(newvalues));
+      User.updateOne(result,newvalues, function(err, res){
+        if(err) throw err;
       });
       res.send("SUCCESS");
     }
