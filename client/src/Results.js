@@ -6,35 +6,32 @@ import "./App.css";
 import Logo1 from "./picture/Logo1.png";
 
 class Results extends Component {
-  //  constructor(props){
-  //       super(props);
+  constructor(props) {
+    super(props);
 
-  // this.state = {
-  //     submitted: false
-  // };
+    this.state = {
+      submitted: false
+    };
 
-  // this.handleBack = this.handleBack.bind(this);
-  //   }
+    this.handleBack = this.handleBack.bind(this);
+  }
 
-  // handleBack = async e => {
-  //     this.setState({ submitted: true });
-  // }
+  handleBack = async e => {
+    e.preventDefault();
+    this.setState({ submitted: true }, () => {
+      if (this.state.submitted) {
+        this.props.history.push({
+          pathname: "/menu",
+          state: {
+            name: this.props.location.state.name,
+            email: this.props.location.state.email
+          }
+        });
+      }
+    });
+  };
 
   render() {
-    // if (this.state.submitted){
-    //     console.log("NOT MATCH BACK TO ACADEMIC");
-    //     console.log(this.props.location.state.name);
-    //     console.log(this.props.location.state.email);
-
-    //     this.props.history.push({
-    //         pathname: '/academic',
-    //         state: {
-    //             name: this.props.location.state.name,
-    //             email: this.props.location.state.email
-    //         }
-    //     });
-    // }
-
     return (
       <div className="App">
         <div>
@@ -52,11 +49,12 @@ class Results extends Component {
           </div>
           <br />
           <br />
-          <br />
-          <br />
           <div>
-            <Link to="/">
-              <button>Start</button>
+            <form onSubmit={this.handleBack}>
+              <input type="submit" value="Back to Menu Page" />
+            </form>
+            <Link to="/profile">
+              <button>Profile</button>
             </Link>
           </div>
         </form>

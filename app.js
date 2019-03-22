@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/", require("./routes/auth"));
 app.use("/", require("./routes/matching"));
+app.use("/", require("./routes/user"));
 
 app.listen(port, function() {
   console.log("Run on port " + port);

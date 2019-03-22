@@ -19,10 +19,8 @@ class Menu extends Component {
     };
 
     this.handleCateogryChange = this.handleCateogryChange.bind(this);
-    this.handleSelect =  this.handleSelect.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
-
-
 
   handleSelect = async e => {
     e.preventDefault();
@@ -34,31 +32,30 @@ class Menu extends Component {
     }
 
     this.setState({ loginValid: true });
-    if (this.state.category =="Academic"){
+    if (this.state.category == "Academic") {
       this.props.history.push({
-        pathname:"/academic",
-        state:{
+        pathname: "/academic",
+        state: {
           name: this.props.location.state.name,
-          email:this.props.location.state.email
-
+          email: this.props.location.state.email
         }
       });
-    } else if (this.state.category =="Casual"){
+    } else if (this.state.category == "Casual") {
       this.props.history.push({
-        pathname:"/casual",
-        state:{
+        pathname: "/casual",
+        state: {
           name: this.props.location.state.name,
-          email:this.props.location.state.email
+          email: this.props.location.state.email
         }
       });
     } else {
       this.props.history.push({
-        pathname:"/career",
-      state:{
-        name: this.props.location.state.name,
-        email:this.props.location.state.email
-      }
-    });
+        pathname: "/career",
+        state: {
+          name: this.props.location.state.name,
+          email: this.props.location.state.email
+        }
+      });
     }
   };
 
@@ -67,7 +64,7 @@ class Menu extends Component {
   }
 
   render() {
-    const categoryList = ["Academic","Casual","Career"];
+    const categoryList = ["Academic", "Casual", "Career"];
 
     return (
       <div className="App">
@@ -79,7 +76,7 @@ class Menu extends Component {
         </div>
         <form onSubmit={this.handleTryout}>
           <h3 className="Text">
-            Welcome! MeetUW helps you find people with the same preference.
+            MeetUW can help you find people with the same preference.
           </h3>
           <h3 className="Text"> You are looking for a </h3>
           <Dropdown

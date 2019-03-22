@@ -1,28 +1,14 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "react-dropdown/style.css";
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
-import Select from '@material-ui/core/Select';
-import hobby from "../picture/hobby.png";
-import daily from "../picture/daily.png";
-import P1 from "../picture/P1.png";
-
 import Dropdown from "react-dropdown";
-
-
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-
-
 import "../App.css";
-import { CardHeader, CardMedia, CardContent, Grid, GridListTile,GridList } from "@material-ui/core";
 
 
 
 const categories = ["sport","music","film","book","art"];
 
-const subFields = {"subfeild":[
+const subFields = {"subfield":[
     {
         "hobby":"sport",
         "fields": ["NBA","hockey","skating","bowling","marathon","soccer","tennis","football","baseball",
@@ -58,8 +44,8 @@ class Hobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        field:"",
-        subfeild:"",
+         field:"",
+        subfield:"",
         fields:[]
     };
 this.handleCategory = this.handleCategory.bind(this);
@@ -71,14 +57,14 @@ handleCategory(option) {
 
     this.state.field = option.label;
     //console.log(option.label);
-    this.state.subfeild = "";
+    this.state.subfield = "";
     const index = categories.indexOf(this.state.field);
-    const select = subFields.subfeild[index].fields;
+    const select = subFields.subfield[index].fields;
     this.setState({ fields: select});
 }
 
 handleSubField(option) {
-  this.state.subfeild = option.label;
+  this.state.subfield = option.label;
   //console.log(JSON.stringify(this.state));
 
  }
@@ -94,6 +80,8 @@ handleSubField(option) {
     this.setState({ error: "subfields" });
     return;
   }
+  var index1= categories.indexOf(this.state.field);
+  var index2= subFields.subfield[index1].fields.indexOf(this.state.subfield);
 
 
   const response = await fetch("/api/match_request", {
@@ -102,10 +90,13 @@ handleSubField(option) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
+      id1:index1+1,
+      id2:index2+1,
       name: this.props.location.state.name,
       email: this.props.location.state.email,
-      category: this.props.location.state.field,
-      preference:this.props.location.state.subfeild
+      category: this.state.field,
+      preference:this.state.subfield,
+      userCase: "CasualHobby"
     })
   });
 
@@ -160,7 +151,7 @@ render() {
                     className="Dropdown"
                     name="sub field"
                     options={this.state.fields}
-                    value={this.state.subfeild}
+                    value={this.state.subfield}
                     onChange={this.handleSubField}
                     placeholder="--"
                     required

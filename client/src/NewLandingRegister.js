@@ -52,7 +52,13 @@ class NewLandingRegister extends Component {
   }
 
   render() {
-    const categoryList = ["study buddy"];
+    const categoryList = [
+      "study buddy",
+      "gym buddy",
+      "game buddy",
+      "friend with same hobbies",
+      "traveling mate"
+    ];
 
     return (
       <div className="App">
