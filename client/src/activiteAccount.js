@@ -1,65 +1,37 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
 
 class activiteAccount extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     var url = new URL(window.location);
     var token = url.searchParams.get("t");
     console.log(token);
 
-    this.state ={
+    this.state = {
       token: token,
       responseToPost: "400"
-    }
+    };
 
     fetch("/api/activite", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({token : token})
+      body: JSON.stringify({ token: token })
     })
-    .then(function(response){ 
-      console.log(response.text());
-      this.setState.responseToPost = response.text();
-    })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        this.setState({ responseToPost: data });
+      });
   }
 
-  
-    // fetch("/api/activite", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({token : this.state.token})
-    // })
-    // .then(function(response){ 
-    //   console.log(response.text());
-    //   this.setState.responseToPost = response.text();
-    // })
- 
-
-  handleSubmit = async event => {
-    console.log("submit called");
-
-    const response = await fetch("/api/activite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        token: this.state.token
-      })
-    });
-    const body = await response.text();
-    console.log("response from server :" + body);
-    this.setState({responseToPost: body});
-  }
-  render(){
-    return(
+  render() {
+    return (
       <div className="App">
         <div>
           <div>
@@ -71,8 +43,6 @@ class activiteAccount extends Component {
       </div>
     );
   }
-  
-  handleSubmit;
 }
 
-export default activiteAccount;
+export default withRouter(activiteAccount);
