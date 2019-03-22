@@ -20,7 +20,7 @@ export default function requireAuth(Component) {
     }
 
     checkAuth() {
-      fetch("/api/isloggedin", {
+      fetch("/api/isLoggedIn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
