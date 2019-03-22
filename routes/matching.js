@@ -3,11 +3,61 @@ const router = express.Router();
 
 const Matching = require("../db/models/matching");
 
+// Category
+const Academic = "Academic"
+const Career = "Career"
+const Casual = "Casual"
+
+
+const Limit = 20            // This defines the number requests
+                            // needed to stored in the matching table
+
+
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;
   if (a.score > b.score) return 1;
   return 0;
 }
+
+// EXAMPLE OF MATCH REQUEST
+    // {
+    //   "useCase": "academic",
+    //   "criteria": {
+    //     "course": {
+    //       "term": 1189,
+    //       "subject": "CS",
+    //       "catalog_number": "493"
+    //     }
+    //   }
+    // }
+
+// ********************* MATCHING ALGORITHM *********************
+// NOTE: the matching logic will be split into two parts
+  // 1. Calculate the total score of the user 
+  // 2. Find a match
+
+// ********************* PART 1 *********************
+// academic_score, career_score, casual_score = 0
+// If req.body.userCase == Academic
+      // academic_score = calculate_academic_score(term, subject, catalog_number)
+      // Create userObj and post to academic table
+// Else If req.body.userCase == Career
+      // career_score = calculate_career_score(term, city)
+      // Create userObj and post to career table
+// Else If req.body.userCase == Casual
+      // casual_score = calculate_casual_score(...)
+      // Create userObj and post to casual table
+
+// academic_total_score = ... (formula TBD)
+// career_total_score = ... (formula TBD)
+// casual_total_score = ... (formula TBD)
+// Create userObj and post to matching table
+
+// ********************* PART 2 *********************
+// If Matching.table_size >= LIMIT
+//    Perform MATCHING ALGO (which we could use the original logic I guess???)
+//    Original logic with condition added
+
 
 router.post("/api/match_request", function(req, res) {
 
