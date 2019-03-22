@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 import NewLandingRegister from './NewLandingRegister';
 import NewPasswordRegister from './NewPasswordRegister';
+import activiteAccount from './activiteAccount';
 import NewEmailRegister from './NewEmailRegister';
 import AcademeInfo from './AcademeInfo';
 import Career from './Career';
@@ -28,6 +29,7 @@ ReactDOM.render(
 	  <div>
 	    <Route exact path="/" component={NewLandingRegister} />
 	    <Route path='/email' component={NewEmailRegister}/>
+			<Route path='/activite' component={activiteAccount}/>
 	    <Route 
 			path='/registered'
 			render={(props) => <NewRegisterSuccess {...props} />}

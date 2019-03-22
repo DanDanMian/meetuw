@@ -50,7 +50,7 @@ router.post("/api/register", function(req, res) {
         var from_email = new helper.Email('app113928750@heroku.com');
         var to_email = new helper.Email(email);
         var subject = 'Confirm your MeetUW account';
-        var content = new helper.Content('text/plain', 'Click to confirm');
+        var content = new helper.Content('text/plain', 'Click to confirm http://127.0.0.1:5000/activite?t='+confirmToken);
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
         var sg = require('sendgrid')('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');
@@ -70,6 +70,25 @@ router.post("/api/register", function(req, res) {
     }
   });
 });
+
+router.post("/api/activite", function(req,res){
+  console.log("backend"+req.body.token);
+  var userByToken = {confirmToken: `${req.body.token}`};
+  User.findOne(userByToken, function(err, result){
+    if(err) throw err;
+    if(result != null){
+      userByToken.confirmToken = null;
+      userByToken.verified = true;
+      User.updateOne(userByToken,function(err, res){
+
+      });
+      res.send("SUCCESS");
+    }
+    else{
+      res.send("FAIL");
+    }
+  });
+})
 
 router.post("/api/isloggedin", function(req, res) {
   if (req.user) {
