@@ -25,10 +25,10 @@ class NewLandingRegister extends Component {
     e.preventDefault();
 
     // Input Validation
-    if (this.state.category === "") {
-      this.setState({ error: "Must select a category" });
-      return;
-    }
+    // if (this.state.category === "") {
+    //   this.setState({ error: "Must select a category" });
+    //   return;
+    // }
 
     this.setState({ tryoutValid: true });
     this.props.history.push("/email");
@@ -38,10 +38,10 @@ class NewLandingRegister extends Component {
     e.preventDefault();
 
     // Input Validation
-    if (this.state.category === "") {
-      this.setState({ error: "Must select a category" });
-      return;
-    }
+    // if (this.state.category === "") {
+    //   this.setState({ error: "Must select a category" });
+    //   return;
+    // }
 
     this.setState({ loginValid: true });
     this.props.history.push("/login");
@@ -66,7 +66,7 @@ class NewLandingRegister extends Component {
           <h3 className="Text">
             Welcome! MeetUW helps you find people with the same preference.
           </h3>
-          <h3 className="Text"> You are looking for</h3>
+          {/* <h3 className="Text"> You are looking for</h3>
           <Dropdown
             className="Dropdown"
             name="category"
@@ -74,7 +74,7 @@ class NewLandingRegister extends Component {
             value={this.state.category}
             onChange={this.handleCateogryChange}
             placeholder="--"
-          />
+          /> */}
           <br />
           <br />
           <br />
