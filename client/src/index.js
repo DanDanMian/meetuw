@@ -22,18 +22,22 @@ import NewRegisterSuccess from './NewRegisterSuccess';
 
 import Daily from './casual/Daily';
 import Profile from './Profile';
-import RequireAuth from './Authenticated'
+import RequireAuth from './Authenticated';
+import resetPassword from './resetPassword';
+import passwordActivite from './passwordActivite';
 
 ReactDOM.render(
 	<BrowserRouter>
 	  <div>
 	    <Route exact path="/" component={NewLandingRegister} />
 	    <Route path='/email' component={NewEmailRegister}/>
-			<Route path='/activite' component={activiteAccount}/>
+		<Route path='/activite' component={activiteAccount}/>
+		<Route path='/passwordActivite' component={passwordActivite}/>
 	    <Route 
 			path='/registered'
 			render={(props) => <NewRegisterSuccess {...props} />}
 		/>
+		<Route path='/resetpassword' component={resetPassword} />
     	<Route path='/login' component={Login} />
 		<Route path='/menu'
 			render={(props) => <Menu {...props}/>}

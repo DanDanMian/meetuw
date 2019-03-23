@@ -13,7 +13,8 @@ const userSchema = new Schema({
   },
   token: String,
   confirmToken: String,
-  verified: Boolean
+  verified: Boolean,
+  resetToken: String
 });
 
 userSchema.plugin(uniqueValidator);
