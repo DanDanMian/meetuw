@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Dropdown from "react-dropdown";
 
 import Logo1 from "./picture/Logo1.png";
+import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
@@ -159,6 +160,12 @@ class AcademeInfo extends Component {
     }
   };
 
+  profile = async e => {
+    this.props.history.push({
+      pathname: "/profile"
+    });
+  }
+
   render() {
     const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
     /* console.log("TEST ACADEMIC INFO BEGIN");
@@ -170,6 +177,7 @@ class AcademeInfo extends Component {
       <div className="App">
         <div>
           <div>
+            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>

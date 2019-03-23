@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./App.css";
 import Logo1 from "./picture/Logo1.png";
+import UserIcon from "./picture/black-user-icon.png";
 
 class Results extends Component {
   constructor(props) {
@@ -31,11 +32,18 @@ class Results extends Component {
     });
   };
 
+  profile = async e => {
+    this.props.history.push({
+      pathname: "/profile"
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <div>
           <div>
+            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
