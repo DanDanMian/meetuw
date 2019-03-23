@@ -53,8 +53,8 @@ router.post("/api/register", function(req, res) {
         var helper = require("sendgrid").mail;
         var from_email = new helper.Email("app113928750@heroku.com");
         var to_email = new helper.Email(email);
-        var subject = "Confirm your MeetUW account";
-        var content = new helper.Content("text/plain", "Click to confirm");
+        var subject = 'Confirm your MeetUW account';
+        var content = new helper.Content('text/plain', 'Click to confirm http://127.0.0.1:5000/activite?t='+confirmToken);
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
         var sg = require("sendgrid")(
@@ -77,7 +77,27 @@ router.post("/api/register", function(req, res) {
   });
 });
 
-router.post("/api/isLoggedIn", function(req, res) {
+router.post("/api/activite", function(req,res){
+  console.log("backend"+req.body.token);
+  var userByToken = {confirmToken: `${req.body.token}`};
+  User.findOne(userByToken, function(err, result){
+    if(err) throw err;
+    if(result != null){
+      console.log(JSON.stringify(result));
+      var newvalues = {$set:{confirmToken:null, verified:true}};
+      console.log(JSON.stringify(newvalues));
+      User.updateOne(result,newvalues, function(err, res){
+        if(err) throw err;
+      });
+      res.send("SUCCESS");
+    }
+    else{
+      res.send("FAIL");
+    }
+  });
+})
+
+router.post("/api/isloggedin", function(req, res) {
   if (req.user) {
     res.send("SUCCESS");
   } else {
