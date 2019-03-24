@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import Dropdown from "react-dropdown";
 
 import Logo1 from "./picture/Logo1.png";
+import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
-const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
-const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area"];
+const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
+const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area", "Vancouver"];
 
 class Career extends Component {
   constructor(props) {
@@ -57,8 +58,10 @@ class Career extends Component {
         id2:index2+2,
         name: this.props.location.state.name,
         email: this.props.location.state.email,
-        category: this.state.term,
-        preference: this.state.city,
+        term: this.state.term,
+        city: this.state.city,
+        cityOptions: cityOptions
+        termOptions: termOptions
         userCase: "Career"
       })
     });
@@ -84,12 +87,20 @@ class Career extends Component {
     }
   };
 
+  profile = async e => {
+    this.props.history.push({
+      pathname: "/profile"
+    });
+  }
+
+
   render() {
   
     return (
       <div className="App">
         <div>
           <div>
+            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
