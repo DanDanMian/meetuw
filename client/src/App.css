@@ -24,6 +24,12 @@ div#root > div {
 	height: 100% !important;
 }
 
+img#user-icon {
+	position: fixed;
+	right: 15px;
+	top: 10px;
+}
+
 .App {
 	box-sizing: border-box;
 	text-align: center;
