@@ -123,6 +123,8 @@ class Login extends Component {
           <br />
           <div>
             <input type="submit" value="submit" onChange={this.handleSubmit} />
+            <br />
+            <a href="/resetpassword">forget password?</a>
           </div>
         </form>
         <p className="Error">{this.state.error}</p>
