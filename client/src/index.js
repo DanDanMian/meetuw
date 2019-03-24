@@ -23,6 +23,8 @@ import Daily from "./casual/Daily";
 import Profile from "./Profile";
 import requireAuth from "./Authenticated";
 
+import Message from "./Message";
+
 ReactDOM.render(
   <BrowserRouter>
     <div>
@@ -59,6 +61,8 @@ ReactDOM.render(
         render={props => requireAuth(ResultNotMatched)({ ...props })}
       />
       <Route path="/password" component={NewPasswordRegister} />
+
+      <Route path="/message" render={props => requireAuth(Message)({ ...props })} />
     </div>
   </BrowserRouter>,
   document.getElementById("root")

@@ -58,6 +58,9 @@ class Results extends Component {
           <br />
           <br />
           <div>
+            <Link to="/message">
+            <button>Send Message</button>
+            </Link>
             <form onSubmit={this.handleBack}>
               <input type="submit" value="Back to Menu Page" />
             </form>
