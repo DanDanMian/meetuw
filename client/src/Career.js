@@ -5,8 +5,8 @@ import Logo1 from "./picture/Logo1.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
-const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
-const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area"];
+const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
+const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area", "Vancouver"];
 
 class Career extends Component {
   constructor(props) {
@@ -57,8 +57,10 @@ class Career extends Component {
         id2:index2+2,
         name: this.props.location.state.name,
         email: this.props.location.state.email,
-        category: this.state.term,
-        preference: this.state.city,
+        term: this.state.term,
+        city: this.state.city,
+        cityOptions: cityOptions
+        termOptions: termOptions
         userCase: "Career"
       })
     });
