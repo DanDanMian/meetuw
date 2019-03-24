@@ -90,6 +90,7 @@ class resetPassword extends Component {
           <br />
           <br />
           <p>{this.state.message}</p>
+          <a href="/">go to home</a>
           <br />
           <br />
           <div>

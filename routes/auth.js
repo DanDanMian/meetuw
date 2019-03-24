@@ -22,6 +22,25 @@ router.post("/api/logout", function(req, res) {
   });
 });
 
+router.post("/api/passwordactivitereset", function(req,res){
+  var token = md5(req.body.password);
+  var userByResetToken = {resetToken: `${req.body.resetToken}`}
+  var removeResetToken = {token: `${token}`,resetToken: null};
+
+  User.findOne(userByResetToken, function(err, dbResult){
+    if(dbResult == null){
+      res.send("FAIL");
+    }else{
+      User.updateOne(userByResetToken, removeResetToken, function(err, updateResult){
+        if(err) throw err;
+        console.log(removeResetToken);
+        console.log(updateResult);
+      })
+      res.send("SUCCESS");
+    }
+  });
+});
+
 router.post("/api/register", function(req, res) {
   //email verification
   var email = req.body.email;
@@ -147,11 +166,11 @@ router.post("/api/passwordactivite", function(req,res){
     if(err) throw err;
     if(result != null){
       console.log(JSON.stringify(result));
-      var newvalues = {$set:{resetToken:null}};
-      console.log(JSON.stringify(newvalues));
-      User.updateOne(result,newvalues, function(err, res){
-        if(err) throw err;
-      });
+      // var newvalues = {$set:{resetToken:null}};
+      // console.log(JSON.stringify(newvalues));
+      // User.updateOne(result,newvalues, function(err, res){
+      //   if(err) throw err;
+      // });
       res.send("SUCCESS");
     }
     else{
