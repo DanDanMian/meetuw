@@ -20,7 +20,7 @@ import NewRegisterSuccess from "./NewRegisterSuccess";
 
 import Daily from './casual/Daily';
 import Profile from './Profile';
-import RequireAuth from './Authenticated';
+import requireAuth from './Authenticated';
 import resetPassword from './resetPassword';
 import passwordActivite from './passwordActivite';
 

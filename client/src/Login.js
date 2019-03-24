@@ -73,10 +73,10 @@ class Login extends Component {
       })
     });
 
-    const body = await response.text();
+    const body = await response.json();
     this.setState({ responseToPost: body });
 
-    if (this.state.responseToPost === "SUCCESS") {
+    if (body.success) {
       this.setState({ loginValid: true });
 
       let end = this.state.email.indexOf("@");
@@ -87,7 +87,7 @@ class Login extends Component {
         state: { name: tempName, email: this.state.email }
       });
     } else {
-      this.setState({ error: "Login failed" });
+      this.setState({ error: body.message });
     }
   };
 

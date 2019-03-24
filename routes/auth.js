@@ -7,10 +7,19 @@ const User = require("../db/models/user");
 
 const passport = require("../passport");
 
-router.post("/api/login", passport.authenticate("local"), (req, res) => {
-  //req.session.email = req.body.email;
-  res.send("SUCCESS");
-});
+router.post(
+  "/api/login",
+  passport.authenticate("local", { failWithError: true }),
+  function(req, res, next) {
+    // Handle success
+    return res.send({ success: true, message: "Logged in" });
+  },
+  function(err, req, res, next) {
+    console.log(err);
+    // Handle error
+    return res.send({ success: false, message: err });
+  }
+);
 
 router.post("/api/logout", function(req, res) {
   req.logout();
@@ -21,20 +30,23 @@ router.post("/api/logout", function(req, res) {
   });
 });
 
-router.post("/api/passwordactivitereset", function(req,res){
+router.post("/api/passwordactivitereset", function(req, res) {
   var token = md5(req.body.password);
-  var userByResetToken = {resetToken: `${req.body.resetToken}`}
-  var removeResetToken = {token: `${token}`,resetToken: null};
+  var userByResetToken = { resetToken: `${req.body.resetToken}` };
+  var removeResetToken = { token: `${token}`, resetToken: null };
 
-  User.findOne(userByResetToken, function(err, dbResult){
-    if(dbResult == null){
+  User.findOne(userByResetToken, function(err, dbResult) {
+    if (dbResult == null) {
       res.send("FAIL");
-    }else{
-      User.updateOne(userByResetToken, removeResetToken, function(err, updateResult){
-        if(err) throw err;
+    } else {
+      User.updateOne(userByResetToken, removeResetToken, function(
+        err,
+        updateResult
+      ) {
+        if (err) throw err;
         console.log(removeResetToken);
         console.log(updateResult);
-      })
+      });
       res.send("SUCCESS");
     }
   });
@@ -72,8 +84,11 @@ router.post("/api/register", function(req, res) {
         var helper = require("sendgrid").mail;
         var from_email = new helper.Email("app113928750@heroku.com");
         var to_email = new helper.Email(email);
-        var subject = 'Confirm your MeetUW account';
-        var content = new helper.Content('text/plain', 'Click to confirm http://127.0.0.1:5000/activite?t='+confirmToken);
+        var subject = "Confirm your MeetUW account";
+        var content = new helper.Content(
+          "text/plain",
+          "Click to confirm http://127.0.0.1:5000/activite?t=" + confirmToken
+        );
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
         var sg = require("sendgrid")(
@@ -96,45 +111,51 @@ router.post("/api/register", function(req, res) {
   });
 });
 
-router.post("/api/resetpassword", function(req,res){
+router.post("/api/resetpassword", function(req, res) {
   console.log("api resetpassword called");
   var email = req.body.email;
-  var userByEmail = {email: `${email}`};
-  console.log("query by email: "+JSON.stringify(userByEmail));
-  User.findOne(userByEmail, function(err, dbResult){
-    console.log('findOne : '+dbResult);
-    if(err){
+  var userByEmail = { email: `${email}` };
+  console.log("query by email: " + JSON.stringify(userByEmail));
+  User.findOne(userByEmail, function(err, dbResult) {
+    console.log("findOne : " + dbResult);
+    if (err) {
       console.log("findOne err");
       res.send("FAIL");
     }
-    if(dbResult == null || !dbResult.verified){
+    if (dbResult == null || !dbResult.verified) {
       console.log("email not found or activited");
       res.send("SUCCESS"); //this email hasn't been registered or activited, but don't reviel this info to users using reset page
-    }else{
-      var resetToken = crypto.randomBytes(20).toString('hex');
-      var newvalues = {$set:{resetToken:`${resetToken}`}};
-      User.updateOne(userByEmail, newvalues, function(err){
-        if(err){
-          console.log("failed to update reset token. newvalue: "+newvalues);
+    } else {
+      var resetToken = crypto.randomBytes(20).toString("hex");
+      var newvalues = { $set: { resetToken: `${resetToken}` } };
+      User.updateOne(userByEmail, newvalues, function(err) {
+        if (err) {
+          console.log("failed to update reset token. newvalue: " + newvalues);
           res.send("FAIL");
         }
       });
       //send email
-      var helper = require('sendgrid').mail;
-      var from_email = new helper.Email('app113928750@heroku.com');
+      var helper = require("sendgrid").mail;
+      var from_email = new helper.Email("app113928750@heroku.com");
       var to_email = new helper.Email(email);
-      var subject = 'Reset your MeetUW password';
-      var content = new helper.Content('text/plain', 'Click to reset your password http://127.0.0.1:5000/passwordActivite?t='+resetToken);
+      var subject = "Reset your MeetUW password";
+      var content = new helper.Content(
+        "text/plain",
+        "Click to reset your password http://127.0.0.1:5000/passwordActivite?t=" +
+          resetToken
+      );
       var mail = new helper.Mail(from_email, subject, to_email, content);
 
-      var sg = require('sendgrid')('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');
+      var sg = require("sendgrid")(
+        "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"
+      );
       var request = sg.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: mail.toJSON(),
+        method: "POST",
+        path: "/v3/mail/send",
+        body: mail.toJSON()
       });
 
-      sg.API(request, function(error, response){
+      sg.API(request, function(error, response) {
         console.log("email feedback:");
         console.log(response.statusCode);
         console.log(response.body);
@@ -145,32 +166,31 @@ router.post("/api/resetpassword", function(req,res){
   });
 });
 
-router.post("/api/activite", function(req,res){
-  console.log("backend"+req.body.token);
-  var userByToken = {confirmToken: `${req.body.token}`};
-  User.findOne(userByToken, function(err, result){
-    if(err) throw err;
-    if(result != null){
+router.post("/api/activite", function(req, res) {
+  console.log("backend" + req.body.token);
+  var userByToken = { confirmToken: `${req.body.token}` };
+  User.findOne(userByToken, function(err, result) {
+    if (err) throw err;
+    if (result != null) {
       console.log(JSON.stringify(result));
-      var newvalues = {$set:{confirmToken:null, verified:true}};
+      var newvalues = { $set: { confirmToken: null, verified: true } };
       console.log(JSON.stringify(newvalues));
-      User.updateOne(result,newvalues, function(err, res){
-        if(err) throw err;
+      User.updateOne(result, newvalues, function(err, res) {
+        if (err) throw err;
       });
       res.send("SUCCESS");
-    }
-    else{
+    } else {
       res.send("FAIL");
     }
   });
-})
+});
 
-router.post("/api/passwordactivite", function(req,res){
-  console.log("passwordactivite: "+req.body.token);
-  var userByToken = {resetToken: `${req.body.token}`};
-  User.findOne(userByToken, function(err, result){
-    if(err) throw err;
-    if(result != null){
+router.post("/api/passwordactivite", function(req, res) {
+  console.log("passwordactivite: " + req.body.token);
+  var userByToken = { resetToken: `${req.body.token}` };
+  User.findOne(userByToken, function(err, result) {
+    if (err) throw err;
+    if (result != null) {
       console.log(JSON.stringify(result));
       // var newvalues = {$set:{resetToken:null}};
       // console.log(JSON.stringify(newvalues));
@@ -178,12 +198,11 @@ router.post("/api/passwordactivite", function(req,res){
       //   if(err) throw err;
       // });
       res.send("SUCCESS");
-    }
-    else{
+    } else {
       res.send("FAIL");
     }
   });
-})
+});
 
 router.post("/api/isloggedin", function(req, res) {
   if (req.user) {
