@@ -20,6 +20,9 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    console.log("in profile.js...");
+    console.log(this.props.match.params.profileId);
+
     fetch("/api/getProfile", {
       method: "POST",
       headers: {
@@ -98,10 +101,7 @@ class Profile extends Component {
         <div>
           <p>Current Selection: {this.state.course}</p>
           <p>
-            Matching:{" "}
-            <a href="/matches" onClick={this.seeMatches}>
-              {this.state.match}
-            </a>
+            Matching: <a onClick={this.seeMatches}>{this.state.match}</a>
           </p>
           <button onClick={this.reselect}>Reselect study course</button>
         </div>

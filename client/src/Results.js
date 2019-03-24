@@ -10,10 +10,12 @@ class Results extends Component {
     super(props);
 
     this.state = {
-      submitted: false
+      submitted: false,
+      profileId: ""
     };
 
     this.handleBack = this.handleBack.bind(this);
+    this.checkProfile = this.checkProfile.bind(this);
   }
 
   handleBack = async e => {
@@ -31,6 +33,28 @@ class Results extends Component {
     });
   };
 
+  checkProfile = async event => {
+    event.preventDefault();
+
+    const response = await fetch("/api/getProfileId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: event.currentTarget.textContent
+      })
+    });
+
+    const id = await response.text();
+
+    this.setState({ profileId: id });
+
+    this.props.history.push({
+      pathname: "/profile/:" + this.state.profileId
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -45,7 +69,9 @@ class Results extends Component {
           <div>
             <img src={kubo} width="100" height="120" alt="Kubo" />
             <div className="Text">{this.props.location.state.name}</div>
-            <div className="Text">{this.props.location.state.email}</div>
+            <div onClick={this.checkProfile} className="Text">
+              {this.props.location.state.email}
+            </div>
           </div>
           <br />
           <br />

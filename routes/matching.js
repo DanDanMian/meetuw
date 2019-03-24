@@ -100,7 +100,7 @@ router.post("/api/match_request", function(req, res) {
       }
     };
 
-    // Add to profile
+    // Add course selections to profile
     Profile.findOne(userByEmail, function(err, user) {
       if (err) throw err;
       if (user == null) {
@@ -174,8 +174,8 @@ router.post("/api/match_request", function(req, res) {
         });
 
         if (highestScoreRes.length == 0) {
+          // Update profile to be matchless
           var userByEmail = { email: `${req.body.email}` };
-
           Profile.findOne(userByEmail, function(err, user) {
             if (err) throw err;
             if (user) {
@@ -205,6 +205,7 @@ router.post("/api/match_request", function(req, res) {
           matches.push(highestScoreRes[i].email);
         }
 
+        // Add matches to profile
         Profile.findOne(userByEmail, function(err, user) {
           if (err) throw err;
           if (user) {

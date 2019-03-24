@@ -39,7 +39,7 @@ ReactDOM.render(
         <IndexRoute component={Profile} />
         {/* <Route path=':userId' component={ProfileOthers} />
       </Route> */}
-      <Route path="/profile" component={requireAuth(Profile)} />
+      <Route path="/profile/:profileId?" component={requireAuth(Profile)} />
       <Route
         path="/matches"
         render={props => requireAuth(Matches)({ ...props })}
