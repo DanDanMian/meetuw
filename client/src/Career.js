@@ -60,8 +60,8 @@ class Career extends Component {
         email: this.props.location.state.email,
         term: this.state.term,
         city: this.state.city,
-        cityOptions: cityOptions
-        termOptions: termOptions
+        cityOptions: cityOptions,
+        termOptions: termOptions,
         userCase: "Career"
       })
     });
