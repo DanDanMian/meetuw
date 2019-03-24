@@ -11,7 +11,7 @@ const profileSchema = new Schema({
       subject: String,
       number: String,
       match: String,
-      t: [{type: String}]
+      matches: [{type: String}]
   }
 });
 

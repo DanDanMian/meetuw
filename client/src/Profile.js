@@ -11,9 +11,15 @@ class Profile extends Component {
 
     this.state = {
       course: "",
-      match: ""
+      match: "",
+      matches: []
     };
 
+    this.reselect = this.reselect.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  componentDidMount() {
     fetch("/api/getProfile", {
       method: "POST",
       headers: {
@@ -22,11 +28,13 @@ class Profile extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ course: data.course, match: data.match });
+        console.log(data);
+        this.setState({
+          course: data.course,
+          match: data.match,
+          matches: data.matches
+        });
       });
-
-    this.reselect = this.reselect.bind(this);
-    this.logout = this.logout.bind(this);
   }
 
   logout = async event => {
@@ -69,6 +77,15 @@ class Profile extends Component {
     });
   };
 
+  seeMatches = async event => {
+    event.preventDefault();
+
+    this.props.history.push({
+      pathname: "/matches",
+      state: { data: this.state.matches }
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -80,7 +97,12 @@ class Profile extends Component {
 
         <div>
           <p>Current Selection: {this.state.course}</p>
-          <p>Matching: {this.state.match}</p>
+          <p>
+            Matching:{" "}
+            <a href="/matches" onClick={this.seeMatches}>
+              {this.state.match}
+            </a>
+          </p>
           <button onClick={this.reselect}>Reselect study course</button>
         </div>
         <div>

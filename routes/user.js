@@ -6,17 +6,19 @@ const Profile = require("../db/models/profile");
 router.post("/api/getProfile", function(req, res) {
   if (req.user) {
     var userByEmail = { email: `${req.user.email}` };
-    Profile.findOne(userByEmail, function(err, dbResult) {
+    Profile.findOne(userByEmail, function(err, user) {
       if (err) throw err;
-      if (dbResult != null) {
-        res.send({
+      if (user) {
+        var data = {
           course:
-            dbResult.courseSelection.term +
+            user.courseSelection.term +
             " " +
-            dbResult.courseSelection.subject +
-            dbResult.courseSelection.number,
-          match: dbResult.courseSelection.match
-        });
+            user.courseSelection.subject +
+            user.courseSelection.number,
+          match: user.courseSelection.match,
+          matches: user.courseSelection.matches
+        };
+        res.send(data);
       }
     });
   }

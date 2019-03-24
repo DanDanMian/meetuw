@@ -11,8 +11,8 @@ const Academic = "Academic";
 const Career = "Career";
 const Casual = "Casual";
 
-const Limit = 20            // This defines the number requests
-                            // needed to stored in the matching table
+const Limit = 20; // This defines the number requests
+// needed to stored in the matching table
 
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;
@@ -96,9 +96,7 @@ router.post("/api/match_request", function(req, res) {
       courseSelection: {
         term: `${req.body.term}`,
         subject: `${req.body.subject}`,
-        number: `${req.body.number}`,
-        match: "",
-        t: ["sd@uwaterloo", "xx@uwaterloo"]
+        number: `${req.body.number}`
       }
     };
 
@@ -174,10 +172,24 @@ router.post("/api/match_request", function(req, res) {
         var highestScoreRes = noSelfRes.filter(function(el) {
           return el.score == highestScore;
         });
+
         if (highestScoreRes.length == 0) {
+          var userByEmail = { email: `${req.body.email}` };
+
+          Profile.findOne(userByEmail, function(err, user) {
+            if (err) throw err;
+            if (user) {
+              user.courseSelection.match = "";
+
+              user.save(function(err) {
+                if (err) throw err;
+              });
+            }
+          });
           res.send("unmatched");
           return;
         }
+
         var randIndex = Math.floor(Math.random() * highestScoreRes.length);
         var randMatched = highestScoreRes[randIndex];
 
@@ -187,17 +199,20 @@ router.post("/api/match_request", function(req, res) {
         };
 
         var userByEmail = { email: `${req.body.email}` };
+        var matches = [];
+
+        for (var i = 0; i < highestScoreRes.length; ++i) {
+          matches.push(highestScoreRes[i].email);
+        }
 
         Profile.findOne(userByEmail, function(err, user) {
           if (err) throw err;
           if (user) {
             user.courseSelection.match = randMatched.email;
+            user.courseSelection.matches = matches;
 
             user.save(function(err) {
-              if (err) {
-                console.log("err");
-                throw err;
-              }
+              if (err) throw err;
             });
           }
         });
@@ -229,6 +244,7 @@ router.post("/api/match_request", function(req, res) {
     } else {
       totalScore = req.body.id1 * 10000 + req.body.id2 * 200;
     }
+
     var userObj = {
       name: `${req.body.name}`,
       email: `${req.body.email}`,

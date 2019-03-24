@@ -21,6 +21,7 @@ import NewRegisterSuccess from "./NewRegisterSuccess";
 
 import Daily from "./casual/Daily";
 import Profile from "./Profile";
+import Matches from "./Matches";
 import requireAuth from "./Authenticated";
 
 ReactDOM.render(
@@ -34,8 +35,15 @@ ReactDOM.render(
       />
       <Route path="/login" component={Login} />
       <Route path="/menu" render={props => requireAuth(Menu)({ ...props })} />
-
+      {/*  <Route path="/profile" onEnter={requireAuth}>
+        <IndexRoute component={Profile} />
+        {/* <Route path=':userId' component={ProfileOthers} />
+      </Route> */}
       <Route path="/profile" component={requireAuth(Profile)} />
+      <Route
+        path="/matches"
+        render={props => requireAuth(Matches)({ ...props })}
+      />
       <Route
         path="/academic"
         render={props => requireAuth(AcademeInfo)({ ...props })}
