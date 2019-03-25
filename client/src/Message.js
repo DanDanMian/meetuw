@@ -34,7 +34,7 @@ class Message extends Component {
     console.log("sending email");
     var helper = require("sendgrid").mail;
     var from_email = new helper.Email("app113928750@heroku.com");
-    var to_email = new helper.Email(this.state.match);
+    var to_email = new helper.Email('y629chen@uwaterloo.ca');
     var subject = this.state.email_subject;
     var content = this.state.email_content;
     var mail = new helper.Mail(from_email, subject, to_email, content);
