@@ -60,6 +60,8 @@ ReactDOM.render(
         render={props => requireAuth(ResultNotMatched)({ ...props })}
       />
       <Route path="/password" component={NewPasswordRegister} />
+      <Route path="/resetpassword" component={resetPassword} />
+      <Route path="/passwordactivite" component={passwordActivite} />
     </div>
   </BrowserRouter>,
   document.getElementById("root")
