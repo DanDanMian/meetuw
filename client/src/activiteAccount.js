@@ -39,6 +39,7 @@ class activiteAccount extends Component {
           </div>
           <h2 className="Logo">MeetUW</h2>
           <p>{this.state.responseToPost}</p>
+          <a href="/">go to home</a>
         </div>
       </div>
     );

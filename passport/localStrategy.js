@@ -13,10 +13,13 @@ const strategy = new LocalStrategy(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+        return done("Incorrect username", false);
       }
       if (!user.validatePassword(password)) {
-        return done(null, false, { message: "Incorrect password" });
+        return done("Incorrect password", false);
+      }
+      if (!user.verified) {
+        return done("Unverified Account", false);
       }
       return done(null, user);
     });

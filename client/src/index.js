@@ -15,13 +15,14 @@ import Results from "./Results";
 import Casual from "./casual/Casual";
 import Hobby from "./casual/Hobby";
 import Menu from "./Menu";
-
 import ResultNotMatched from "./ResultNotMatched";
 import NewRegisterSuccess from "./NewRegisterSuccess";
 
-import Daily from "./casual/Daily";
-import Profile from "./Profile";
-import requireAuth from "./Authenticated";
+import Daily from './casual/Daily';
+import Profile from './Profile';
+import requireAuth from './Authenticated';
+import resetPassword from './resetPassword';
+import passwordActivite from './passwordActivite';
 
 ReactDOM.render(
   <BrowserRouter>
