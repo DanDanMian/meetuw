@@ -12,7 +12,7 @@ class Message extends Component {
       match: "",
       email_subject: "Introduction Message",
       email_content: "Hi, \nWe got matched on UW Meet. I would love for us to have a quick chat. We can meet up for a coffee when you're available. \n Thanks!",
-      response: ""
+      responseToPost: ""
     };
 
     fetch("/api/getProfile", {
@@ -21,39 +21,44 @@ class Message extends Component {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ match: data.match });
-      });
-  }
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({ match: data.match });
+    });
 
+  }
   send_Email = async e => {
     e.preventDefault();
-    //send intro message email to match
-    console.log("sending email");
-    var helper = require("sendgrid").mail;
-    var from_email = new helper.Email("app113928750@heroku.com");
-    var to_email = new helper.Email('y629chen@uwaterloo.ca');
-    var subject = this.state.email_subject;
-    var content = this.state.email_content;
-    var mail = new helper.Mail(from_email, subject, to_email, content);
+    console.log('send_email called');
 
-    var sg = require("sendgrid")(process.env.SENDGRID_API_KEY);
-    var request = sg.emptyRequest({
+    //fetch current user email for testing
+    const emailresponse = await fetch("/api/getEmail", {
       method: "POST",
-      path: "/v3/mail/send",
-      body: mail.toJSON()
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
 
-    sg.API(request, function(error, response) {
-      console.log(response.statusCode);
-      console.log(response.body);
-      console.log(response.headers);
-    });
+    const curEmail = await emailresponse.text();
+    console.log("reciver is: "+curEmail);
 
-    this.setState({response: "Message Sent!"});
-  }
+    //call api to send email
+    const response = await fetch("/api/sendmatchemail", { //api in user.js
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: curEmail, //for testing purpose, change to this.state.match
+        subject: this.state.email_subject,
+        content: this.state.email_content
+      })
+    });
+    const body = await response.text();
+    console.log("response from server :" + body);
+    this.setState({ responseToPost: body });
+  };
 
   render() {
     return (
@@ -69,9 +74,9 @@ class Message extends Component {
                 <textarea id="mssg" rows="4" cols="35" wrap="hard">
                     {this.state.email_content}
                 </textarea><br /><br />
-                <button onClick={this.send_Email()}>Send Message</button>
+                <button onClick={this.send_Email}>Send Message</button>
             </form>
-            <p>{this.response}</p>
+            <p>{this.state.responseToPost}</p>
         </div>
        
       </div>
