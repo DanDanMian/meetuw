@@ -29,6 +29,7 @@ class Message extends Component {
   }
 
   send_Email = async e => {
+    e.preventDefault();
     //send intro message email to match
     console.log("sending email");
     var helper = require("sendgrid").mail;
