@@ -48,10 +48,8 @@ class Results extends Component {
 
     const id = await response.text();
 
-    this.setState({ profileId: id });
-
     this.props.history.push({
-      pathname: "/profile/:" + this.state.profileId
+      pathname: "/profile/:" + id
     });
   };
 

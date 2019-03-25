@@ -34,10 +34,14 @@ class Profile extends Component {
       .then(profileInfo => {
         console.log(profileInfo);
         this.setState({
-          email: profileInfo.user.email,
-          course: profileInfo.data.course,
-          match: profileInfo.data.match,
-          matches: profileInfo.data.matches
+          email: profileInfo.email,
+          course:
+            profileInfo.courseSelection.term +
+            " " +
+            profileInfo.courseSelection.subject +
+            profileInfo.courseSelection.number,
+          match: profileInfo.courseSelection.match,
+          matches: profileInfo.courseSelection.matches
         });
       });
   }
@@ -101,7 +105,7 @@ class Profile extends Component {
         <img src={kubo} width="100" height="120" alt="Kubo" />
 
         <div>
-          <p>Profile: {}</p>
+          <p>Profile: {this.state.email}</p>
           <p>Current Selection: {this.state.course}</p>
           <p>
             Matching: <a onClick={this.seeMatches}>{this.state.match}</a>
