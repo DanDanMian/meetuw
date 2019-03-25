@@ -2,15 +2,27 @@ const express = require("express");
 const router = express.Router();
 
 const Profile = require("../db/models/profile");
+const mongoose = require("mongoose");
+
+var ObjectId = require("mongodb").ObjectID;
 
 router.post("/api/getProfile", function(req, res) {
-  console.log(req.body);
-  if (req.body.email) {
-    console.log("HAS EMAIL");
+  console.log("profileId" + req.body.profileId);
+  var query = null;
+  if (req.body.profileId) {
+    var hex = /[0-9A-Fa-f]{6}/g;
+    console.log(hex.test(req.body.profileId))
+    //  var id = mongoose.Types.ObjectId(req.body.profileId);
+    //var ObjectID = require('mongodb').ObjectID;
+    // ObjectID.createFromHexString('55153a8014829a865bbf700d')
+    query = { _id: ObjectId.createFromHexString(req.body.profileId) };
+    //query = { _id: ObjectId(req.body.profileId) };
+  } else {
+    query = { email: `${req.user.email}` };
   }
+
   if (req.user) {
-    var userByEmail = { email: `${req.user.email}` };
-    Profile.findOne(userByEmail, function(err, user) {
+    Profile.findOne(query, function(err, user) {
       if (err) throw err;
       if (user) {
         var data = {
@@ -22,7 +34,7 @@ router.post("/api/getProfile", function(req, res) {
           match: user.courseSelection.match,
           matches: user.courseSelection.matches
         };
-        res.send(data);
+        res.send({ data: data, user: user });
       }
     });
   }

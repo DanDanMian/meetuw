@@ -10,6 +10,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      email: "",
       course: "",
       match: "",
       matches: []
@@ -20,22 +21,23 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log("in profile.js...");
-    console.log(this.props.match.params.profileId);
-
     fetch("/api/getProfile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify({
+        profileId: this.props.match.params.profileId
+      })
     })
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
+      .then(profileInfo => {
+        console.log(profileInfo);
         this.setState({
-          course: data.course,
-          match: data.match,
-          matches: data.matches
+          email: profileInfo.user.email,
+          course: profileInfo.data.course,
+          match: profileInfo.data.match,
+          matches: profileInfo.data.matches
         });
       });
   }
@@ -99,6 +101,7 @@ class Profile extends Component {
         <img src={kubo} width="100" height="120" alt="Kubo" />
 
         <div>
+          <p>Profile: {}</p>
           <p>Current Selection: {this.state.course}</p>
           <p>
             Matching: <a onClick={this.seeMatches}>{this.state.match}</a>
