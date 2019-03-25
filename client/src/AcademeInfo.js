@@ -6,6 +6,8 @@ import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
+const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
+
 class AcademeInfo extends Component {
   constructor(props) {
     super(props);
@@ -135,6 +137,7 @@ class AcademeInfo extends Component {
         subject: this.state.subject,
         number: this.state.number,
         id: this.state.courseIDState,
+        termOptions: termOptions,
         userCase: "Academic"
       })
     });
@@ -167,7 +170,6 @@ class AcademeInfo extends Component {
   }
 
   render() {
-    const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
     /* console.log("TEST ACADEMIC INFO BEGIN");
         console.log(this.props.location.state.name);
         console.log(this.props.location.state.email);

@@ -6,8 +6,14 @@ import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
-const termOptions = ["Fall 2018", "Spring 2019", "Winter 2019"];
-const cityOptions = ["Toronto", "Waterloo", "Toronto Greater Area", "Bay Area"];
+const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
+const cityOptions = [
+  "Toronto",
+  "Waterloo",
+  "Toronto Greater Area",
+  "Bay Area",
+  "Vancouver"
+];
 
 class Career extends Component {
   constructor(props) {
@@ -29,7 +35,7 @@ class Career extends Component {
   }
 
   handleCity(option) {
-  	this.setState({ city: option.label });
+    this.setState({ city: option.label });
   }
 
   handleSubmit = async e => {
@@ -44,9 +50,8 @@ class Career extends Component {
       return;
     }
 
-    var index1= termOptions.indexOf(this.state.term);
-    var index2= cityOptions.indexOf(this.state.city);
-
+    var index1 = termOptions.indexOf(this.state.term);
+    var index2 = cityOptions.indexOf(this.state.city);
 
     const response = await fetch("/api/match_request", {
       method: "POST",
@@ -54,12 +59,14 @@ class Career extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        id1:index1+1,
-        id2:index2+2,
+        id1: index1 + 1,
+        id2: index2 + 2,
         name: this.props.location.state.name,
         email: this.props.location.state.email,
-        category: this.state.term,
-        preference: this.state.city,
+        term: this.state.term,
+        city: this.state.city,
+        cityOptions: cityOptions,
+        termOptions: termOptions,
         userCase: "Career"
       })
     });
@@ -89,16 +96,21 @@ class Career extends Component {
     this.props.history.push({
       pathname: "/profile"
     });
-  }
-
+  };
 
   render() {
-  
     return (
       <div className="App">
         <div>
           <div>
-            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
+            <img
+              id="user-icon"
+              src={UserIcon}
+              width="50"
+              height="50"
+              alt="User-icon"
+              onClick={this.profile}
+            />
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>

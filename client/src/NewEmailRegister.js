@@ -23,9 +23,7 @@ class NewEmailRegister extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(
-      this
-    );
+    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSendEmailChange = this.handleSendEmailChange.bind(this);
     this.handleSaveDBChange = this.handleSaveDBChange.bind(this);
