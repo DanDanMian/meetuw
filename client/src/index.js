@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
 import "./index.css";
+import 'typeface-roboto';
 import * as serviceWorker from "./serviceWorker";
 
 import NewLandingRegister from "./NewLandingRegister";
