@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const dailySchema = new Schema({
+const careerSchema = new Schema({
   name: String,
   email: String,
   content: {
-    daily: String,
+    city: String,
     term: String
   },
   score: Number
 });
 
-module.exports = mongoose.model("Daily", dailySchema, "daily");
+module.exports = mongoose.model("Career", careerSchema, "career");

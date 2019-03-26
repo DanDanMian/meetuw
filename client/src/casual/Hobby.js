@@ -96,7 +96,7 @@ handleSubField(option) {
       email: this.props.location.state.email,
       category: this.state.field,
       preference:this.state.subfield,
-      userCase: "CasualHobby"
+      userCase: "Hobby"
     })
   });
 

@@ -4,7 +4,8 @@ const router = express.Router();
 // TABLE_NAME
 // const DailyMatching = require("../db/models/new_matching");
 // ************************************** TODO: BUILD THE MODEL ***************
-const MATCHING_MODEL = require("../db/models/matching");
+const MATCHING_MODEL = require("../db/models/score_history");
+const CONSTANT = require("../routes/constant");
 const PROFILE_MODEL = require("../db/models/profile");
 const ACADEMIC_MODEL = require("../db/models/academic");
 const CAREER_MODEL = require("../db/models/career");
@@ -79,26 +80,31 @@ function post_data_db(userObj, matchingObj, model, userCase) {
 
   MATCHING_MODEL.findOne({email:email}, function(err, res){
     if (res == null) {
+      if (userCase == "Academic") {
+        matchingObj.academic_score = userObj.score;
+      } else if (userCase == "Career") {
+        matchingObj.career_score = userObj.score;
+      } else if (userCase == "Daily") {
+        matchingObj.daily_score = userObj.score;
+      } else {
+        matchingObj.hobby_score = userObj.score;
+      }
       MATCHING_MODEL.create(matchingObj, function(err, res) {});
     } else {
+      var query;
       var score = userObj.score;
       if (userCase == "Academic") {
-        MATCHING_MODEL.updateOne({email: email}, {academic_score: score},function(err,res) {
-          if (err) throw err;
-        });
+        query = {academic_score: score};
       } else if (userCase =="Career"){
-        MATCHING_MODEL.updateOne({email: email}, {career_score: score},function(err,res) {
-          if (err) throw err;
-        });
+        query = {career_score: score};
       } else if (userCase == "Daily") {
-        MATCHING_MODEL.updateOne({email: email}, {daily_score: score},function(err,res) {
-          if (err) throw err;
-        });
+        query = {daily_score: score};
       } else {
-        MATCHING_MODEL.updateOne({email: email}, {hobby_score:score},function(err,res) {
-          if (err) throw err;
-        });
+        query = {hobby_score:score};
       }
+      MATCHING_MODEL.updateOne({email: email}, query,function(err,res) {
+        if (err) throw err;
+      });
   }});
 }
 
@@ -139,15 +145,16 @@ router.post("/api/match_request", function(req, res) {
     daily_score: 0,
     hobby_score:0,
   };
+  const uc = req.body.userCase;
 
-  switch(req.body.userCase) {
-    case Academic:
+  switch(uc) {
+    case ACADEMIC:
       // Calculate score
       var termScore = req.body.termOptions.indexOf(req.body.term) + 1;
       var subjectScore = req.body.subjectOptions.indexOf(req.body.subject) + 1;
       var numberScore = req.body.numberOptions.indexOf(req.body.number) + 1;
       paramList = [subjectScore, numberScore , termScore];
-      weightList = [10000,10,1];
+      weightList = [100000,10,1];
 
       academic_total_score = calculate_total_score(paramList, weightList);
 
@@ -165,10 +172,11 @@ router.post("/api/match_request", function(req, res) {
       model = ACADEMIC_MODEL;
       my_category_score = academic_total_score;
     
-    
-    case Career:
-      var termScore = req.body.termOptions.indexOf(req.body.term) + 1;
-      var cityScore = req.body.cityOptions.indexOf(req.body.city) + 1;
+      break;
+
+    case CAREER:
+      var termScore = CONSTANT.termOptions.indexOf(req.body.term) + 1;
+      var cityScore = CONSTANT.cityOptions.indexOf(req.body.city) + 1;
       paramList = [cityScore, termScore];
       weightList = [10, 1];
       career_total_score = calculate_total_score(paramList, weightList);
@@ -176,7 +184,6 @@ router.post("/api/match_request", function(req, res) {
       userObj = {
         email: `${req.body.email}`,
         name: `${req.body.name}`,
-        userCase: `${req.body.userCase}`,
         content: {
           city: `${req.body.city}`,
           term: `${req.body.term}`
@@ -185,46 +192,56 @@ router.post("/api/match_request", function(req, res) {
       };
       model = CAREER_MODEL;
       my_category_score = career_total_score;
-      
-    case Daily:
-      var termScore = req.body.termOptions.indexOf(req.body.term) + 1;
-      var dailyScore = req.body.dailyOptions.indexOf(req.body.daily) + 1;
+      break;
+
+    case "Daily":
+      var termScore = CONSTANT.termOptions.indexOf(req.body.term) + 1;
+      var dailyScore = CONSTANT.dailyOptions.indexOf(req.body.category) + 1;
+ 
+      console.log(dailyScore + " " + termScore );
       paramList = [dailyScore, termScore];
       weightList = [10, 1];
       daily_total_score = calculate_total_score(paramList, weightList);
+      console.log(daily_total_score + " total" );
 
       userObj = {
         email: `${req.body.email}`,
         name: `${req.body.name}`,
-        userCase: `${req.body.userCase}`,
         content: {
-          daily: `${req.body.daily}`,
+          daily: `${req.body.category}`,
           term: `${req.body.term}`
         },
         score: daily_total_score
       };
       model = DAILY_MODEL;
       my_category_score = daily_total_score;
-    
-    case Hobby:
-      var fieldScore = req.body.fieldOptions.indexOf(req.body.field) + 1;
-      var subFieldScore = req.body.subfieldOptions.indexOf(req.body.subfield) + 1;
+      break;
+
+    case HOBBY:
+      var fieldScore = CONSTANT.hobbyOptions.indexOf(req.body.category) + 1;
+      console.log(HOBBY);
+      console.log(req.body.userCase);
+      console.log(CONSTANT.subFields);
+      console.log(CONSTANT.subFields[0]);
+      console.log(req.body.category);
+
+      var subFieldScore = CONSTANT.subFields[fieldScore-1].indexOf(req.body.preference) + 1;
       paramList = [fieldScore, subFieldScore];
-      weightList = [100, 1];
+      weightList = [100, 2];
       hobby_total_score = calculate_total_score(paramList, weightList);
 
       userObj = {
         email: `${req.body.email}`,
         name: `${req.body.name}`,
-        userCase: `${req.body.userCase}`,
         content: {
-          hobby: `${req.body.field}`,
-          term: `${req.body.subfield}`
+          hobby: `${req.body.category}`,
+          term: `${req.body.preference}`
         },
         score: hobby_total_score
       };
       model = HOBBY_MODEL;
       my_category_score = hobby_total_score;
+      break;
   }
 
   // Run matching algorithm
@@ -233,115 +250,143 @@ router.post("/api/match_request", function(req, res) {
   
 
     MATCHING_MODEL.findOne({email:`${req.body.email}`}, function(err,res){
-      academic_total_score = academic_total_score == 0 ? res.academic_score : academic_total_score;
-      career_total_score = career_total_score == 0 ? res.career_score : career_total_score;
-      daily_total_score = daily_total_score == 0 ? res.daily_score : daily_total_score;
-      hobby_total_score = hobby_total_score == 0 ? res.hobby_score : hobby_total_score;
+      if (res != null) {
+        academic_total_score = academic_total_score == 0 ? res.academic_score : academic_total_score;
+        career_total_score = career_total_score == 0 ? res.career_score : career_total_score;
+        daily_total_score = daily_total_score == 0 ? res.daily_score : daily_total_score;
+        hobby_total_score = hobby_total_score == 0 ? res.hobby_score : hobby_total_score;
+      }
     });
 
     // 2. Exact match
-    var query =  {score: my_category_score, email: {$ne:`${req.body.email}`}};
-    var dbResult;
-    model.find(query, function (err,res){
-      dbResult = res;
-    });
+    var query =  {score: my_category_score};
+    let dbResult;
+    model.find(query, function (err,re){
+      dbResult = re;
+      console.log(JSON.stringify(re) + " not null") ;    
+    
 
+      console.log(dbResult);
+      dbResult = dbResult.filter(function(el) {
+        return el.email != req.body.email;
+      });
 
-    if (dbResult == null) {
-      if (career_total_score != 0){
+      console.log(dbResult + "here");
+      if (dbResult.length == 0) {
+        console.log("inside first");
+
+        if (career_total_score != 0){
         // for career, it did not find a exact matching, and return "unmatched"
         // it does not provide the similar match for career
-        post_data_db(userObj,matchingObj, model,userCase);
-        res.send("unmatched");
-        return;
-      } else {
+          post_data_db(userObj,matchingObj, model,userCase);
+          res.send("unmatched");
+          return;
+        } else {
         //start the similar matching
-        var lowerBound, upperBound;
-        if (userCase == "Academic" 
-        || userCase == "Daily") {
+
+          console.log("inside second");
+
+          var lowerBound, upperBound;
+          if (userCase == "Academic" 
+          || userCase == "Daily") {
 
           /*For academic, it will match someone who takes the same 
           course but in different term.
           For daily, it will match someone who chooses the same 
           category but in different term*/
-          lowerBound = my_category_score - my_category_score % 10;
-          upperBound = lowerBound + 10;
-        } else {
+            lowerBound = my_category_score - my_category_score % 10;
+            upperBound = lowerBound + 10;
+          } else {
           //for hobby, bounds are different from other category
-          lowerBound = totalScore - totalScore % 100;
-          upperBound = lowerBound + 100;
-        }     
+            lowerBound = my_category_score - my_category_score % 100;
+            upperBound = lowerBound + 100;
+          }     
+
+
+          console.log("inside third");
 
         //find all other similar matchings with given bounds
-        const similarQuery = {score: { $gte: lowerBound, $lte: upperBound}, 
-        email:{$ne:`${req.body.email}`}};
-
-      
-        model.find(similarQuery,function(err, dbResult){
-
-          var result = dbResult;
-          if ( dbResult == null) {
-
+          const similarQuery = {score: { $gte: lowerBound, $lte: upperBound}};
+          let cur;
+          model.find(similarQuery,function(err, db){
+            console.log("inside forth" + JSON.stringify(db));
+            cur = db;
+            cur = cur.filter(function(el) {
+              return el.email != req.body.email;
+            });
+            if (cur.length == 0) {
+              console.log("should be here");
             // did not find any similar matching with given bounds
-            post_data_db(userObj,matchingObj, model,userCase);
-            res.send("unmatched");
-            return;
-          } 
+              post_data_db(userObj,matchingObj, model,userCase);
+              res.send("unmatched");
+              return;
+            } 
 
+            console.log("sixth");
 
+            let result = cur;
+            
           // caculate the diff between this obj and  each similar matching
-          result.forEach((e) => {
-            e.score = Math.abs(e.score - my_category_score);
-          });
+            result.forEach((e) => {
+              e.score = Math.abs(e.score - my_category_score);
+            });
 
-          //sort result by score difference in ascending orde
-          result.sort(function(x, y) {
-            return parseInt(x.score) - parseInt(y.score);
-          });
+            //sort result by score difference in ascending orde
+            result.sort(function(x, y) {
+              return parseInt(x.score) - parseInt(y.score);
+            });
 
           // return the similar matching that has the minimum diff
-          var Matched = result[0];
-          var data = {
-            name: `${Matched.name}`,
-            email: `${Matched.email}`,
-            type: "similarly matched"
-          };
-          post_data_db(userObj,matchingObj, model,userCase);
-          res.send(JSON.stringify(data));
-          return;
-        });
-      }
+            console.log(result + "resssssss");
+            var Matched = result[0];
+            var data = {
+              name: `${Matched.name}`,
+              email: `${Matched.email}`,
+              type: "similarly matched"
+            };
+            post_data_db(userObj,matchingObj, model,userCase);
+            res.send(JSON.stringify(data));
+            return;
+          });
+        }
 
-    } else {
+        } else {
       //now start the exact matching 
-      var result = dbResult;
-      result.forEach((e) => {
-        var el = e.email;
-        MATCHING_MODEL.findOne({email:el}, function(err,result){
+
+
+      console.log(dbResult + "fuccckkkkkkhere");
+
+        var result = dbResult;
+        result.forEach((e) => {
+          var el = e.email;
+          MATCHING_MODEL.findOne({email:el}, function(err,result){
           // Cross-category matching
-          var param1 = [academic_total_score, career_total_score, daily_total_score, hobby_total_score];
+            var param1 = [academic_total_score, career_total_score, daily_total_score, hobby_total_score];
 
-          var w1 = userCase == "Academic" ? 0.85: 0.05;
-          var w2 = userCase == "Career" ? 0.85: 0.05;
-          var w3 = userCase == "Daily" ? 0.85: 0.05;
-          var w4 = userCase == "Hobby" ? 0.85: 0.05;
-          var wList = [w1, w2, w3, w4];
+            var w1 = userCase == "Academic" ? 0.85: 0.05;
+            var w2 = userCase == "Career" ? 0.85: 0.05;
+            var w3 = userCase == "Daily" ? 0.85: 0.05;
+            var w4 = userCase == "Hobby" ? 0.85: 0.05;
+            var wList = [w1, w2, w3, w4];
 
-          var academic_score =  (result.academic_score || academic_total_score) ? 0:result.academic_score;
-          var career_score = (result.career_score ||career_total_score) ? 0:result.career_score;
-          var daily_score = (result.daily_score || daily_total_score) ? 0:result.daily_score;
-          var hobby_score = (result.hobby_score || hobby_total_score) ? 0:result.hobby_score;
-          var param2 = [academic_score, career_score, daily_score, hobby_score];
+            var academic_score =  (result.academic_score || academic_total_score) ? 0:result.academic_score;
+            var career_score = (result.career_score ||career_total_score) ? 0:result.career_score;
+            var daily_score = (result.daily_score || daily_total_score) ? 0:result.daily_score;
+            var hobby_score = (result.hobby_score || hobby_total_score) ? 0:result.hobby_score;
+            var param2 = [academic_score, career_score, daily_score, hobby_score];
   
           //must know the range of course!!!
-          var rangeList = [1563992, 44, 54, 512];
+            var rangeList = [15500023, 44, 54, 424];
 
-          e.score = cross_category_score(param1, param2, w1, rangeList);
-        });
+            e.score = cross_category_score(param1, param2, w1, rangeList);
+            console.log(e.score + " " + e.email);
+          });
+        })
 
         result.sort(function(x, y) {
           return parseFloat(x.score) - parseFloat(y.score);
         });
+
 
         var Matched = result[0];
           var data = {
@@ -352,8 +397,7 @@ router.post("/api/match_request", function(req, res) {
           post_data_db(userObj,matchingObj, model,userCase);
           res.send(JSON.stringify(data));
           return;
-      });
-    }
+    }});
   // FINEL_STEP: Post userObj to specific table defined
 
 });

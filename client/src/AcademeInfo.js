@@ -5,6 +5,7 @@ import Logo1 from "./picture/Logo1.png";
 import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
+import { stat } from "fs";
 
 const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
 
@@ -110,7 +111,6 @@ class AcademeInfo extends Component {
     // console.log(this.state.body);
     // console.log(this.state.term);
     e.preventDefault();
-
     // Form Validation
     if (this.state.term === "") {
       this.setState({ error: "Term cannot be empty" });
@@ -137,6 +137,8 @@ class AcademeInfo extends Component {
         subject: this.state.subject,
         number: this.state.number,
         id: this.state.courseIDState,
+        subjectOptions: this.state.subjects,
+        numberOptions: this.state.currentSujectCourses,
         termOptions: termOptions,
         userCase: "Academic"
       })
@@ -158,7 +160,7 @@ class AcademeInfo extends Component {
       var userData = JSON.parse(this.state.responseToPost);
       this.props.history.push({
         pathname: "/matched",
-        state: { name: userData.name, email: userData.email }
+        state: { name: userData.name, email: userData.email, type: userData.type}
       });
     }
   };

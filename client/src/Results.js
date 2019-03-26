@@ -52,6 +52,7 @@ class Results extends Component {
           <h2 className="Text"> Hey! We found a matching for you.</h2>
           <div>
             <img src={kubo} width="100" height="120" alt="Kubo" />
+            <h3 className="Text"> {this.props.location.state.type}:</h3>
             <div className="Text">{this.props.location.state.name}</div>
             <div className="Text">{this.props.location.state.email}</div>
           </div>

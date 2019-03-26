@@ -5,8 +5,8 @@ import Dropdown from "react-dropdown";
 import "../App.css";
 
 const categories = ["gym buddy","game buddy","shopping buddy","meal buddy","traveling mate"];
-const preferences = ["female","male"];
-const genders = ["female", "male"];
+const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
+
 
 
 
@@ -15,12 +15,10 @@ class Daily extends Component {
     super(props);
     this.state = {
         category:"",
-        preference:"",
-        gender:"",
+        term:""
     };
 this.handleCategory = this.handleCategory.bind(this);
-this.handlePreference = this.handlePreference.bind(this);
-this.handleGender = this.handleGender.bind(this);
+this.handleTerm = this.handleTerm.bind(this);
 this.handleSubmit = this.handleSubmit.bind(this);
 }
 
@@ -31,9 +29,9 @@ handleCategory(option) {
     console.log(JSON.stringify(this.state));
 
 }
-handlePreference(option) {
+handleTerm(option) {
   //console.log('You selected term'+option.label )
-  this.state.preference = option.label;
+  this.state.term = option.label;
   console.log(JSON.stringify(this.state));
 }
 
@@ -50,8 +48,8 @@ handleSubmit = async e => {
   if (this.state.category === "") {
     this.setState({ error: "category cannot be empty" });
     return;
-  } else if (this.state.preference === "") {
-    this.setState({ error: "preference" });
+  } else if (this.state.term === "") {
+    this.setState({ error: "term" });
     return;
   }
   console.log("print course id before sumbit: ");
@@ -67,10 +65,8 @@ handleSubmit = async e => {
       name: this.props.location.state.name,
       email: this.props.location.state.email,
       category: this.state.category,
-      preference:this.state.preference,
-      gender:this.state.gender,
-      id: index+1,
-      userCase:"CasualDaily"
+      term: this.state.term,
+      userCase: "Daily"
     })
   });
 
@@ -90,7 +86,7 @@ handleSubmit = async e => {
     var userData = JSON.parse(this.state.responseToPost);
     this.props.history.push({
       pathname: "/matched",
-      state: { name: userData.name, email: userData.email }
+      state: { name: userData.name, email: userData.email, type: userData.type}
     });
   }
 };
@@ -119,25 +115,14 @@ render() {
                     <br/>
            <h3 className="Text">Select Gender Preference</h3>
            <br/>
-
+           <br/>
+            <br/>
                 <Dropdown
                     className="Dropdown"
-                    name="category"
-                    options={preferences}
-                    value={this.state.preference}
-                    onChange={this.handlePreference}
-                    placeholder="--"
-                    required
-                    />
-          <br/>
-          < h3 className="Text">Select Your Gender</h3>
-          <br/>
-          <Dropdown
-                    className="Dropdown"
-                    name="category"
-                    options={genders}
-                    value={this.state.gender}
-                    onChange={this.handleGender}
+                    name="term"
+                    options={termOptions}
+                    value={this.state.term}
+                    onChange={this.handleTerm}
                     placeholder="--"
                     required
                     />
