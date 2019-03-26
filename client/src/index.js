@@ -18,11 +18,13 @@ import Menu from "./Menu";
 import ResultNotMatched from "./ResultNotMatched";
 import NewRegisterSuccess from "./NewRegisterSuccess";
 
-import Daily from './casual/Daily';
-import Profile from './Profile';
-import requireAuth from './Authenticated';
-import resetPassword from './resetPassword';
-import passwordActivite from './passwordActivite';
+import Daily from "./casual/Daily";
+import Profile from "./Profile";
+import requireAuth from "./Authenticated";
+import resetPassword from "./resetPassword";
+import passwordActivite from "./passwordActivite";
+
+import Matches from "./Matches";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -35,8 +37,15 @@ ReactDOM.render(
       />
       <Route path="/login" component={Login} />
       <Route path="/menu" render={props => requireAuth(Menu)({ ...props })} />
-
-      <Route path="/profile" component={requireAuth(Profile)} />
+      {/*  <Route path="/profile" onEnter={requireAuth}>
+        <IndexRoute component={Profile} />
+        {/* <Route path=':userId' component={ProfileOthers} />
+      </Route> */}
+      <Route path="/profile/:profileId?" component={requireAuth(Profile)} />
+      <Route
+        path="/matches"
+        render={props => requireAuth(Matches)({ ...props })}
+      />
       <Route
         path="/academic"
         render={props => requireAuth(AcademeInfo)({ ...props })}

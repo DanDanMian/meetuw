@@ -10,7 +10,8 @@ const profileSchema = new Schema({
       term: String,
       subject: String,
       number: String,
-      match: String
+      match: String,
+      matches: [{type: String}]
   }
 });
 

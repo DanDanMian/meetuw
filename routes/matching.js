@@ -7,14 +7,12 @@ const DailyMatching = require("../db/models/new_matching");
 const Profile = require("../db/models/profile");
 
 // Category
-const Academic = "Academic"
-const Career = "Career"
-const Casual = "Casual"
+const Academic = "Academic";
+const Career = "Career";
+const Casual = "Casual";
 
-
-const Limit = 20            // This defines the number requests
-                            // needed to stored in the matching table
-
+const Limit = 20; // This defines the number requests
+// needed to stored in the matching table
 
 function sortMatched(a, b) {
   if (a.score < b.score) return -1;
@@ -23,33 +21,33 @@ function sortMatched(a, b) {
 }
 
 // EXAMPLE OF MATCH REQUEST
-    // {
-    //   "useCase": "academic",
-    //   "criteria": {
-    //     "course": {
-    //       "term": 1189,
-    //       "subject": "CS",
-    //       "catalog_number": "493"
-    //     }
-    //   }
-    // }
+// {
+//   "useCase": "academic",
+//   "criteria": {
+//     "course": {
+//       "term": 1189,
+//       "subject": "CS",
+//       "catalog_number": "493"
+//     }
+//   }
+// }
 
 // ********************* MATCHING ALGORITHM *********************
 // NOTE: the matching logic will be split into two parts
-  // 1. Calculate the total score of the user 
-  // 2. Find a match
+// 1. Calculate the total score of the user
+// 2. Find a match
 
 // ********************* PART 1 *********************
 // academic_score, career_score, casual_score = 0
 // If req.body.userCase == Academic
-      // academic_score = calculate_academic_score(term, subject, catalog_number)
-      // Create userObj and post to academic table
+// academic_score = calculate_academic_score(term, subject, catalog_number)
+// Create userObj and post to academic table
 // Else If req.body.userCase == Career
-      // career_score = calculate_career_score(term, city)
-      // Create userObj and post to career table
+// career_score = calculate_career_score(term, city)
+// Create userObj and post to career table
 // Else If req.body.userCase == Casual
-      // casual_score = calculate_casual_score(...)
-      // Create userObj and post to casual table
+// casual_score = calculate_casual_score(...)
+// Create userObj and post to casual table
 
 // academic_total_score = ... (formula TBD)
 // career_total_score = ... (formula TBD)
@@ -60,7 +58,6 @@ function sortMatched(a, b) {
 // If Matching.table_size >= LIMIT
 //    Perform MATCHING ALGO (which we could use the original logic I guess???)
 //    Original logic with condition added
-
 
 router.post("/api/match_request", function(req, res) {
   //try to match a study buddy
@@ -93,25 +90,29 @@ router.post("/api/match_request", function(req, res) {
       score: totalScore
     };
 
+    var userByEmail = { email: `${req.body.email}` };
     var profObj = {
       email: `${req.body.email}`,
       courseSelection: {
         term: `${req.body.term}`,
         subject: `${req.body.subject}`,
-        number: `${req.body.number}`,
-        match: ""
+        number: `${req.body.number}`
       }
     };
 
-    // Add to profile
-    Profile.findOne(profObj, function(err, dbResult) {
+    // Add course selections to profile
+    Profile.findOne(userByEmail, function(err, user) {
       if (err) throw err;
-      if (dbResult == null) {
+      if (user == null) {
         Profile.create(profObj, function(err, dbResult) {
           if (err) throw err;
         });
       } else {
-        Profile.updateOne(profObj, function(err, dbResult) {
+        user.courseSelection.term = `${req.body.term}`;
+        user.courseSelection.subject = `${req.body.subject}`;
+        user.courseSelection.number = `${req.body.number}`;
+
+        user.save(function(err) {
           if (err) throw err;
         });
       }
@@ -171,10 +172,24 @@ router.post("/api/match_request", function(req, res) {
         var highestScoreRes = noSelfRes.filter(function(el) {
           return el.score == highestScore;
         });
+
         if (highestScoreRes.length == 0) {
+          // Update profile to be matchless
+          var userByEmail = { email: `${req.body.email}` };
+          Profile.findOne(userByEmail, function(err, user) {
+            if (err) throw err;
+            if (user) {
+              user.courseSelection.match = "";
+
+              user.save(function(err) {
+                if (err) throw err;
+              });
+            }
+          });
           res.send("unmatched");
           return;
         }
+
         var randIndex = Math.floor(Math.random() * highestScoreRes.length);
         var randMatched = highestScoreRes[randIndex];
 
@@ -183,18 +198,24 @@ router.post("/api/match_request", function(req, res) {
           email: `${randMatched.email}`
         };
 
-        var userByEmail = {
-          email: `${req.body.email}`,
-          courseSelection: {
-            term: `${req.body.term}`,
-            subject: `${req.body.subject}`,
-            number: `${req.body.number}`,
-            match: randMatched.email
-          }
-        };
+        var userByEmail = { email: `${req.body.email}` };
+        var matches = [];
 
-        Profile.updateOne(userByEmail, function(err, dbResult) {
+        for (var i = 0; i < highestScoreRes.length; ++i) {
+          matches.push(highestScoreRes[i].email);
+        }
+
+        // Add matches to profile
+        Profile.findOne(userByEmail, function(err, user) {
           if (err) throw err;
+          if (user) {
+            user.courseSelection.match = randMatched.email;
+            user.courseSelection.matches = matches;
+
+            user.save(function(err) {
+              if (err) throw err;
+            });
+          }
         });
 
         res.send(JSON.stringify(data));
@@ -224,6 +245,7 @@ router.post("/api/match_request", function(req, res) {
     } else {
       totalScore = req.body.id1 * 10000 + req.body.id2 * 200;
     }
+
     var userObj = {
       name: `${req.body.name}`,
       email: `${req.body.email}`,

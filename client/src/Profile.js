@@ -10,24 +10,40 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      email: "",
       course: "",
-      match: ""
+      match: "",
+      matches: []
     };
 
+    this.reselect = this.reselect.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  componentDidMount() {
     fetch("/api/getProfile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify({
+        profileId: this.props.match.params.profileId
+      })
     })
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ course: data.course, match: data.match });
+      .then(profileInfo => {
+        console.log(profileInfo);
+        this.setState({
+          email: profileInfo.email,
+          course:
+            profileInfo.courseSelection.term +
+            " " +
+            profileInfo.courseSelection.subject +
+            profileInfo.courseSelection.number,
+          match: profileInfo.courseSelection.match,
+          matches: profileInfo.courseSelection.matches
+        });
       });
-
-    this.reselect = this.reselect.bind(this);
-    this.logout = this.logout.bind(this);
   }
 
   logout = async event => {
@@ -70,6 +86,15 @@ class Profile extends Component {
     });
   };
 
+  seeMatches = async event => {
+    event.preventDefault();
+
+    this.props.history.push({
+      pathname: "/matches",
+      state: { data: this.state.matches }
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -80,8 +105,11 @@ class Profile extends Component {
         <img src={kubo} width="100" height="120" alt="Kubo" />
 
         <div>
+          <p>Profile: {this.state.email}</p>
           <p>Current Selection: {this.state.course}</p>
-          <p>Matching: {this.state.match}</p>
+          <p>
+            Matching: <a onClick={this.seeMatches}>{this.state.match}</a>
+          </p>
           <button onClick={this.reselect}>Reselect study course</button>
         </div>
         <div>

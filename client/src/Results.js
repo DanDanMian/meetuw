@@ -11,10 +11,12 @@ class Results extends Component {
     super(props);
 
     this.state = {
-      submitted: false
+      submitted: false,
+      profileId: ""
     };
 
     this.handleBack = this.handleBack.bind(this);
+    this.checkProfile = this.checkProfile.bind(this);
   }
 
   handleBack = async e => {
@@ -36,14 +38,41 @@ class Results extends Component {
     this.props.history.push({
       pathname: "/profile"
     });
-  }
+  };
+
+  checkProfile = async event => {
+    event.preventDefault();
+
+    const response = await fetch("/api/getProfileId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: event.currentTarget.textContent
+      })
+    });
+
+    const id = await response.text();
+
+    this.props.history.push({
+      pathname: "/profile/:" + id
+    });
+  };
 
   render() {
     return (
       <div className="App">
         <div>
           <div>
-            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
+            <img
+              id="user-icon"
+              src={UserIcon}
+              width="50"
+              height="50"
+              alt="User-icon"
+              onClick={this.profile}
+            />
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
@@ -54,7 +83,9 @@ class Results extends Component {
             <img src={kubo} width="100" height="120" alt="Kubo" />
             <h3 className="Text"> {this.props.location.state.type}:</h3>
             <div className="Text">{this.props.location.state.name}</div>
-            <div className="Text">{this.props.location.state.email}</div>
+            <div onClick={this.checkProfile} className="Text">
+              {this.props.location.state.email}
+            </div>
           </div>
           <br />
           <br />
