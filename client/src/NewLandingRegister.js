@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 class NewLandingRegister extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class NewLandingRegister extends Component {
     };
 
     this.handleCateogryChange = this.handleCateogryChange.bind(this);
+    const React = require('react');
+    console.log("react version:"+React.version);
   }
 
   handleTryout = async e => {
@@ -72,15 +75,6 @@ class NewLandingRegister extends Component {
           <h3 className="Text">
             Welcome! MeetUW helps you find people with the same preference.
           </h3>
-          {/* <h3 className="Text"> You are looking for</h3>
-          <Dropdown
-            className="Dropdown"
-            name="category"
-            options={categoryList}
-            value={this.state.category}
-            onChange={this.handleCateogryChange}
-            placeholder="--"
-          /> */}
           <br />
           <br />
           <br />
