@@ -36,12 +36,6 @@ handleTerm(option) {
 }
 
 
-handleGender(option){
-  //console.log('You selected term'+option.label )
-  this.state.gender = option.label;
-  console.log(JSON.stringify(this.state));
-}
-
 handleSubmit = async e => {
   e.preventDefault();
   // Form Validation

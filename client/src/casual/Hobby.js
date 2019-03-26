@@ -116,7 +116,7 @@ handleSubField(option) {
     var userData = JSON.parse(this.state.responseToPost);
     this.props.history.push({
       pathname: "/matched",
-      state: { name: userData.name, email: userData.email }
+      state: { name: userData.name, email: userData.email, type: userData.type }
     });
   }
 };

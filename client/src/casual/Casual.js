@@ -9,7 +9,7 @@ import daily from "../picture/daily.png";
 import Card from "@material-ui/core/Card";
 
 import "../App.css";
-import { ButtonBase, CardHeader, CardMedia, CardContent, Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 class Casual extends Component {
   constructor(props) {
@@ -61,39 +61,13 @@ class Casual extends Component {
           <br />
           <br />
         </div>
-          <div>
-          <Grid container spacing={10} direction="column"
-          alignItems="center" justify="center" >
-             <ButtonBase onClick={this.handleDaliy}  style={{ display:'block',
-    textAlign: 'initial'}}>
-          <Card style = {{width:'100%'}} >
-            <CardMedia style={{height:0,paddingTop:'100%'}} image={daily}></CardMedia>
+          <div className = "Text">
+          <Button variant="extendedFab" size="large" color="primary" onClick={this.handleDaliy}> Daily Life </Button>
+          <br />
+          <br />
+          <br />
 
-          </Card>
-          </ButtonBase>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <ButtonBase onClick={this.handleHobby}  style={{ display:'block',
-              textAlign: 'initial'}}>
-          <Card style = {{width:'100%'}} >
-
-            <CardMedia style={{height:0,paddingTop:'100%'}} 
-    
-            image={hobby}
-            title="Hobby"></CardMedia>
-    
-          </Card>
-          </ButtonBase>
-          </Grid>
+          <Button variant="extendedFab" size="large" color="black" onClick ={this.handleHobby}  > &nbsp;  &nbsp;Hobby &nbsp;&nbsp; </Button>
           </div>
 
           <br />
