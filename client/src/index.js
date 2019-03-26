@@ -27,6 +27,8 @@ import passwordActivite from "./passwordActivite";
 
 import Matches from "./Matches";
 
+import Message from "./Message";
+
 ReactDOM.render(
   <BrowserRouter>
     <div>
@@ -70,6 +72,8 @@ ReactDOM.render(
         render={props => requireAuth(ResultNotMatched)({ ...props })}
       />
       <Route path="/password" component={NewPasswordRegister} />
+
+      <Route path="/message" render={props => requireAuth(Message)({ ...props })} />
       <Route path="/resetpassword" component={resetPassword} />
       <Route path="/passwordactivite" component={passwordActivite} />
     </div>

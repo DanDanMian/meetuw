@@ -24,10 +24,13 @@ div#root > div {
 	height: 100% !important;
 }
 
-img#user-icon {
-	position: fixed;
-	right: 15px;
-	top: 10px;
+textarea#mssg {
+	border-radius: 10px;
+	font-family: Arial;
+	padding: 5px;
+	margin-top: 20px;
+	height: 150px;
+	resize: none;
 }
 
 .App {
@@ -69,6 +72,12 @@ img#user-icon {
 	margin-right: 12.5%;
 	font-family:'Roboto Slab';
 	color:black;
+}
+
+img#user-icon {
+	position: fixed;
+	right: 15px;
+	top: 10px;
 }
 
 .Notice {
