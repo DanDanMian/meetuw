@@ -26,13 +26,14 @@ import resetPassword from "./resetPassword";
 import passwordActivite from "./passwordActivite";
 
 import Matches from "./Matches";
-
 import Message from "./Message";
+import Admin from "./Admin";
 
 ReactDOM.render(
   <BrowserRouter>
     <div>
       <Route exact path="/" component={NewLandingRegister} />
+      <Route exact path="admin" component={Admin} />
       <Route path="/email" component={NewEmailRegister} />
       <Route
         path="/registered"
