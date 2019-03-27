@@ -19,50 +19,23 @@ class NewLandingRegister extends Component {
       error: ""
     };
 
-    this.handleCateogryChange = this.handleCateogryChange.bind(this);
     const React = require('react');
     console.log("react version:"+React.version);
   }
 
   handleTryout = async e => {
     e.preventDefault();
-
-    // Input Validation
-    // if (this.state.category === "") {
-    //   this.setState({ error: "Must select a category" });
-    //   return;
-    // }
-
     this.setState({ tryoutValid: true });
     this.props.history.push("/email");
   };
 
   handleLogin = async e => {
     e.preventDefault();
-
-    // Input Validation
-    // if (this.state.category === "") {
-    //   this.setState({ error: "Must select a category" });
-    //   return;
-    // }
-
     this.setState({ loginValid: true });
     this.props.history.push("/login");
   };
 
-  handleCateogryChange(option) {
-    this.setState({ category: option.label });
-  }
-
   render() {
-    const categoryList = [
-      "study buddy",
-      "gym buddy",
-      "game buddy",
-      "friend with same hobbies",
-      "traveling mate"
-    ];
-
     return (
       <div className="App">
         <div>
@@ -77,12 +50,23 @@ class NewLandingRegister extends Component {
         <br />
         <br />
         <form onSubmit={this.handleTryout}>
-          
-          <input type="submit" value="Register" required />
+        <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Register
+          </Button>
         </form>
         <br />
         <form onSubmit={this.handleLogin}>
-          <input type="submit" value="Login" required />
+        <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Sign In
+          </Button>
         </form>
         <p className="Error">{this.state.error}</p>
       </div>
