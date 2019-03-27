@@ -26,8 +26,8 @@ class Results extends Component {
         this.props.history.push({
           pathname: "/menu",
           state: {
-            name: this.props.location.state.name,
-            email: this.props.location.state.email
+            name: this.props.location.state.myname,
+            email: this.props.location.state.myemail
           }
         });
       }

@@ -93,7 +93,9 @@ class Career extends Component {
         state: {
           name: userData.name,
           email: userData.email,
-          type: userData.type
+          myname: userData.myname,
+          myemail: userData.myemail,
+          type: userData.type,
         }
       });
     }

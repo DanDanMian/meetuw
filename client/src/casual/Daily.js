@@ -88,6 +88,8 @@ class Daily extends Component {
         state: {
           name: userData.name,
           email: userData.email,
+          myname: userData.myname,
+          myemail: userData.myemail,
           type: userData.type
         }
       });

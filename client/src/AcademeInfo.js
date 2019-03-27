@@ -154,7 +154,7 @@ class AcademeInfo extends Component {
         pathname: "/unmatched",
         state: {
           name: this.props.location.state.name,
-          email: this.props.location.state.email
+          email: this.props.location.state.email,
         }
       });
     } else if (this.state.responseToPost !== "") {
@@ -164,6 +164,8 @@ class AcademeInfo extends Component {
         state: {
           name: userData.name,
           email: userData.email,
+          myname: userData.myname,
+          myemail:userData.myemail,
           type: userData.type
         }
       });

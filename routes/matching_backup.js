@@ -385,6 +385,8 @@ router.post("/api/match_request", function(req, res) {
           var data = {
             name: `${Matched.name}`,
             email: `${Matched.email}`,
+            myname: `${req.body.name}`,
+            myemail: `${req.body.email}`,
             type: "similarly matched"
           };
 
@@ -433,7 +435,11 @@ router.post("/api/match_request", function(req, res) {
 
       //   console.log(dbResult + "fuccckkkkkkhere");
 
+    
       var result = dbResult;
+      
+      console.log(req.body.email+ "el");
+      console.log(result+ "rrrrrrrrrrr");
       result.forEach(e => {
         var el = e.email;
         MATCHING_MODEL.findOne({ email: el }, function(err, result) {
@@ -479,6 +485,8 @@ router.post("/api/match_request", function(req, res) {
       var data = {
         name: `${Matched.name}`,
         email: `${Matched.email}`,
+        myname: `${req.body.name}`,
+        myemail: `${req.body.email}`,
         type: "exactly matched"
       };
 
@@ -521,7 +529,7 @@ router.post("/api/match_request", function(req, res) {
       res.send(JSON.stringify(data));
       return;
     }
-  });
+   });
   // FINEL_STEP: Post userObj to specific table defined
 });
 
