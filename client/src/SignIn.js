@@ -95,7 +95,7 @@ function SignIn(props) {
             Sign in
           </Button>
           <Typography color="error">{props.err}</Typography>
-          <Typography>
+          <Typography align="center">
             <Link href="/resetpassword">Forget Password?</Link>
           </Typography>
         </form>
