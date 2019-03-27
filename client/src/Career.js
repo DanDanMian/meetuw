@@ -115,7 +115,7 @@ class Career extends Component {
                 alt="User-icon"
               />
             </Link>
-            <img src={Logo1} width="100" height="100" alt="Logo" />
+            <img src={Logo1} width="150" height="80" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
@@ -130,6 +130,7 @@ class Career extends Component {
             placeholder="--"
             required
           />
+          <br/>
           <h4 className="Text"> Select City</h4>
           <Dropdown
             className="Dropdown"

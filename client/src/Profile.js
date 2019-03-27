@@ -170,7 +170,7 @@ class Profile extends Component {
   render() {
     return (
       <div className="App">
-        <img src={Logo1} width="100" height="100" alt="Logo" />
+        <img src={Logo1} width="150" height="80" alt="Logo" />
         <h2 className="Logo">MeetUW</h2>
         <br />
 

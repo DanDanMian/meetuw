@@ -4,6 +4,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { withStyles } from "@material-ui/core/styles";
 import hobby from "../picture/hobby.png";
+import Logo1 from "../picture/Logo1.png";
 import daily from "../picture/daily.png";
 import UserIcon from "../picture/black-user-icon.png";
 
@@ -67,8 +68,12 @@ class Casual extends Component {
               alt="User-icon"
             />
           </Link>
-          <h2 className="Logo">Casual</h2>
+          <img src={Logo1} width="150" height="80" alt="Logo" />
+          <h2 className="Logo">MeetUW</h2>
+          <br/>
           <br />
+          <h1 className="Logo">Causal</h1>
+
           <br />
         </div>
         <div className="Text">

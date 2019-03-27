@@ -3,6 +3,8 @@ import { withRouter, Link } from "react-router-dom";
 import "react-dropdown/style.css";
 import Dropdown from "react-dropdown";
 import "../App.css";
+import Logo1 from "../picture/Logo1.png";
+
 import UserIcon from "../picture/black-user-icon.png";
 
 const categories = ["sport", "music", "film", "book", "art"];
@@ -214,12 +216,12 @@ class Hobby extends Component {
               alt="User-icon"
             />
           </Link>
-          <h2 className="Logo">Hobby</h2>
+          <img src={Logo1} width="150" height="80" alt="Logo" />
+          <h2 className="Logo">MeetUW</h2>
         </div>
         <form onSubmit={this.handleSubmit}>
           <h3 className="Text">Find Your Hobby</h3>
           <div>
-            <br />
             <br />
             <Dropdown
               className="Dropdown"
@@ -231,7 +233,6 @@ class Hobby extends Component {
               required
             />
 
-            <br />
             <br />
             <h3 className="Text">Select Interested Field</h3>
             <br />

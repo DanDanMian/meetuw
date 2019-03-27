@@ -40,7 +40,7 @@ class NewLandingRegister extends Component {
       <div className="App">
         <div>
           <div>
-            <img src={Logo1} width="100" height="100" alt="Logo" />
+            <img src={Logo1} width="150" height="80" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
