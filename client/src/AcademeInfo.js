@@ -6,6 +6,7 @@ import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 import { stat } from "fs";
+import { Link } from "react-router-dom";
 
 const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
 
@@ -160,28 +161,29 @@ class AcademeInfo extends Component {
       var userData = JSON.parse(this.state.responseToPost);
       this.props.history.push({
         pathname: "/matched",
-        state: { name: userData.name, email: userData.email, type: userData.type}
+        state: {
+          name: userData.name,
+          email: userData.email,
+          type: userData.type
+        }
       });
     }
   };
 
-  profile = async e => {
-    this.props.history.push({
-      pathname: "/profile"
-    });
-  }
-
   render() {
-    /* console.log("TEST ACADEMIC INFO BEGIN");
-        console.log(this.props.location.state.name);
-        console.log(this.props.location.state.email);
-        console.log("TEST ACADEMIC INFO END"); */
-
     return (
       <div className="App">
         <div>
           <div>
-            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
+            <Link to="/profile">
+              <img
+                id="user-icon"
+                src={UserIcon}
+                width="50"
+                height="50"
+                alt="User-icon"
+              />
+            </Link>
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>

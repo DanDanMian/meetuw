@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Logo1 from "./picture/Logo1.png";
@@ -64,12 +64,6 @@ class Menu extends Component {
     this.setState({ category: option.label });
   }
 
-  profile = async e => {
-    this.props.history.push({
-      pathname: "/profile"
-    });
-  }
-
   render() {
     const categoryList = ["Academic", "Casual", "Career"];
 
@@ -77,7 +71,15 @@ class Menu extends Component {
       <div className="App">
         <div>
           <div>
-            <img id="user-icon" src={UserIcon} width="50" height="50" alt="User-icon" onClick={this.profile} />
+            <Link to="/profile">
+              <img
+                id="user-icon"
+                src={UserIcon}
+                width="50"
+                height="50"
+                alt="User-icon"
+              />
+            </Link>
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>

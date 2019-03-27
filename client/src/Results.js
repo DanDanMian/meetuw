@@ -65,14 +65,15 @@ class Results extends Component {
       <div className="App">
         <div>
           <div>
-            <img
-              id="user-icon"
-              src={UserIcon}
-              width="50"
-              height="50"
-              alt="User-icon"
-              onClick={this.profile}
-            />
+            <Link to="/profile">
+              <img
+                id="user-icon"
+                src={UserIcon}
+                width="50"
+                height="50"
+                alt="User-icon"
+              />
+            </Link>
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
@@ -91,15 +92,13 @@ class Results extends Component {
           <br />
           <div>
             <Link to="/message">
-            <button>Send Message</button>
+              <button>Send Message</button>
             </Link>
             <form onSubmit={this.handleBack}>
               <input type="submit" value="Back to Menu Page" />
             </form>
-            <Link to="/profile">
-              <button>Profile</button>
-            </Link>
           </div>
+          <br />
         </form>
       </div>
     );

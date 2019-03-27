@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Dropdown from "react-dropdown";
 
 import Logo1 from "./picture/Logo1.png";
@@ -18,6 +19,7 @@ const cityOptions = [
 class Career extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       term: "",
       city: "",
@@ -25,6 +27,7 @@ class Career extends Component {
       specialtestcases: "",
       error: ""
     };
+
     this.handleTerm = this.handleTerm.bind(this);
     this.handleCity = this.handleCity.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -87,15 +90,13 @@ class Career extends Component {
       var userData = JSON.parse(this.state.responseToPost);
       this.props.history.push({
         pathname: "/matched",
-        state: { name: userData.name, email: userData.email,type: userData.type }
+        state: {
+          name: userData.name,
+          email: userData.email,
+          type: userData.type
+        }
       });
     }
-  };
-
-  profile = async e => {
-    this.props.history.push({
-      pathname: "/profile"
-    });
   };
 
   render() {
@@ -103,14 +104,15 @@ class Career extends Component {
       <div className="App">
         <div>
           <div>
-            <img
-              id="user-icon"
-              src={UserIcon}
-              width="50"
-              height="50"
-              alt="User-icon"
-              onClick={this.profile}
-            />
+            <Link to="/profile">
+              <img
+                id="user-icon"
+                src={UserIcon}
+                width="50"
+                height="50"
+                alt="User-icon"
+              />
+            </Link>
             <img src={Logo1} width="100" height="100" alt="Logo" />
           </div>
           <h2 className="Logo">MeetUW</h2>
