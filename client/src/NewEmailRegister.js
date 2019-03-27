@@ -1,8 +1,20 @@
 import React, { Component } from "react";
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Logo1 from "./picture/Logo1.png";
+import ImageUploader from 'react-images-upload';
+
+
 import "./App.css";
+
 import "./slider.css";
+import {DropzoneArea} from 'material-ui-dropzone';
+import { Button } from "@material-ui/core";
+
+
+const style = {
+  height:100,
+  width: 100
+};
 
 class NewEmailRegister extends Component {
   constructor(props) {
@@ -17,7 +29,8 @@ class NewEmailRegister extends Component {
       error: "",
       responseToPost: "400",
       saveDB: "",
-      sendEmail: ""
+      sendEmail: "",
+      pictures: [] 
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -27,7 +40,25 @@ class NewEmailRegister extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSendEmailChange = this.handleSendEmailChange.bind(this);
     this.handleSaveDBChange = this.handleSaveDBChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+
   }
+
+  onDrop(picture) {
+    this.setState({
+        pictures: this.state.pictures.concat(picture),
+    });
+  }
+  onFileLoad = (e, file) => console.log(e.target.result, file.name);
+
+
+  handleChange(files){
+    this.setState({
+      files: files
+    });
+  }
+
 
   handleNameChange(event) {
     this.setState({ name: event.target.value });
@@ -147,6 +178,17 @@ class NewEmailRegister extends Component {
           <h2 className="Logo">MeetUW</h2>
         </div>
         <form onSubmit={this.handleSubmit}>
+
+      <ImageUploader
+                withPreview={true}
+                withIcon={true}
+                buttonText='Choose images'
+                onChange={this.onDrop}
+                buttonClassName = "button1"
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+                className = "Avatar"
+            />
           <h3 className="Text">
             Thanks! Before we introduce you a new friend, please register.
           </h3>
