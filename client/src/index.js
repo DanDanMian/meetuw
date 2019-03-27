@@ -24,6 +24,7 @@ import Profile from "./Profile";
 import requireAuth from "./Authenticated";
 import resetPassword from "./resetPassword";
 import passwordActivite from "./passwordActivite";
+import AccountActivite from "./AccountActivite";
 
 import Matches from "./Matches";
 import Message from "./Message";
@@ -54,6 +55,7 @@ ReactDOM.render(
         path="/academic"
         render={props => requireAuth(AcademeInfo)({ ...props })}
       />
+      <Route path="/activite" component={AccountActivite} />
       <Route
         path="/career"
         render={props => requireAuth(Career)({ ...props })}
