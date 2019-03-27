@@ -58,16 +58,15 @@ class Profile extends Component {
         const careerInfo =
           profileInfo.career.term + ", " + profileInfo.career.city;
 
-        console.log(careerInfo);
-        console.log(typeof careerInfo);
+        console.log("db match" + profileInfo.courseSelection.match)
 
         this.setState({
           name: profileInfo.name,
           email: profileInfo.email,
 
           course: !courseInfo.includes("undefined") ? courseInfo : "N/A",
-          match: profileInfo.courseSelection.match,
-          matches: profileInfo.courseSelection.matches,
+          courseMatch: profileInfo.courseSelection.match,
+          courseMatches: profileInfo.courseSelection.matches,
 
           daily: !dailyInfo.includes("undefined") ? dailyInfo : "N/A",
           dailyMatch: profileInfo.casualDaily.match,
@@ -81,6 +80,8 @@ class Profile extends Component {
           careerMatch: profileInfo.career.match,
           careerMatches: profileInfo.career.matches
         });
+
+        console.log("courseMatch" + this.state.courseMatch);
       });
   }
 
@@ -143,7 +144,6 @@ class Profile extends Component {
   seeMatches = async (event, matchType) => {
     event.preventDefault();
 
-    let attribute = event.target.attributes.getNamedItem("data-type").value;
     let matchesData = null;
 
     switch (matchType) {
