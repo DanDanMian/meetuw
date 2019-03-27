@@ -8,11 +8,23 @@ class Admin extends Component {
     this.state ={
 
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange = event => {
+    console.log(event.target.id);
+    console.log(event.target.value);
+  }
+
+  handleSubmit(){
+    console.log('submit');
   }
 
   render(){
     return(
-      <SignIn />
+      <div onChange={this.handleChange.bind(this)}>
+        <SignIn handleSubmit={this.handleSubmit}/>
+      </div>
     );
   }
 }
