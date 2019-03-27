@@ -173,18 +173,25 @@ class NewEmailRegister extends Component {
   render() {
     return (
       <div>
-      <Register />
-      <ImageUploader
-          withPreview={true}
-          withIcon={true}
-          buttonText='Choose images'
-          onChange={this.onDrop}
-          buttonClassName = "button1"
-          imgExtension={['.jpg', '.gif', '.png', '.gif']}
-          maxFileSize={5242880}
-          className = "Avatar"
+      <Register 
+        handleNameChange={this.handleNameChange}
+        handleEmailChange={this.handleEmailChange}
+        handlePasswordChange={this.handlePasswordChange}
+        handlePasswordConfirmationChange={this.handlePasswordConfirmationChange}
+        handleSubmit={this.handleSubmit}
       />
+      
       </div>
+      //<ImageUploader
+      //withPreview={true}
+      //withIcon={true}
+      //buttonText='Choose images'
+      // onChange={this.onDrop}
+      // buttonClassName = "button1"
+      // imgExtension={['.jpg', '.gif', '.png', '.gif']}
+      // maxFileSize={5242880}
+      // className = "Avatar"
+      // />
       // <div className="App">
       //   <div>
       //     <div>
