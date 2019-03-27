@@ -27,8 +27,7 @@ router.post("/api/getProfile", function(req, res) {
 
 router.post("/api/getProfileId", function(req, res) {
   if (req.user) {
-    // var userByEmail = { email: `${req.body.email}` };
-    var userByEmail = { email: "user1@uwaterloo.ca" };
+    const userByEmail = { email: req.body.email };
 
     Profile.findOne(userByEmail, function(err, user) {
       if (err) throw err;

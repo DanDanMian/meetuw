@@ -10,6 +10,53 @@ class Matches extends Component {
     super(props);
   }
 
+  checkProfile = async event => {
+    event.preventDefault();
+
+    let response = await fetch("/api/getProfileId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: event.currentTarget.textContent
+      })
+    });
+
+    const id = await response.text();
+
+    response = await fetch("/api/getEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const currentEmail = await response.text();
+
+    response = await fetch("/api/getProfileId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: currentEmail
+      })
+    });
+
+    const currentUserProfileId = await response.text();
+
+    let path = "/profile";
+
+    if (id !== currentUserProfileId) {
+      path = "/profile/:" + id;
+    }
+
+    this.props.history.push({
+      pathname: path
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -29,7 +76,9 @@ class Matches extends Component {
           <span>Matches:</span>
           <ul>
             {this.props.location.state.data.map((item, i) => (
-              <li key={`item_${i}`}>{item}</li>
+              <li onClick={this.checkProfile} key={`item_${i}`}>
+                {item}
+              </li>
             ))}
           </ul>
         </div>
