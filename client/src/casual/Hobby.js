@@ -148,10 +148,10 @@ class Hobby extends Component {
 
     // Form Validation
     if (this.state.field === "") {
-      this.setState({ error: "field cannot be empty" });
+      this.setState({ error: "Hobby cannot be empty" });
       return;
-    } else if (this.state.fields === "") {
-      this.setState({ error: "subfields" });
+    } else if (this.state.subfield === "") {
+      this.setState({ error: "Interest cannot be empty" });
       return;
     }
 
@@ -249,6 +249,7 @@ class Hobby extends Component {
           <br />
           <input type="submit" value="submit" onChange={this.handleSubmit} />
         </form>
+        <p className="Error">{this.state.error}</p>
         <br />
         <br />
         <br />

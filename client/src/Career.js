@@ -49,7 +49,7 @@ class Career extends Component {
       this.setState({ error: "Term cannot be empty" });
       return;
     } else if (this.state.city === "") {
-      this.setState({ error: "City" });
+      this.setState({ error: "City cannot be empty" });
       return;
     }
 

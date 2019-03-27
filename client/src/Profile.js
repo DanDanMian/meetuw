@@ -64,7 +64,7 @@ class Profile extends Component {
         this.setState({
           name: profileInfo.name,
           email: profileInfo.email,
-          
+
           course: !courseInfo.includes("undefined") ? courseInfo : "N/A",
           match: profileInfo.courseSelection.match,
           matches: profileInfo.courseSelection.matches,
@@ -181,11 +181,11 @@ class Profile extends Component {
           <p>Name: {this.state.name}</p>
           <hr />
 
-          <div data-type="course">
+          <div>
             <p>Current Course Selection: {this.state.course}</p>
             <p>
               Matching:{" "}
-              <a data-type="course" onClick={e => this.seeMatches(e, "course")}>
+              <a onClick={e => this.seeMatches(e, "course")}>
                 {this.state.courseMatch}
               </a>
             </p>
@@ -198,7 +198,7 @@ class Profile extends Component {
             <p>Current Daily Selection: {this.state.daily}</p>
             <p>
               Matching:{" "}
-              <a data-type="daily" onClick={e => this.seeMatches(e, "daily")}>
+              <a onClick={e => this.seeMatches(e, "daily")}>
                 {this.state.dailyMatch}
               </a>
             </p>
@@ -207,27 +207,31 @@ class Profile extends Component {
             </button>
           </div>
 
-          <p>Current Hobby Selection: {this.state.hobby}</p>
-          <p>
-            Matching:{" "}
-            <a data-type="hobby" onClick={e => this.seeMatches(e, "hobby")}>
-              {this.state.hobbyMatch}
-            </a>
-          </p>
-          <button onClick={e => this.reselect(e, "hobby")}>
-            Reselect Hobby
-          </button>
+          <div>
+            <p>Current Hobby Selection: {this.state.hobby}</p>
+            <p>
+              Matching:{" "}
+              <a onClick={e => this.seeMatches(e, "hobby")}>
+                {this.state.hobbyMatch}
+              </a>
+            </p>
+            <button onClick={e => this.reselect(e, "hobby")}>
+              Reselect Hobby
+            </button>
+          </div>
 
-          <p>Current Career Selection: {this.state.career}</p>
-          <p>
-            Matching:{" "}
-            <a data-type="career" onClick={e => this.seeMatches(e, "career")}>
-              {this.state.careerMatch}
-            </a>
-          </p>
-          <button onClick={e => this.reselect(e, "career")}>
-            Reselect Career
-          </button>
+          <div>
+            <p>Current Career Selection: {this.state.career}</p>
+            <p>
+              Matching:{" "}
+              <a onClick={e => this.seeMatches(e, "career")}>
+                {this.state.careerMatch}
+              </a>
+            </p>
+            <button onClick={e => this.reselect(e, "career")}>
+              Reselect Career
+            </button>
+          </div>
         </div>
         <div>
           <button onClick={this.logout}>Logout</button>

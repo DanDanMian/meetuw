@@ -33,6 +33,7 @@ class Daily extends Component {
     this.state.category = option.label;
     console.log(JSON.stringify(this.state));
   }
+
   handleTerm(option) {
     this.state.term = option.label;
     console.log(JSON.stringify(this.state));
@@ -43,10 +44,10 @@ class Daily extends Component {
 
     // Form Validation
     if (this.state.category === "") {
-      this.setState({ error: "category cannot be empty" });
+      this.setState({ error: "Category cannot be empty" });
       return;
     } else if (this.state.term === "") {
-      this.setState({ error: "term" });
+      this.setState({ error: "Term cannot be empty" });
       return;
     }
 
@@ -142,6 +143,7 @@ class Daily extends Component {
           </div>
           <input type="submit" value="submit" onChange={this.handleSubmit} />
         </form>
+        <p className="Error">{this.state.error}</p>
         <br />
         <br />
         <br />
