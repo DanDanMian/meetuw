@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
 import "./slider.css";
+import "./Register";
+import Register from "./Register";
 
 class NewEmailRegister extends Component {
   constructor(props) {
@@ -25,8 +27,8 @@ class NewEmailRegister extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSendEmailChange = this.handleSendEmailChange.bind(this);
-    this.handleSaveDBChange = this.handleSaveDBChange.bind(this);
+    // this.handleSendEmailChange = this.handleSendEmailChange.bind(this);
+    // this.handleSaveDBChange = this.handleSaveDBChange.bind(this);
   }
 
   handleNameChange(event) {
@@ -45,14 +47,14 @@ class NewEmailRegister extends Component {
     this.setState({ secondpassword: event.target.value });
   }
 
-  handleSaveDBChange(event) {
-    console.log(event.target.value);
-    this.setState({ saveDB: event.target.value });
-  }
+  // handleSaveDBChange(event) {
+  //   console.log(event.target.value);
+  //   this.setState({ saveDB: event.target.value });
+  // }
 
-  handleSendEmailChange(event) {
-    this.setState({ sendEmail: event.target.value });
-  }
+  // handleSendEmailChange(event) {
+  //   this.setState({ sendEmail: event.target.value });
+  // }
 
   userInputValidation(email, password, secondpassword) {
     // Validate user email
@@ -139,72 +141,73 @@ class NewEmailRegister extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div>
-          <div>
-            <img src={Logo1} width="100" height="100" alt="Logo" />
-          </div>
-          <h2 className="Logo">MeetUW</h2>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <h3 className="Text">
-            Thanks! Before we introduce you a new friend, please register.
-          </h3>
-          <br />
-          <div className="name">
-            <input
-              type="text"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-              placeholder="username"
-              required
-            />
-          </div>
-          <div className="email">
-            <input
-              type="text"
-              value={this.state.email}
-              onChange={this.handleEmailChange}
-              placeholder="userid@uwaterloo.ca"
-              required
-            />
-          </div>
-          <div className="password">
-            <input
-              type="password"
-              value={this.state.password}
-              placeholder="password"
-              onChange={this.handlePasswordChange}
-              required
-            />
-          </div>
-          <div className="confirmPassword">
-            <input
-              type="password"
-              value={this.state.secondpassword}
-              onChange={this.handlePasswordConfirmationChange}
-              placeholder="confirm password"
-              required
-            />
-          </div>
-          <div className="devOpt">
-            Don't store in DB
-            <label class="switch">
-              <input type="checkbox" onChange={this.handleSaveDBChange} />
-              <span class="slider round" />
-            </label>
-            <br />
-            Don't send email
-            <label class="switch">
-              <input type="checkbox" onChange={this.handleSendEmailChange} />
-              <span class="slider round" />
-            </label>
-          </div>
-          <br />
-          <input type="submit" value="submit" onChange={this.handleSubmit} />
-        </form>
-        <p className="Error">{this.state.error}</p>
-      </div>
+      <Register />
+      // <div className="App">
+      //   <div>
+      //     <div>
+      //       <img src={Logo1} width="100" height="100" alt="Logo" />
+      //     </div>
+      //     <h2 className="Logo">MeetUW</h2>
+      //   </div>
+      //   <form onSubmit={this.handleSubmit}>
+      //     <h3 className="Text">
+      //       Thanks! Before we introduce you a new friend, please register.
+      //     </h3>
+      //     <br />
+      //     <div className="name">
+      //       <input
+      //         type="text"
+      //         value={this.state.name}
+      //         onChange={this.handleNameChange}
+      //         placeholder="username"
+      //         required
+      //       />
+      //     </div>
+      //     <div className="email">
+      //       <input
+      //         type="text"
+      //         value={this.state.email}
+      //         onChange={this.handleEmailChange}
+      //         placeholder="userid@uwaterloo.ca"
+      //         required
+      //       />
+      //     </div>
+      //     <div className="password">
+      //       <input
+      //         type="password"
+      //         value={this.state.password}
+      //         placeholder="password"
+      //         onChange={this.handlePasswordChange}
+      //         required
+      //       />
+      //     </div>
+      //     <div className="confirmPassword">
+      //       <input
+      //         type="password"
+      //         value={this.state.secondpassword}
+      //         onChange={this.handlePasswordConfirmationChange}
+      //         placeholder="confirm password"
+      //         required
+      //       />
+      //     </div>
+      //     <div className="devOpt">
+      //       Don't store in DB
+      //       <label class="switch">
+      //         <input type="checkbox" onChange={this.handleSaveDBChange} />
+      //         <span class="slider round" />
+      //       </label>
+      //       <br />
+      //       Don't send email
+      //       <label class="switch">
+      //         <input type="checkbox" onChange={this.handleSendEmailChange} />
+      //         <span class="slider round" />
+      //       </label>
+      //     </div>
+      //     <br />
+      //     <input type="submit" value="submit" onChange={this.handleSubmit} />
+      //   </form>
+      //   <p className="Error">{this.state.error}</p>
+      // </div>
     );
   }
 }

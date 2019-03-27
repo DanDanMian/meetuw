@@ -43,7 +43,7 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
+function Register(props) {
   const { classes } = props;
 
   return (
@@ -54,16 +54,24 @@ function SignIn(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Register
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" onChange={props.handleEmail} autoFocus />
+            <InputLabel htmlFor="nickname">Nickname (Doesn't have to be real)</InputLabel>
+            <Input id="nickname" name="name" onChange={props.handleNameChange} autoFocus />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={props.handlePassword}/>
+            <InputLabel htmlFor="email">School Email (@uwaterloo.ca)</InputLabel>
+            <Input id="email" name="email" autoComplete="email" onChange={props.handleEmailChange} />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">Password (Min length 8)</InputLabel>
+            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={props.handlePasswordChange}/>
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">Confirm Password</InputLabel>
+            <Input name="password" type="password" id="confirmpassword" autoComplete="current-password" onChange={props.handlePasswordConfirmationChange}/>
           </FormControl>
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -77,7 +85,7 @@ function SignIn(props) {
             className={classes.submit}
             onClick={props.handleSubmit}
           >
-            Sign in
+            Register
           </Button>
         </form>
       </Paper>
@@ -85,8 +93,8 @@ function SignIn(props) {
   );
 }
 
-SignIn.propTypes = {
+Register.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Register);
