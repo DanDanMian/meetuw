@@ -34,12 +34,6 @@ class Results extends Component {
     });
   };
 
-  profile = async e => {
-    this.props.history.push({
-      pathname: "/profile"
-    });
-  };
-
   checkProfile = async event => {
     event.preventDefault();
 
@@ -54,7 +48,6 @@ class Results extends Component {
     });
 
     const id = await response.text();
-
     this.props.history.push({
       pathname: "/profile/:" + id
     });
