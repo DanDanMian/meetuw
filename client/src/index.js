@@ -24,15 +24,17 @@ import Profile from "./Profile";
 import requireAuth from "./Authenticated";
 import resetPassword from "./resetPassword";
 import passwordActivite from "./passwordActivite";
+import AccountActivite from "./AccountActivite";
 
 import Matches from "./Matches";
-
 import Message from "./Message";
+import Admin from "./Admin";
 
 ReactDOM.render(
   <BrowserRouter>
     <div>
       <Route exact path="/" component={NewLandingRegister} />
+      <Route exact path="/admin" component={Admin} />
       <Route path="/email" component={NewEmailRegister} />
       <Route
         path="/registered"
@@ -53,6 +55,7 @@ ReactDOM.render(
         path="/academic"
         render={props => requireAuth(AcademeInfo)({ ...props })}
       />
+      <Route path="/activite" component={AccountActivite} />
       <Route
         path="/career"
         render={props => requireAuth(Career)({ ...props })}

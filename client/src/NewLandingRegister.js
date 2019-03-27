@@ -71,14 +71,13 @@ class NewLandingRegister extends Component {
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
+        <h3 className="Text">Finding students with same interests</h3>
+        <br />
+        <br />
+        <br />
+        <br />
         <form onSubmit={this.handleTryout}>
-          <h3 className="Text">
-            Welcome! MeetUW helps you find people with the same preference.
-          </h3>
-          <br />
-          <br />
-          <br />
-          <br />
+          
           <input type="submit" value="Register" required />
         </form>
         <br />

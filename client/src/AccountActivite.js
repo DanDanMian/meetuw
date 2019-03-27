@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
 
-class activiteAccount extends Component {
+class AccountActive extends Component {
   constructor(props) {
     super(props);
     var url = new URL(window.location);
@@ -46,4 +46,4 @@ class activiteAccount extends Component {
   }
 }
 
-export default withRouter(activiteAccount);
+export default withRouter(AccountActive);

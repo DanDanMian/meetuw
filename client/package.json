@@ -5,8 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+<<<<<<< HEAD
     "material-ui-dropzone": "^2.3.2",
     "material-ui-upload": "^1.2.1",
+=======
+>>>>>>> refs/remotes/origin/master
     "react": "^16.6.3",
     "react-avatar-uploader": "^1.0.3",
     "react-color": "^2.14.1",
