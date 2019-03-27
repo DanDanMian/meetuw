@@ -33,7 +33,7 @@ ReactDOM.render(
   <BrowserRouter>
     <div>
       <Route exact path="/" component={NewLandingRegister} />
-      <Route exact path="admin" component={Admin} />
+      <Route exact path="/admin" component={Admin} />
       <Route path="/email" component={NewEmailRegister} />
       <Route
         path="/registered"

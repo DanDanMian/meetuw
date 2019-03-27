@@ -124,7 +124,7 @@ input[type="submit"] {
 	border-radius: 50px;
 }
 
-input[type="password"] {	
+/* input[type="password"] {	
 	font-family: 'Roboto Slab';
 	font-size: 15px;
 	background: white;
@@ -148,7 +148,7 @@ input[type="text"] {
 	-moz-border-radius: 60px;
 	border-radius: 60px;
 	margin: 5px;
-}
+} */
 
 .UW {
 	background-image: url("./picture/uw2.png");
@@ -213,7 +213,7 @@ body {
 	}
 }
 
-h1,
+/* h1,
 h6 {
 	font-family: 'Open Sans';
 	font-weight: 300;
@@ -222,4 +222,4 @@ h6 {
 	top: 45%;
 	right: 0;
 	left: 0;
-}
+} */
