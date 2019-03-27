@@ -94,7 +94,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <SignIn handleEmail={this.handleEmail} handlePassword={this.handlePassword} handleSubmit={this.handleSubmit}/>
+        <SignIn handleEmail={this.handleEmail} handlePassword={this.handlePassword} handleSubmit={this.handleSubmit} err={this.state.error}/>
       </div>
     );
   }
