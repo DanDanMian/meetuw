@@ -95,6 +95,15 @@ img#user-icon {
 .Error {
 	color:red;
 }
+.Avatar {
+	letter-spacing: 2px;
+	line-height: 10pt;
+	margin: auto;
+	color:black !important;
+	font-family:'Roboto Slab';
+	min-height: 80px !important;
+	max-width: 200px !important;
+}
 
 button {
 	font-family: 'Rubik';
@@ -104,6 +113,19 @@ button {
 	color: white;
 	width: 210px;
 	height: 36px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+	margin: 5px;
+}
+.button1 {
+	font-family: 'Rubik';
+	font-size: 15px;
+	background:#606060;
+	opacity: 0.8;
+	color: white;
+	width: 100px;
+	height: 40px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	border-radius: 50px;
