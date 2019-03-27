@@ -188,7 +188,7 @@ class NewEmailRegister extends Component {
             />
           </div>
           <div className="devOpt">
-            Store in DB
+            Don't store in DB
             <label class="switch">
               <input type="checkbox" onChange={this.handleSaveDBChange} />
               <span class="slider round" />
