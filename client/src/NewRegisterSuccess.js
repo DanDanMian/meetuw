@@ -50,9 +50,9 @@ class NewRegisterSuccess extends Component {
         </div>
         <form onSubmit={this.handleLogin}>
           <h3 className="Text">
-            Successfully Registered. <br /> 
-            Wait for your activation email: ...@uwaterloo.ca. <br />
-            It may take several minutes. <br />
+            Successfully Registered. An activiation link has been sent.<br /> 
+            Check your inbox in your provided email<br />
+            Email may take several minutes to arrive. <br />
             Don't forget to check your junk folder.
           </h3>
           <br />
