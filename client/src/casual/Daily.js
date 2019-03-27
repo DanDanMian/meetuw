@@ -124,7 +124,7 @@ class Daily extends Component {
               required
             />
             <br />
-            <h3 className="Text">Select Gender Preference</h3>
+            <h3 className="Text">Select Term</h3>
             <br />
             <br />
             <br />
