@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import "./App.css";
 import Logo1 from "./picture/Logo1.png";
+import SignIn from "./SignIn";
 
 class Login extends Component {
   constructor(props) {
@@ -93,41 +94,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="App">
-        <img src={Logo1} width="100" height="100" alt="Logo" />
-        <h2 className="Logo">MeetUW</h2>
-        <br />
-        <br />
-        <form onSubmit={this.handleSubmit}>
-          <div className="email">
-            <input
-              type="text"
-              value={this.state.email}
-              placeholder="userid@uwaterloo.ca"
-              onChange={this.handleEmail}
-              required
-            />
-          </div>
-          <div className="password">
-            <input
-              type="password"
-              value={this.state.password}
-              placeholder="*********"
-              onChange={this.handlePassword}
-              required
-            />
-          </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <div>
-            <input type="submit" value="submit" onChange={this.handleSubmit} />
-            <br />
-            <a href="/resetpassword">forget password?</a>
-          </div>
-        </form>
-        <p className="Error">{this.state.error}</p>
+      <div>
+        <SignIn handleEmail={this.handleEmail} handlePassword={this.handlePassword} handleSubmit={this.handleSubmit}/>
       </div>
     );
   }
