@@ -44,7 +44,7 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
+function ResetPasswordComp(props) {
   const { classes } = props;
 
   return (
@@ -55,21 +55,13 @@ function SignIn(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Enter your registered email
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
             <Input id="email" name="email" autoComplete="email" onChange={props.handleEmail} autoFocus />
           </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={props.handlePassword}/>
-          </FormControl>
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
           <Button
             type="button"
             fullWidth
@@ -78,13 +70,12 @@ function SignIn(props) {
             className={classes.submit}
             onClick={props.handleSubmit}
           >
-            Sign in
+            Send Email
           </Button>
-          
           <Typography>
             <Link 
-              href="/resetpassword"
-            >Forget Password?</Link>
+              href="/"
+            >Go To Home</Link>
           </Typography>
         </form>
       </Paper>
@@ -92,8 +83,8 @@ function SignIn(props) {
   );
 }
 
-SignIn.propTypes = {
+ResetPasswordComp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(ResetPasswordComp);

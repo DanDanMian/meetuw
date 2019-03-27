@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import "./App.css";
-import Logo1 from "./picture/Logo1.png";
 import SignIn from "./SignIn";
 
 class Login extends Component {

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-
+import ResetPasswordComp from "./ResetPasswordComp";
 import Logo1 from "./picture/Logo1.png";
 import "./App.css";
+
 
 class resetPassword extends Component {
   constructor(props) {
@@ -70,34 +71,10 @@ class resetPassword extends Component {
 
   render() {
     return (
-      <div className="App">
-            <img src={Logo1} width="100" height="100" alt="Logo" />
-          <h2 className="Logo">MeetUW</h2>
-          <br />
-          <br />
-          <br />
-          <form onSubmit={this.handleSubmit}>
-          <div className="email">
-            <input
-              type="text"
-              value={this.state.email}
-              placeholder="userid@uwaterloo.ca"
-              onChange={this.handleEmail}
-              required
-            />
-          </div>
-          
-          <br />
-          <br />
-          <p>{this.state.message}</p>
-          <a href="/">go to home</a>
-          <br />
-          <br />
-          <div>
-            <input type="submit" value="submit" onChange={this.handleSubmit} />
-          </div>
-        </form>
-        <p className="Error">{this.state.error}</p>
+      <div>
+      <ResetPasswordComp handleEmail={this.handleEmail} handleSubmit={this.handleSubmit}/>
+      <p style="text-align:center">{this.state.message}</p>
+      <p style="text-align:center">{this.state.error}</p>
       </div>
     );
   }
