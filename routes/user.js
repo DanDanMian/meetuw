@@ -26,7 +26,6 @@ router.post("/api/getProfile", function(req, res) {
 });
 
 router.post("/api/getProfileId", function(req, res) {
-  console.log("getProfileId...." + req.body.email);
   if (req.user) {
     // var userByEmail = { email: `${req.body.email}` };
     var userByEmail = { email: "user1@uwaterloo.ca" };
@@ -46,15 +45,12 @@ router.post("/api/getEmail", function(req, res) {
   }
 });
 
-router.post("/api/sendmatchemail", function(req, res){
+router.post("/api/sendmatchemail", function(req, res) {
   var helper = require("sendgrid").mail;
   var from_email = new helper.Email("app113928750@heroku.com");
   var to_email = new helper.Email(req.body.email);
   var subject = req.body.subject;
-  var content = new helper.Content(
-    "text/plain",
-    req.body.content
-  );
+  var content = new helper.Content("text/plain", req.body.content);
   var mail = new helper.Mail(from_email, subject, to_email, content);
 
   var sg = require("sendgrid")(
@@ -70,12 +66,12 @@ router.post("/api/sendmatchemail", function(req, res){
     console.log(response.statusCode);
     console.log(response.body);
     console.log(response.headers);
-    if(error){
+    if (error) {
       res.send("FAIL");
-    }else{
+    } else {
       res.send("SUCCESS");
     }
   });
-})
+});
 
 module.exports = router;

@@ -7,7 +7,7 @@ const academicSchema = new Schema({
   course: {
     term: String,
     subject: String,
-    catelog_number: String,
+    catelog_number: String
   },
   score: Number
 });

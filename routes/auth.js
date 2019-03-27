@@ -4,6 +4,7 @@ const md5 = require("md5");
 var crypto = require("crypto");
 
 const User = require("../db/models/user");
+const Profile = require("../db/models/profile");
 
 const passport = require("../passport");
 
@@ -11,6 +12,16 @@ router.post(
   "/api/login",
   passport.authenticate("local", { failWithError: true }),
   function(req, res, next) {
+    const userByEmail = { email: req.user.email };
+    Profile.findOne(userByEmail, function(err, user) {
+      if (err) throw err;
+      if (!user) {
+        Profile.create(userByEmail, function(err, res) {
+          console.log("User Profile Created on Login");
+        });
+      }
+    });
+
     // Handle success
     return res.send({ success: true, message: "Logged in" });
   },

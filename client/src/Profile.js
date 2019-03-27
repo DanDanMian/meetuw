@@ -10,10 +10,20 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      name: "",
       email: "",
       course: "",
-      match: "",
-      matches: []
+      courseMatch: "",
+      courseMatches: [],
+      daily: "",
+      dailyMatch: "",
+      dailyMatches: [],
+      hobby: "",
+      hobbyMatch: "",
+      hobbyMatches: [],
+      career: "",
+      careerMatch: "",
+      careerMatches: []
     };
 
     this.reselect = this.reselect.bind(this);
@@ -33,15 +43,43 @@ class Profile extends Component {
       .then(response => response.json())
       .then(profileInfo => {
         console.log(profileInfo);
+        const courseInfo =
+          profileInfo.courseSelection.term +
+          ", " +
+          profileInfo.courseSelection.subject +
+          profileInfo.courseSelection.number;
+
+        const dailyInfo =
+          profileInfo.casualDaily.term + ", " + profileInfo.casualDaily.daily;
+
+        const hobbyInfo =
+          profileInfo.casualHobby.term + ", " + profileInfo.casualHobby.hobby;
+
+        const careerInfo =
+          profileInfo.career.term + ", " + profileInfo.career.city;
+
+        console.log(careerInfo);
+        console.log(typeof careerInfo);
+
         this.setState({
+          name: profileInfo.name,
           email: profileInfo.email,
-          course:
-            profileInfo.courseSelection.term +
-            " " +
-            profileInfo.courseSelection.subject +
-            profileInfo.courseSelection.number,
+          
+          course: !courseInfo.includes("undefined") ? courseInfo : "N/A",
           match: profileInfo.courseSelection.match,
-          matches: profileInfo.courseSelection.matches
+          matches: profileInfo.courseSelection.matches,
+
+          daily: !dailyInfo.includes("undefined") ? dailyInfo : "N/A",
+          dailyMatch: profileInfo.casualDaily.match,
+          dailyMatches: profileInfo.casualDaily.matches,
+
+          hobby: !hobbyInfo.includes("undefined") ? hobbyInfo : "N/A",
+          hobbyMatch: profileInfo.casualHobby.match,
+          hobbyMatches: profileInfo.casualHobby.matches,
+
+          career: !careerInfo.includes("undefined") ? careerInfo : "N/A",
+          careerMatch: profileInfo.career.match,
+          careerMatches: profileInfo.career.matches
         });
       });
   }
@@ -65,7 +103,7 @@ class Profile extends Component {
     }
   };
 
-  reselect = async event => {
+  reselect = async (event, matchType) => {
     event.preventDefault();
 
     const response = await fetch("/api/getEmail", {
@@ -80,18 +118,52 @@ class Profile extends Component {
     let end = curEmail.indexOf("@");
     let tempName = curEmail.substring(0, end);
 
+    let path = "";
+    switch (matchType) {
+      case "course":
+        path = "/academic";
+        break;
+      case "daily":
+        path = "/daily";
+        break;
+      case "hobby":
+        path = "/hobby";
+        break;
+      case "career":
+        path = "/career";
+        break;
+    }
+
     this.props.history.push({
-      pathname: "/academic",
+      pathname: path,
       state: { name: tempName, email: curEmail }
     });
   };
 
-  seeMatches = async event => {
+  seeMatches = async (event, matchType) => {
     event.preventDefault();
+
+    let attribute = event.target.attributes.getNamedItem("data-type").value;
+    let matchesData = null;
+
+    switch (matchType) {
+      case "course":
+        matchesData = { data: this.state.courseMatches };
+        break;
+      case "daily":
+        matchesData = { data: this.state.dailyMatches };
+        break;
+      case "hobby":
+        matchesData = { data: this.state.hobbyMatches };
+        break;
+      case "career":
+        matchesData = { data: this.state.careerMatches };
+        break;
+    }
 
     this.props.history.push({
       pathname: "/matches",
-      state: { data: this.state.matches }
+      state: matchesData
     });
   };
 
@@ -106,11 +178,56 @@ class Profile extends Component {
 
         <div>
           <p>Profile: {this.state.email}</p>
-          <p>Current Selection: {this.state.course}</p>
+          <p>Name: {this.state.name}</p>
+          <hr />
+
+          <div data-type="course">
+            <p>Current Course Selection: {this.state.course}</p>
+            <p>
+              Matching:{" "}
+              <a data-type="course" onClick={e => this.seeMatches(e, "course")}>
+                {this.state.courseMatch}
+              </a>
+            </p>
+            <button onClick={e => this.reselect(e, "course")}>
+              Reselect Course
+            </button>
+          </div>
+
+          <div>
+            <p>Current Daily Selection: {this.state.daily}</p>
+            <p>
+              Matching:{" "}
+              <a data-type="daily" onClick={e => this.seeMatches(e, "daily")}>
+                {this.state.dailyMatch}
+              </a>
+            </p>
+            <button onClick={e => this.reselect(e, "daily")}>
+              Reselect Daily
+            </button>
+          </div>
+
+          <p>Current Hobby Selection: {this.state.hobby}</p>
           <p>
-            Matching: <a onClick={this.seeMatches}>{this.state.match}</a>
+            Matching:{" "}
+            <a data-type="hobby" onClick={e => this.seeMatches(e, "hobby")}>
+              {this.state.hobbyMatch}
+            </a>
           </p>
-          <button onClick={this.reselect}>Reselect study course</button>
+          <button onClick={e => this.reselect(e, "hobby")}>
+            Reselect Hobby
+          </button>
+
+          <p>Current Career Selection: {this.state.career}</p>
+          <p>
+            Matching:{" "}
+            <a data-type="career" onClick={e => this.seeMatches(e, "career")}>
+              {this.state.careerMatch}
+            </a>
+          </p>
+          <button onClick={e => this.reselect(e, "career")}>
+            Reselect Career
+          </button>
         </div>
         <div>
           <button onClick={this.logout}>Logout</button>
