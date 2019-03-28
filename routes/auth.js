@@ -172,7 +172,7 @@ router.post("/api/resetpassword", function(req, res) {
       //   "text/plain",
       //   "Click to reset your password http://localhost:5000/passwordActivite?t=" +
       //     resetToken
-      );
+      //);
       var mail = new helper.Mail(from_email, subject, to_email, content);
 
       var sg = require("sendgrid")(
