@@ -254,6 +254,27 @@ router.post("/api/match_request", function(req, res) {
     if (user) {
       switch (uc) {
         case ACADEMIC:
+          var userMatches = user.courseSelection.matches;
+          for (let i = 0; i < userMatches.length; ++i) {
+            var query = { email: userMatches[i] };
+            Profile.findOne(query, function(err, user) {
+              if (user && user.email !== req.body.email) {
+                if (user.courseSelection.match === req.body.email) {
+                  user.courseSelection.match = "";
+                }
+                user.courseSelection.matches = user.courseSelection.matches.filter(
+                  function(s) {
+                    return s !== req.body.email;
+                  }
+                );
+
+                user.save(function(err) {
+                  if (err) throw err;
+                });
+              }
+            });
+          }
+
           user.courseSelection.term = userObj.course.term;
           user.courseSelection.subject = userObj.course.subject;
           user.courseSelection.number = userObj.course.catelog_number;
@@ -261,18 +282,79 @@ router.post("/api/match_request", function(req, res) {
           user.courseSelection.matches = [];
           break;
         case CAREER:
+          var userMatches = user.career.matches;
+          for (let i = 0; i < userMatches.length; ++i) {
+            var query = { email: userMatches[i] };
+            Profile.findOne(query, function(err, user) {
+              if (user && user.email !== req.body.email) {
+                if (user.career.match === req.body.email) {
+                  user.career.match = "";
+                }
+                user.career.matches = user.career.matches.filter(function(s) {
+                  return s !== req.body.email;
+                });
+
+                user.save(function(err) {
+                  if (err) throw err;
+                });
+              }
+            });
+          }
+
           user.career.city = userObj.content.city;
           user.career.term = userObj.content.term;
           user.career.match = "";
           user.career.matches = [];
           break;
         case DAILY:
+          var userMatches = user.casualDaily.matches;
+          for (let i = 0; i < userMatches.length; ++i) {
+            var query = { email: userMatches[i] };
+            Profile.findOne(query, function(err, user) {
+              if (user && user.email !== req.body.email) {
+                if (user.casualDaily.match === req.body.email) {
+                  user.casualDaily.match = "";
+                }
+                user.casualDaily.matches = user.casualDaily.matches.filter(
+                  function(s) {
+                    return s !== req.body.email;
+                  }
+                );
+
+                user.save(function(err) {
+                  if (err) throw err;
+                });
+              }
+            });
+          }
+
           user.casualDaily.daily = userObj.content.daily;
           user.casualDaily.term = userObj.content.term;
           user.casualDaily.match = "";
           user.casualDaily.matches = [];
           break;
         case HOBBY:
+          var userMatches = user.casualHobby.matches;
+          for (let i = 0; i < userMatches.length; ++i) {
+            var query = { email: userMatches[i] };
+            Profile.findOne(query, function(err, user) {
+              if (user && user.email !== req.body.email) {
+                if (user.casualHobby.match === req.body.email) {
+                  user.casualHobby.match = "";
+                }
+                user.casualHobby.matches = user.casualHobby.matches.filter(
+                  function(s) {
+                    return s !== req.body.email;
+                  }
+                );
+
+                user.save(function(err) {
+                  if (err) throw err;
+                });
+              }
+            });
+          }
+
           user.casualHobby.hobby = userObj.content.hobby;
           user.casualHobby.term = userObj.content.term;
           user.casualHobby.match = "";
@@ -388,9 +470,56 @@ router.post("/api/match_request", function(req, res) {
           };
 
           const matches = [];
-          const len = result.length > 3 ? 3 : result.length;
+          const len = result.length > 10 ? 10 : result.length;
           for (let i = 0; i < len; ++i) {
             matches.push(result[i].email);
+
+            const query = { email: result[i].email };
+            Profile.findOne(query, function(err, user) {
+              if (err) throw err;
+              if (user) {
+                switch (uc) {
+                  case ACADEMIC:
+                    user.courseSelection.match = user.courseSelection.match
+                      ? user.courseSelection.match
+                      : req.body.email;
+                    if (
+                      !user.courseSelection.matches.includes(req.body.email)
+                    ) {
+                      user.courseSelection.matches.push(req.body.email);
+                    }
+                    break;
+                  case CAREER:
+                    user.career.match = user.career.match
+                      ? user.career.match
+                      : req.body.email;
+                    if (!user.career.matches.includes(req.body.email)) {
+                      user.career.matches.push(req.body.email);
+                    }
+                    break;
+                  case DAILY:
+                    user.casualDaily.match = user.casualDaily.match
+                      ? user.casualDaily.match
+                      : req.body.email;
+                    if (!user.casualDaily.matches.includes(req.body.email)) {
+                      user.casualDaily.matches.push(req.body.email);
+                    }
+                    break;
+                  case HOBBY:
+                    user.casualHobby.match = user.casualHobby.match
+                      ? user.casualHobby.match
+                      : req.body.email;
+                    if (!user.casualHobby.matches.includes(req.body.email)) {
+                      user.casualHobby.matches.push(req.body.email);
+                    }
+                    break;
+                }
+
+                user.save(function(err) {
+                  if (err) throw err;
+                });
+              }
+            });
           }
 
           // Add user matches to profile
@@ -434,7 +563,7 @@ router.post("/api/match_request", function(req, res) {
       //   console.log(dbResult + "fuccckkkkkkhere");
 
       var result = dbResult;
-      
+
       result.forEach(e => {
         var el = e.email;
         MATCHING_MODEL.findOne({ email: el }, function(err, result) {
@@ -485,9 +614,54 @@ router.post("/api/match_request", function(req, res) {
       };
 
       const matches = [];
-      const len = result.length > 3 ? 3 : result.length;
+      const len = result.length > 10 ? 10 : result.length;
       for (let i = 0; i < len; ++i) {
         matches.push(result[i].email);
+
+        const query = { email: result[i].email };
+        Profile.findOne(query, function(err, user) {
+          if (err) throw err;
+          if (user) {
+            switch (uc) {
+              case ACADEMIC:
+                user.courseSelection.match = user.courseSelection.match
+                  ? user.courseSelection.match
+                  : req.body.email;
+                if (!user.courseSelection.matches.includes(req.body.email)) {
+                  user.courseSelection.matches.push(req.body.email);
+                }
+                break;
+              case CAREER:
+                user.career.match = user.career.match
+                  ? user.career.match
+                  : req.body.email;
+                if (!user.career.matches.includes(req.body.email)) {
+                  user.career.matches.push(req.body.email);
+                }
+                break;
+              case DAILY:
+                user.casualDaily.match = user.casualDaily.match
+                  ? user.casualDaily.match
+                  : req.body.email;
+                if (!user.casualDaily.matches.includes(req.body.email)) {
+                  user.casualDaily.matches.push(req.body.email);
+                }
+                break;
+              case HOBBY:
+                user.casualHobby.match = user.casualHobby.match
+                  ? user.casualHobby.match
+                  : req.body.email;
+                if (!user.casualHobby.matches.includes(req.body.email)) {
+                  user.casualHobby.matches.push(req.body.email);
+                }
+                break;
+            }
+
+            user.save(function(err) {
+              if (err) throw err;
+            });
+          }
+        });
       }
 
       // Add user matches to profile
