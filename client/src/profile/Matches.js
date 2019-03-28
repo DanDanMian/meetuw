@@ -1,28 +1,39 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
-import "./App.css";
-import Logo1 from "./picture/Logo1.png";
-import UserIcon from "./picture/black-user-icon.png";
+import "../App.css";
+import Logo1 from "../picture/Logo1.png";
+import UserIcon from "../picture/black-user-icon.png";
 
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import FolderIcon from "@material-ui/icons/Folder";
+import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 752
+  },
   paper: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: `${theme.spacing.unit * 3}px`,
-    paddingBottom: `${theme.spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper
+  },
+  title: {
+    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`
   }
 });
 
@@ -82,27 +93,22 @@ class Matches extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="App">
+      <div className={classes.root}>
         <Paper className={classes.paper}>
-          <Link to="/profile">
-            <img
-              id="user-icon"
-              src={UserIcon}
-              width="50"
-              height="50"
-              alt="User-icon"
-            />
-          </Link>
-          <img src={Logo1} width="150" height="80" alt="Logo" />
-          <h2 className="Logo">MeetUW</h2>
-          <br />
-          <div className="center-col">
-            <Typography align="left">Matches:</Typography>
+          <img src={Logo1} width="100" height="100" alt="Logo" />
+          <Typography variant="h6" className={classes.title}>
+            {this.props.location.state.type} Matches
+          </Typography>
+          <div className={classes.demo}>
             <List>
-              {this.props.location.state.data.map((item, i) => (
-                <ListItem>
-                  <Link onClick={this.checkProfile}>{item}</Link>
-                  {/* <ListItemText primary={item} /> */}
+              {this.props.location.state.data.data.map((item, i) => (
+                <ListItem onClick={this.checkProfile}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={item} />
                 </ListItem>
               ))}
             </List>

@@ -7,6 +7,22 @@ import UserIcon from "./picture/black-user-icon.png";
 import "react-dropdown/style.css";
 import "./App.css";
 
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
+
 const termOptions = ["Winter 2019", "Spring 2019", "Fall 2019", "Winter 2020"];
 const cityOptions = [
   "Toronto",
@@ -95,63 +111,75 @@ class Career extends Component {
           email: userData.email,
           myname: userData.myname,
           myemail: userData.myemail,
-          type: userData.type,
+          type: userData.type
         }
       });
     }
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className="App">
-        <div>
+        <Paper className={classes.paper}>
           <div>
-            <Link to="/profile">
-              <img
-                id="user-icon"
-                src={UserIcon}
-                width="50"
-                height="50"
-                alt="User-icon"
+            <div>
+              <Link to="/profile">
+                <img
+                  id="user-icon"
+                  src={UserIcon}
+                  width="50"
+                  height="50"
+                  alt="User-icon"
+                />
+              </Link>
+              <img src={Logo1} width="150" height="80" alt="Logo" />
+            </div>
+            <h2 className="Logo">MeetUW</h2>
+          </div>
+          <form onSubmit={this.handleSubmit}>
+            <h4 className="Text">Select Term </h4>
+            <Dropdown
+              className="Dropdown"
+              name="term"
+              options={termOptions}
+              value={this.state.term}
+              onChange={this.handleTerm}
+              placeholder="--"
+              required
+            />
+            <br />
+            <h4 className="Text"> Select City</h4>
+            <Dropdown
+              className="Dropdown"
+              name="subject"
+              options={cityOptions}
+              value={this.state.city}
+              onChange={this.handleCity}
+              placeholder="--"
+            />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div>
+              <input
+                type="submit"
+                value="submit"
+                onChange={this.handleSubmit}
               />
-            </Link>
-            <img src={Logo1} width="150" height="80" alt="Logo" />
-          </div>
-          <h2 className="Logo">MeetUW</h2>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <h4 className="Text">Select Term </h4>
-          <Dropdown
-            className="Dropdown"
-            name="term"
-            options={termOptions}
-            value={this.state.term}
-            onChange={this.handleTerm}
-            placeholder="--"
-            required
-          />
-          <br/>
-          <h4 className="Text"> Select City</h4>
-          <Dropdown
-            className="Dropdown"
-            name="subject"
-            options={cityOptions}
-            value={this.state.city}
-            onChange={this.handleCity}
-            placeholder="--"
-          />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div>
-            <input type="submit" value="submit" onChange={this.handleSubmit} />
-          </div>
-        </form>
-        <p className="Error">{this.state.error}</p>
+            </div>
+          </form>
+          <p className="Error">{this.state.error}</p>
+        </Paper>
       </div>
     );
   }
 }
 
-export default Career;
+Career.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Career);

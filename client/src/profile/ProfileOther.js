@@ -1,26 +1,47 @@
 import React, { Component } from "react";
-import kubo from "./picture/kubo.jpg";
 import { withRouter, Link } from "react-router-dom";
 
-import "./App.css";
-import Logo1 from "./picture/Logo1.png";
-import UserIcon from "./picture/black-user-icon.png";
+import "../App.css";
+import Logo1 from "../picture/Logo1.png";
+import UserIcon from "../picture/black-user-icon.png";
 
-import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import FolderIcon from "@material-ui/icons/Folder";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+import Card from "@material-ui/core/Card";
+import { CardHeader } from "@material-ui/core";
+import { orange } from "@material-ui/core/colors";
 
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 752
+  },
   paper: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: `${theme.spacing.unit * 3}px`,
-    paddingBottom: `${theme.spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
+  },
+  card: {
+    maxWidth: 400,
+    backgroundColor: "orange"
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper
+  },
+  title: {
+    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`
   }
 });
 
@@ -58,7 +79,6 @@ class ProfileOther extends Component {
     })
       .then(response => response.json())
       .then(profileInfo => {
-
         const courseInfo =
           profileInfo.courseSelection.term +
           ", " +
@@ -127,7 +147,7 @@ class ProfileOther extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="App">
+      <div className={classes.root}>
         <Paper className={classes.paper}>
           <Link to="/profile">
             <img
@@ -138,64 +158,31 @@ class ProfileOther extends Component {
               alt="User-icon"
             />
           </Link>
-          <img src={Logo1} width="150" height="80" alt="Logo" />
-          <h2 className="Logo">MeetUW</h2>
-          <br />
-
-          <img src={kubo} width="100" height="120" alt="Kubo" />
-
-          <div>
-            <Typography>Profile: {this.state.email}</Typography>
-            <Typography>Name: {this.state.name}</Typography>
-
-            <Link
-              to={{ pathname: "/message", state: { email: this.state.email } }}
-            >
-              <button>Send Message</button>
-            </Link>
-
-            <hr />
-
+          <Typography variant="h6" className={classes.title}>
+            Profile
+          </Typography>
+          <Divider variant="middle" />
+          <Card className={classes.card} raised="true">
+            <CardHeader title="Academic" />
             <div>
-              <Typography>
-                Current Course Selection: {this.state.course}
-              </Typography>
-              <Typography inline>Matching: </Typography>
-              <Link onClick={e => this.seeMatches(e, "course")}>
-                {this.state.courseMatch}
-              </Link>
+              <p>Current Course Selection: {this.state.course}</p>
+              <p>
+                Matching:{" "}
+                <a onClick={e => this.seeMatches(e, "course")}>
+                  {this.state.courseMatch}
+                </a>
+              </p>
             </div>
-            <br />
-            <div>
-              <Typography>
-                Current Daily Selection: {this.state.daily}
-              </Typography>
-              <Typography inline>Matching: </Typography>
-              <Link onClick={e => this.seeMatches(e, "daily")}>
-                {this.state.dailyMatch}
-              </Link>
-            </div>
-            <br />
-            <div>
-              <Typography>
-                Current Hobby Selection: {this.state.hobby}
-              </Typography>
-              <Typography inline>Matching: </Typography>
-              <Link onClick={e => this.seeMatches(e, "hobby")}>
-                {this.state.hobbyMatch}
-              </Link>
-            </div>
-            <br />
-            <div>
-              <Typography>
-                Current Career Selection: {this.state.career}
-              </Typography>
-              <Typography inline>Matching: </Typography>
-              <Link onClick={e => this.seeMatches(e, "career")}>
-                {this.state.careerMatch}
-              </Link>
-            </div>
-          </div>
+          </Card>
+          <Card raised="true">
+            <CardHeader title="Daily" />
+          </Card>
+          <Card raised="true">
+            <CardHeader title="Hobby" />
+          </Card>
+          <Card raised="true">
+            <CardHeader title="Career" />
+          </Card>
         </Paper>
       </div>
     );

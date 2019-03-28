@@ -6,6 +6,22 @@ import Logo1 from "./picture/Logo1.png";
 import UserIcon from "./picture/black-user-icon.png";
 import "./App.css";
 
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
+
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +41,7 @@ class Menu extends Component {
 
   handleSelect = async e => {
     e.preventDefault();
-    console.log(JSON.stringify(this.props.location.state.name));
+
     // Input Validation
     if (this.state.category === "") {
       this.setState({ error: "Must select a category" });
@@ -65,52 +81,59 @@ class Menu extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const categoryList = ["Academic", "Casual", "Career"];
 
     return (
       <div className="App">
-        <div>
+        <Paper className={classes.paper}>
           <div>
-            <Link to="/profile">
-              <img
-                id="user-icon"
-                src={UserIcon}
-                width="50"
-                height="50"
-                alt="User-icon"
-              />
-            </Link>
-            <img src={Logo1} width="150" height="80" alt="Logo" />
+            <div>
+              <Link to="/profile">
+                <img
+                  id="user-icon"
+                  src={UserIcon}
+                  width="50"
+                  height="50"
+                  alt="User-icon"
+                />
+              </Link>
+              <img src={Logo1} width="150" height="80" alt="Logo" />
+            </div>
+            <h2 className="Logo">MeetUW</h2>
           </div>
-          <h2 className="Logo">MeetUW</h2>
-        </div>
-        <form onSubmit={this.handleTryout}>
-          <h3 className="Text">
-            MeetUW can help you find people with the same preference.
-          </h3>
-          <h3 className="Text"> You are looking for a </h3>
-          <Dropdown
-            className="Dropdown"
-            name="category"
-            options={categoryList}
-            value={this.state.category}
-            onChange={this.handleCateogryChange}
-            placeholder="--"
-          />
-          <h3 className="Text"> friend.</h3>
+          <form onSubmit={this.handleTryout}>
+            <h3 className="Text">
+              MeetUW can help you find people with the same preference.
+            </h3>
+            <h3 className="Text"> You are looking for a </h3>
+            <Dropdown
+              className="Dropdown"
+              name="category"
+              options={categoryList}
+              value={this.state.category}
+              onChange={this.handleCateogryChange}
+              placeholder="--"
+            />
+            <h3 className="Text"> friend.</h3>
+            <br />
+            <br />
+            <br />
+            <br />
+          </form>
           <br />
-          <br />
-          <br />
-          <br />
-        </form>
-        <br />
-        <form onSubmit={this.handleSelect}>
-          <input type="submit" value="Select" required />
-        </form>
-        <p className="Error">{this.state.error}</p>
+          <form onSubmit={this.handleSelect}>
+            <input type="submit" value="Select" required />
+          </form>
+          <p className="Error">{this.state.error}</p>
+        </Paper>
       </div>
     );
   }
 }
 
-export default Menu;
+Menu.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Menu);
