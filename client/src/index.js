@@ -20,13 +20,13 @@ import ResultNotMatched from "./ResultNotMatched";
 import NewRegisterSuccess from "./NewRegisterSuccess";
 
 import Daily from "./casual/Daily";
-import Profile from "./Profile";
+import Profile from "./profile/Profile";
 import requireAuth from "./Authenticated";
 import resetPassword from "./resetPassword";
 import passwordActivite from "./passwordActivite";
 import AccountActivite from "./AccountActivite";
 
-import Matches from "./Matches";
+import Matches from "./profile/Matches";
 import Message from "./Message";
 import Admin from "./Admin";
 
