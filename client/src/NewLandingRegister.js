@@ -44,7 +44,7 @@ class NewLandingRegister extends Component {
           </div>
           <h2 className="Logo">MeetUW</h2>
         </div>
-        <h3 className="Text">Finding students with same interests</h3>
+        <h3 className="Text">Finding students with the same interests</h3>
         <br />
         <br />
         <br />
