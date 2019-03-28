@@ -13,7 +13,7 @@ class Message extends Component {
       match: "",
       email_subject: "Introduction Message",
       email_content:
-        "Hi, \nWe got matched on UW Meet. I would love for us to have a quick chat. We can meet up for a coffee when you're available. \n Thanks!",
+        "Hi, \nWe got matched on UW Meet. I would love for us to have a quick chat. We can meet up for a coffee when you're available. \nThanks! \n\n<Reply to Respond>",
       responseToPost: ""
     };
   }
@@ -67,13 +67,6 @@ class Message extends Component {
               type="text"
               maxlength="100"
               value={this.state.email_subject}
-            />
-            <br />
-            <input
-              type="text"
-              maxlength="100"
-              value={this.state.match}
-              disabled
             />
             <br />
             <textarea id="mssg" rows="4" cols="35" wrap="hard">

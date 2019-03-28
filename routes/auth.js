@@ -16,8 +16,14 @@ router.post(
     Profile.findOne(userByEmail, function(err, user) {
       if (err) throw err;
       if (!user) {
-        Profile.create(userByEmail, function(err, res) {
-          console.log("User Profile Created on Login");
+        User.findOne(userByEmail, function(err, user) {
+          if (err) throw err;
+          if (user) {
+            const profileObj = { email: req.user.email, name: user.name };
+            Profile.create(profileObj, function(err, res) {
+              if (err) throw err;
+            });
+          }
         });
       }
     });

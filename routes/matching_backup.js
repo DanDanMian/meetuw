@@ -252,9 +252,6 @@ router.post("/api/match_request", function(req, res) {
   Profile.findOne(userByEmail, function(err, user) {
     if (err) throw err;
     if (user) {
-      user.name = userObj.name;
-      user.email = userObj.email;
-
       switch (uc) {
         case ACADEMIC:
           user.courseSelection.term = userObj.course.term;
@@ -391,7 +388,7 @@ router.post("/api/match_request", function(req, res) {
           };
 
           const matches = [];
-          const len = (result.length > 3)? 3: result.length; 
+          const len = result.length > 3 ? 3 : result.length;
           for (let i = 0; i < len; ++i) {
             matches.push(result[i].email);
           }
@@ -436,11 +433,8 @@ router.post("/api/match_request", function(req, res) {
 
       //   console.log(dbResult + "fuccckkkkkkhere");
 
-    
       var result = dbResult;
       
-      console.log(req.body.email+ "el");
-      console.log(result+ "rrrrrrrrrrr");
       result.forEach(e => {
         var el = e.email;
         MATCHING_MODEL.findOne({ email: el }, function(err, result) {
@@ -491,7 +485,7 @@ router.post("/api/match_request", function(req, res) {
       };
 
       const matches = [];
-      const len = (result.length > 3)? 3: result.length; 
+      const len = result.length > 3 ? 3 : result.length;
       for (let i = 0; i < len; ++i) {
         matches.push(result[i].email);
       }
@@ -530,7 +524,7 @@ router.post("/api/match_request", function(req, res) {
       res.send(JSON.stringify(data));
       return;
     }
-   });
+  });
   // FINEL_STEP: Post userObj to specific table defined
 });
 
