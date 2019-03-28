@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import kubo from "./picture/kubo.jpg";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import "./App.css";
 import Logo1 from "./picture/Logo1.png";
+import UserIcon from "./picture/black-user-icon.png";
 
-class Profile extends Component {
+class ProfileOther extends Component {
   constructor(props) {
     super(props);
 
@@ -25,9 +26,6 @@ class Profile extends Component {
       careerMatch: "",
       careerMatches: []
     };
-
-    this.reselect = this.reselect.bind(this);
-    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -42,7 +40,6 @@ class Profile extends Component {
     })
       .then(response => response.json())
       .then(profileInfo => {
-        console.log(profileInfo);
         const courseInfo =
           profileInfo.courseSelection.term +
           ", " +
@@ -78,66 +75,8 @@ class Profile extends Component {
           careerMatch: profileInfo.career.match,
           careerMatches: profileInfo.career.matches
         });
-
-        console.log("courseMatch" + this.state.courseMatch);
       });
   }
-
-  logout = async event => {
-    event.preventDefault();
-
-    const response = await fetch("/api/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    const body = await response.text();
-
-    if (body === "SUCCESS") {
-      this.props.history.push({
-        pathname: "/login"
-      });
-    }
-  };
-
-  reselect = async (event, matchType) => {
-    event.preventDefault();
-
-    const response = await fetch("/api/getEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    const curEmail = await response.text();
-
-    let end = curEmail.indexOf("@");
-    let tempName = curEmail.substring(0, end);
-
-    let path = "";
-    switch (matchType) {
-      case "course":
-        path = "/academic";
-        break;
-      case "daily":
-        path = "/daily";
-        break;
-      case "hobby":
-        path = "/hobby";
-        break;
-      case "career":
-        path = "/career";
-        break;
-    }
-
-    this.props.history.push({
-      pathname: path,
-      state: { name: tempName, email: curEmail }
-    });
-  };
 
   seeMatches = async (event, matchType) => {
     event.preventDefault();
@@ -168,6 +107,15 @@ class Profile extends Component {
   render() {
     return (
       <div className="App">
+        <Link to="/profile">
+          <img
+            id="user-icon"
+            src={UserIcon}
+            width="50"
+            height="50"
+            alt="User-icon"
+          />
+        </Link>
         <img src={Logo1} width="150" height="80" alt="Logo" />
         <h2 className="Logo">MeetUW</h2>
         <br />
@@ -177,6 +125,12 @@ class Profile extends Component {
         <div>
           <p>Profile: {this.state.email}</p>
           <p>Name: {this.state.name}</p>
+
+          <Link
+            to={{ pathname: "/message", state: { email: this.state.email } }}
+          >
+            <button>Send Message</button>
+          </Link>
 
           <hr />
 
@@ -188,9 +142,6 @@ class Profile extends Component {
                 {this.state.courseMatch}
               </a>
             </p>
-            <button onClick={e => this.reselect(e, "course")}>
-              Reselect Course
-            </button>
           </div>
 
           <div>
@@ -201,9 +152,6 @@ class Profile extends Component {
                 {this.state.dailyMatch}
               </a>
             </p>
-            <button onClick={e => this.reselect(e, "daily")}>
-              Reselect Daily
-            </button>
           </div>
 
           <div>
@@ -214,9 +162,6 @@ class Profile extends Component {
                 {this.state.hobbyMatch}
               </a>
             </p>
-            <button onClick={e => this.reselect(e, "hobby")}>
-              Reselect Hobby
-            </button>
           </div>
 
           <div>
@@ -227,17 +172,11 @@ class Profile extends Component {
                 {this.state.careerMatch}
               </a>
             </p>
-            <button onClick={e => this.reselect(e, "career")}>
-              Reselect Career
-            </button>
           </div>
-        </div>
-        <div>
-          <button onClick={this.logout}>Logout</button>
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(Profile);
+export default withRouter(ProfileOther);
