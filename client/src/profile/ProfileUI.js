@@ -46,7 +46,7 @@ const styles = theme => ({
   }
 });
 
-function SignIn(props) {
+function ProfileUI(props) {
   const { classes } = props;
 
   return (
@@ -94,7 +94,7 @@ function SignIn(props) {
           >
             Sign in
           </Button>
-          <Typography color="error" align="center">{props.err}</Typography>
+          <Typography color="error">{props.err}</Typography>
           <Typography align="center">
             <Link href="/resetpassword">Forget Password?</Link>
           </Typography>
@@ -104,8 +104,8 @@ function SignIn(props) {
   );
 }
 
-SignIn.propTypes = {
+ProfileUI.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(ProfileUI);
