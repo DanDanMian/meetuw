@@ -24,22 +24,10 @@ class Message extends Component {
 
   send_Email = async e => {
     e.preventDefault();
-    console.log("send_email called");
 
-    //fetch current user email for testing
-    const emailresponse = await fetch("/api/getEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    const curEmail = await emailresponse.text();
-    console.log("reciver is: " + curEmail);
-
-    //call api to send email
+    // Call api to send email
     const response = await fetch("/api/sendmatchemail", {
-      //api in user.js
+      // api in user.js
       method: "POST",
       headers: {
         "Content-Type": "application/json"

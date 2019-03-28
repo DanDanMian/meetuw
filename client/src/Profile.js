@@ -177,7 +177,9 @@ class Profile extends Component {
         <div>
           <p>Profile: {this.state.email}</p>
           <p>Name: {this.state.name}</p>
-
+          <div>
+            <button onClick={this.logout}>Logout</button>
+          </div>
           <hr />
 
           <div>
@@ -231,9 +233,6 @@ class Profile extends Component {
               Reselect Career
             </button>
           </div>
-        </div>
-        <div>
-          <button onClick={this.logout}>Logout</button>
         </div>
       </div>
     );
