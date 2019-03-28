@@ -66,13 +66,14 @@ router.post("/api/passwordactivitereset", function(req, res) {
 router.post("/api/register", function(req, res) {
   //email verification
   var email = req.body.email;
-  email = email.substr(0, email.indexOf('@'));
+  //var emailPrefix = email.substr(0, email.indexOf('@'));
+  //console.log("email prefix: "+ emailPrefix);
   //encrypt password
   var token = md5(req.body.password);
   var verified = false;
   var confirmToken = crypto.randomBytes(20).toString("hex");
 
-  var userByEmail = { email: `${req.body.email}` };
+  var userByEmail = { email: `${email}` };
   var userObj = {
     name: `${req.body.name}`,
     email: `${req.body.email}`,

@@ -87,7 +87,13 @@ class NewEmailRegister extends Component {
   //   this.setState({ sendEmail: event.target.value });
   // }
 
-  userInputValidation(email, password, secondpassword) {
+  userInputValidation(name,email, password, secondpassword) {
+    if(name === ""){
+      console.log("Missing Nickname");
+      this.setState({error : "Missing Nickname"});
+      return false;
+    }
+
     // Validate user email
     let start = email.indexOf("@");
     if (start < 0) {
@@ -97,17 +103,16 @@ class NewEmailRegister extends Component {
     }
 
     let suffix = email.substring(start + 1, email.length);
-    if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca") {
+    if (suffix !== "uwaterloo.ca") {
       console.log("Invalid UWaterloo Email");
-      this.setState({ error: "Invalid UWaterloo Email" });
+      this.setState({ error: "Invalid UWaterloo Email, only use @uwaterloo.ca" });
       return false;
     }
 
     // Validate user password
     let minPasswordLength = 8;
     if (
-      password.length < minPasswordLength ||
-      secondpassword.length < minPasswordLength
+      password.length < minPasswordLength
     ) {
       console.log("Password length must be greater than 8");
       this.setState({ error: "Password length must be greater than 8" });
@@ -129,6 +134,7 @@ class NewEmailRegister extends Component {
     // Validation For Email & Password (TODO)
     if (
       !this.userInputValidation(
+        this.state.name,
         this.state.email,
         this.state.password,
         this.state.secondpassword
@@ -183,7 +189,7 @@ class NewEmailRegister extends Component {
         handlePasswordChange={this.handlePasswordChange}
         handlePasswordConfirmationChange={this.handlePasswordConfirmationChange}
         handleSubmit={this.handleSubmit}
-        err={this.state.err}
+        err={this.state.error}
       />
       
       </div>
