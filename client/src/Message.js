@@ -16,18 +16,10 @@ class Message extends Component {
         "Hi, \nWe got matched on UW Meet. I would love for us to have a quick chat. We can meet up for a coffee when you're available. \n Thanks!",
       responseToPost: ""
     };
+  }
 
-    fetch("/api/getProfile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ match: data.match });
-      });
+  componentDidMount() {
+    this.setState({ match: this.props.location.state.email });
   }
 
   send_Email = async e => {
@@ -53,7 +45,7 @@ class Message extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email:  this.state.match,
+        email: this.state.match,
         subject: this.state.email_subject,
         content: this.state.email_content
       })

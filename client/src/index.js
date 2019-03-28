@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
 import "./index.css";
-import 'typeface-roboto';
+import "typeface-roboto";
 import * as serviceWorker from "./serviceWorker";
 
 import NewLandingRegister from "./NewLandingRegister";
@@ -21,6 +21,7 @@ import NewRegisterSuccess from "./NewRegisterSuccess";
 
 import Daily from "./casual/Daily";
 import Profile from "./Profile";
+import ProfileOther from "./ProfileOther";
 import requireAuth from "./Authenticated";
 import resetPassword from "./resetPassword";
 import passwordActivite from "./passwordActivite";
@@ -42,11 +43,8 @@ ReactDOM.render(
       />
       <Route path="/login" component={Login} />
       <Route path="/menu" render={props => requireAuth(Menu)({ ...props })} />
-      {/*  <Route path="/profile" onEnter={requireAuth}>
-        <IndexRoute component={Profile} />
-        {/* <Route path=':userId' component={ProfileOthers} />
-      </Route> */}
-      <Route path="/profile/:profileId?" component={requireAuth(Profile)} />
+      <Route exact path="/profile" component={requireAuth(Profile)} />
+      <Route path="/profile/:profileId" component={ProfileOther} />
       <Route
         path="/matches"
         render={props => requireAuth(Matches)({ ...props })}
@@ -75,8 +73,10 @@ ReactDOM.render(
         render={props => requireAuth(ResultNotMatched)({ ...props })}
       />
       <Route path="/password" component={NewPasswordRegister} />
-
-      <Route path="/message" render={props => requireAuth(Message)({ ...props })} />
+      <Route
+        path="/message"
+        render={props => requireAuth(Message)({ ...props })}
+      />
       <Route path="/resetpassword" component={resetPassword} />
       <Route path="/passwordactivite" component={passwordActivite} />
     </div>
