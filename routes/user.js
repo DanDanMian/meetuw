@@ -52,6 +52,9 @@ router.post("/api/sendmatchemail", function(req, res) {
   var content = new helper.Content("text/plain", req.body.content);
   var mail = new helper.Mail(from_email, subject, to_email, content);
 
+  const reply_to_email = new helper.Email(req.user.email);
+  mail.setReplyTo(reply_to_email);
+
   var sg = require("sendgrid")(
     "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"
   );

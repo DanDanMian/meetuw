@@ -474,7 +474,6 @@ router.post("/api/match_request", function(req, res) {
           var rangeList = [15500023, 44, 54, 424];
 
           e.score = cross_category_score(param1, param2, w1, rangeList);
-          //    console.log(e.score + " " + e.email);
         });
       });
 
