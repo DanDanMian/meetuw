@@ -6,6 +6,24 @@ import "./App.css";
 import Logo1 from "./picture/Logo1.png";
 import UserIcon from "./picture/black-user-icon.png";
 
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
+
 class ProfileOther extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +58,7 @@ class ProfileOther extends Component {
     })
       .then(response => response.json())
       .then(profileInfo => {
+
         const courseInfo =
           profileInfo.courseSelection.term +
           ", " +
@@ -105,78 +124,86 @@ class ProfileOther extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className="App">
-        <Link to="/profile">
-          <img
-            id="user-icon"
-            src={UserIcon}
-            width="50"
-            height="50"
-            alt="User-icon"
-          />
-        </Link>
-        <img src={Logo1} width="150" height="80" alt="Logo" />
-        <h2 className="Logo">MeetUW</h2>
-        <br />
-
-        <img src={kubo} width="100" height="120" alt="Kubo" />
-
-        <div>
-          <p>Profile: {this.state.email}</p>
-          <p>Name: {this.state.name}</p>
-
-          <Link
-            to={{ pathname: "/message", state: { email: this.state.email } }}
-          >
-            <button>Send Message</button>
+        <Paper className={classes.paper}>
+          <Link to="/profile">
+            <img
+              id="user-icon"
+              src={UserIcon}
+              width="50"
+              height="50"
+              alt="User-icon"
+            />
           </Link>
+          <img src={Logo1} width="150" height="80" alt="Logo" />
+          <h2 className="Logo">MeetUW</h2>
+          <br />
 
-          <hr />
+          <img src={kubo} width="100" height="120" alt="Kubo" />
 
           <div>
-            <p>Current Course Selection: {this.state.course}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "course")}>
+            <Typography>Profile: {this.state.email}</Typography>
+            <Typography>Name: {this.state.name}</Typography>
+
+            <Link
+              to={{ pathname: "/message", state: { email: this.state.email } }}
+            >
+              <button>Send Message</button>
+            </Link>
+
+            <hr />
+
+            <div>
+              <Typography>
+                Current Course Selection: {this.state.course}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "course")}>
                 {this.state.courseMatch}
-              </a>
-            </p>
-          </div>
-
-          <div>
-            <p>Current Daily Selection: {this.state.daily}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "daily")}>
+              </Link>
+            </div>
+            <br />
+            <div>
+              <Typography>
+                Current Daily Selection: {this.state.daily}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "daily")}>
                 {this.state.dailyMatch}
-              </a>
-            </p>
-          </div>
-
-          <div>
-            <p>Current Hobby Selection: {this.state.hobby}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "hobby")}>
+              </Link>
+            </div>
+            <br />
+            <div>
+              <Typography>
+                Current Hobby Selection: {this.state.hobby}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "hobby")}>
                 {this.state.hobbyMatch}
-              </a>
-            </p>
-          </div>
-
-          <div>
-            <p>Current Career Selection: {this.state.career}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "career")}>
+              </Link>
+            </div>
+            <br />
+            <div>
+              <Typography>
+                Current Career Selection: {this.state.career}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "career")}>
                 {this.state.careerMatch}
-              </a>
-            </p>
+              </Link>
+            </div>
           </div>
-        </div>
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRouter(ProfileOther);
+ProfileOther.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withRouter(withStyles(styles)(ProfileOther));

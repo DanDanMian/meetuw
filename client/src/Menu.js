@@ -17,8 +17,8 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
   }
 });
 
@@ -41,7 +41,7 @@ class Menu extends Component {
 
   handleSelect = async e => {
     e.preventDefault();
-    console.log(JSON.stringify(this.props.location.state.name));
+
     // Input Validation
     if (this.state.category === "") {
       this.setState({ error: "Must select a category" });

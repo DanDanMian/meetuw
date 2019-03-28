@@ -5,6 +5,23 @@ import "./App.css";
 import Logo1 from "./picture/Logo1.png";
 import UserIcon from "./picture/black-user-icon.png";
 
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
+
 class Message extends Component {
   constructor(props) {
     super(props);
@@ -45,42 +62,49 @@ class Message extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className="App">
-        <Link to="/profile">
-          <img
-            id="user-icon"
-            src={UserIcon}
-            width="50"
-            height="50"
-            alt="User-icon"
-          />
-        </Link>
-        <img src={Logo1} width="150" height="80" alt="Logo" />
-        <h2 className="Logo">MeetUW</h2>
-        <br />
-
-        <div>
-          <form>
-            <input
-              id="email_subject"
-              type="text"
-              maxlength="100"
-              value={this.state.email_subject}
+        <Paper className={classes.paper}>
+          <Link to="/profile">
+            <img
+              id="user-icon"
+              src={UserIcon}
+              width="50"
+              height="50"
+              alt="User-icon"
             />
-            <br />
-            <textarea id="mssg" rows="4" cols="35" wrap="hard">
-              {this.state.email_content}
-            </textarea>
-            <br />
-            <br />
-            <button onClick={this.send_Email}>Send Message</button>
-          </form>
-          <p>{this.state.responseToPost}</p>
-        </div>
+          </Link>
+          <img src={Logo1} width="150" height="80" alt="Logo" />
+          <h2 className="Logo">MeetUW</h2>
+          <br />
+          <div>
+            <form>
+              <input
+                id="email_subject"
+                type="text"
+                maxlength="100"
+                value={this.state.email_subject}
+              />
+              <br />
+              <textarea id="mssg" rows="4" cols="35" wrap="hard">
+                {this.state.email_content}
+              </textarea>
+              <br />
+              <br />
+              <button onClick={this.send_Email}>Send Message</button>
+            </form>
+            <Typography>{this.state.responseToPost}</Typography>
+          </div>
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRouter(Message);
+Message.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withRouter(withStyles(styles)(Message));

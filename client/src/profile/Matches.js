@@ -116,33 +116,6 @@ class Matches extends Component {
         </Paper>
       </div>
     );
-
-    return (
-      <div className="App">
-        <Link to="/profile">
-          <img
-            id="user-icon"
-            src={UserIcon}
-            width="50"
-            height="50"
-            alt="User-icon"
-          />
-        </Link>
-        <img src={Logo1} width="100" height="100" alt="Logo" />
-        <h2 className="Logo">MeetUW</h2>
-        <br />
-        <div className="center-col">
-          <span>{this.props.location.state.type} Matches</span>
-          <ul>
-            {this.props.location.state.data.data.map((item, i) => (
-              <li onClick={this.checkProfile} key={`item_${i}`}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    );
   }
 }
 

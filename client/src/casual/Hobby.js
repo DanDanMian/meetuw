@@ -4,8 +4,23 @@ import "react-dropdown/style.css";
 import Dropdown from "react-dropdown";
 import "../App.css";
 import Logo1 from "../picture/Logo1.png";
-
 import UserIcon from "../picture/black-user-icon.png";
+
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
 
 const categories = ["sport", "music", "film", "book", "art"];
 
@@ -204,61 +219,69 @@ class Hobby extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className="App">
-        <div>
-          <Link to="/profile">
-            <img
-              id="user-icon"
-              src={UserIcon}
-              width="50"
-              height="50"
-              alt="User-icon"
-            />
-          </Link>
-          <img src={Logo1} width="150" height="80" alt="Logo" />
-          <h2 className="Logo">MeetUW</h2>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <h3 className="Text">Find Your Hobby</h3>
+        <Paper className={classes.paper}>
           <div>
-            <br />
-            <Dropdown
-              className="Dropdown"
-              name="category"
-              options={categories}
-              value={this.state.field}
-              onChange={this.handleCategory}
-              placeholder="--"
-              required
-            />
-
-            <br />
-            <h3 className="Text">Select Interested Field</h3>
-            <br />
-            <Dropdown
-              className="Dropdown"
-              name="sub field"
-              options={this.state.fields}
-              value={this.state.subfield}
-              onChange={this.handleSubField}
-              placeholder="--"
-              required
-            />
+            <Link to="/profile">
+              <img
+                id="user-icon"
+                src={UserIcon}
+                width="50"
+                height="50"
+                alt="User-icon"
+              />
+            </Link>
+            <img src={Logo1} width="150" height="80" alt="Logo" />
+            <h2 className="Logo">MeetUW</h2>
           </div>
+          <form onSubmit={this.handleSubmit}>
+            <h3 className="Text">Find Your Hobby</h3>
+            <div>
+              <br />
+              <Dropdown
+                className="Dropdown"
+                name="category"
+                options={categories}
+                value={this.state.field}
+                onChange={this.handleCategory}
+                placeholder="--"
+                required
+              />
+
+              <br />
+              <h3 className="Text">Select Interested Field</h3>
+              <br />
+              <Dropdown
+                className="Dropdown"
+                name="sub field"
+                options={this.state.fields}
+                value={this.state.subfield}
+                onChange={this.handleSubField}
+                placeholder="--"
+                required
+              />
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <input type="submit" value="submit" onChange={this.handleSubmit} />
+          </form>
+          <p className="Error">{this.state.error}</p>
           <br />
           <br />
           <br />
-          <br />
-          <input type="submit" value="submit" onChange={this.handleSubmit} />
-        </form>
-        <p className="Error">{this.state.error}</p>
-        <br />
-        <br />
-        <br />
+        </Paper>
       </div>
     );
   }
 }
 
-export default Hobby;
+Hobby.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Hobby);

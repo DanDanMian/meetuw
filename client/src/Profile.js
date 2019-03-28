@@ -1,9 +1,26 @@
 import React, { Component } from "react";
 import kubo from "./picture/kubo.jpg";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import "./App.css";
 import Logo1 from "./picture/Logo1.png";
+
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: `${theme.spacing.unit * 3}px`,
+    paddingBottom: `${theme.spacing.unit * 3}px`
+  }
+});
 
 class Profile extends Component {
   constructor(props) {
@@ -166,77 +183,90 @@ class Profile extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className="App">
-        <img src={Logo1} width="150" height="80" alt="Logo" />
-        <h2 className="Logo">MeetUW</h2>
-        <br />
+        <Paper className={classes.paper}>
+          <img src={Logo1} width="150" height="80" alt="Logo" />
+          <h2 className="Logo">MeetUW</h2>
+          <br />
 
-        <img src={kubo} width="100" height="120" alt="Kubo" />
-
-        <div>
-          <p>Profile: {this.state.email}</p>
-          <p>Name: {this.state.name}</p>
-          <div>
-            <button onClick={this.logout}>Logout</button>
-          </div>
-          <hr />
+          <img src={kubo} width="100" height="120" alt="Kubo" />
 
           <div>
-            <p>Current Course Selection: {this.state.course}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "course")}>
+            <Typography>Profile: {this.state.email}</Typography>
+            <Typography>Name: {this.state.name}</Typography>
+            <div>
+              <button onClick={this.logout}>Logout</button>
+            </div>
+
+            <hr />
+
+            <div>
+              <Typography>
+                Current Course Selection: {this.state.course}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "course")}>
                 {this.state.courseMatch}
-              </a>
-            </p>
-            <button onClick={e => this.reselect(e, "course")}>
-              Reselect Course
-            </button>
-          </div>
+              </Link>
+              <br />
+              <button onClick={e => this.reselect(e, "course")}>
+                Reselect Course
+              </button>
+            </div>
 
-          <div>
-            <p>Current Daily Selection: {this.state.daily}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "daily")}>
+            <div>
+              <Typography>
+                Current Daily Selection: {this.state.daily}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "daily")}>
                 {this.state.dailyMatch}
-              </a>
-            </p>
-            <button onClick={e => this.reselect(e, "daily")}>
-              Reselect Daily
-            </button>
-          </div>
+              </Link>
+              <br />
+              <button onClick={e => this.reselect(e, "daily")}>
+                Reselect Daily
+              </button>
+            </div>
 
-          <div>
-            <p>Current Hobby Selection: {this.state.hobby}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "hobby")}>
+            <div>
+              <Typography>
+                Current Hobby Selection: {this.state.hobby}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "hobby")}>
                 {this.state.hobbyMatch}
-              </a>
-            </p>
-            <button onClick={e => this.reselect(e, "hobby")}>
-              Reselect Hobby
-            </button>
-          </div>
+              </Link>
+              <br />
+              <button onClick={e => this.reselect(e, "hobby")}>
+                Reselect Hobby
+              </button>
+            </div>
 
-          <div>
-            <p>Current Career Selection: {this.state.career}</p>
-            <p>
-              Matching:{" "}
-              <a onClick={e => this.seeMatches(e, "career")}>
+            <div>
+              <Typography>
+                Current Career Selection: {this.state.career}
+              </Typography>
+              <Typography inline>Matching: </Typography>
+              <Link onClick={e => this.seeMatches(e, "career")}>
                 {this.state.careerMatch}
-              </a>
-            </p>
-            <button onClick={e => this.reselect(e, "career")}>
-              Reselect Career
-            </button>
+              </Link>
+              <br />
+              <button onClick={e => this.reselect(e, "career")}>
+                Reselect Career
+              </button>
+            </div>
           </div>
-        </div>
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRouter(Profile);
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withRouter(withStyles(styles)(Profile));
