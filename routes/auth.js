@@ -105,14 +105,14 @@ router.post("/api/register", function(req, res) {
         var from_email = new helper.Email("app113928750@heroku.com");
         var to_email = new helper.Email(email);
         var subject = "Confirm your MeetUW account";
-        // var content = new helper.Content(
-        //   "text/plain",
-        //   "Click to confirm http://meetuw.herokuapp.com/activite?t=" + confirmToken
-        // );
         var content = new helper.Content(
           "text/plain",
-          "Click to confirm http://localhost:5000/activite?t=" + confirmToken
+          "Click to confirm http://meetuw.herokuapp.com/activite?t=" + confirmToken
         );
+        // var content = new helper.Content(
+        //   "text/plain",
+        //   "Click to confirm http://localhost:5000/activite?t=" + confirmToken
+        // );
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
         var sg = require("sendgrid")(
@@ -163,16 +163,16 @@ router.post("/api/resetpassword", function(req, res) {
       var from_email = new helper.Email("app113928750@heroku.com");
       var to_email = new helper.Email(email);
       var subject = "Reset your MeetUW password";
-      // var content = new helper.Content(
-      //   "text/plain",
-      //   "Click to reset your password http://meetuw.herokuapp.com/passwordActivite?t=" +
-      //     resetToken
-      // );
       var content = new helper.Content(
         "text/plain",
-        "Click to reset your password http://localhost:5000/passwordActivite?t=" +
+        "Click to reset your password http://meetuw.herokuapp.com/passwordActivite?t=" +
           resetToken
       );
+      // var content = new helper.Content(
+      //   "text/plain",
+      //   "Click to reset your password http://localhost:5000/passwordActivite?t=" +
+      //     resetToken
+      //);
       var mail = new helper.Mail(from_email, subject, to_email, content);
 
       var sg = require("sendgrid")(

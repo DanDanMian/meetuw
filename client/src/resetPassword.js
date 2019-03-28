@@ -73,8 +73,8 @@ class resetPassword extends Component {
     return (
       <div>
       <ResetPasswordComp handleEmail={this.handleEmail} handleSubmit={this.handleSubmit}/>
-      <p style="text-align:center">{this.state.message}</p>
-      <p style="text-align:center">{this.state.error}</p>
+      <p>{this.state.message}</p>
+      <p>{this.state.error}</p>
       </div>
     );
   }

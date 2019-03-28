@@ -49,7 +49,10 @@ router.post("/api/sendmatchemail", function(req, res) {
   var from_email = new helper.Email("app113928750@heroku.com");
   var to_email = new helper.Email(req.body.email);
   var subject = req.body.subject;
-  var content = new helper.Content("text/plain", req.body.content);
+  var content = new helper.Content(
+    "text/plain",
+    req.body.content + ": " + req.user.email
+  );
   var mail = new helper.Mail(from_email, subject, to_email, content);
 
   const reply_to_email = new helper.Email(req.user.email);
@@ -65,9 +68,6 @@ router.post("/api/sendmatchemail", function(req, res) {
   });
 
   sg.API(request, function(error, response) {
-    console.log(response.statusCode);
-    console.log(response.body);
-    console.log(response.headers);
     if (error) {
       res.send("FAIL");
     } else {
