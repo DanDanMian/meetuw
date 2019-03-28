@@ -98,7 +98,7 @@ router.post("/api/register", function(req, res) {
         var subject = "Confirm your MeetUW account";
         var content = new helper.Content(
           "text/plain",
-          "Click to confirm http://127.0.0.1:5000/activite?t=" + confirmToken
+          "Click to confirm http://meetuw.herokuapp.com/activite?t=" + confirmToken
         );
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
@@ -152,7 +152,7 @@ router.post("/api/resetpassword", function(req, res) {
       var subject = "Reset your MeetUW password";
       var content = new helper.Content(
         "text/plain",
-        "Click to reset your password http://127.0.0.1:5000/passwordActivite?t=" +
+        "Click to reset your password http://meetuw.herokuapp.com/passwordActivite?t=" +
           resetToken
       );
       var mail = new helper.Mail(from_email, subject, to_email, content);

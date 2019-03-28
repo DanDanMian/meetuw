@@ -53,7 +53,7 @@ class Message extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: curEmail, //for testing purpose, change to this.state.match
+        email:  this.state.match,
         subject: this.state.email_subject,
         content: this.state.email_content
       })
