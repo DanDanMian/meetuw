@@ -87,6 +87,7 @@ function Register(props) {
           >
             Register
           </Button>
+          <Typography color="error">{props.err}</Typography>
         </form>
       </Paper>
     </main>

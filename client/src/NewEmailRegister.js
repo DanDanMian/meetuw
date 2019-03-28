@@ -91,12 +91,14 @@ class NewEmailRegister extends Component {
     // Validate user email
     let start = email.indexOf("@");
     if (start < 0) {
+      console.log("Invalid Email");
       this.setState({ error: "Invalid Email" });
       return false;
     }
 
     let suffix = email.substring(start + 1, email.length);
     if (suffix !== "edu.uwaterloo.ca" && suffix !== "uwaterloo.ca") {
+      console.log("Invalid UWaterloo Email");
       this.setState({ error: "Invalid UWaterloo Email" });
       return false;
     }
@@ -107,11 +109,13 @@ class NewEmailRegister extends Component {
       password.length < minPasswordLength ||
       secondpassword.length < minPasswordLength
     ) {
+      console.log("Password length must be greater than 8");
       this.setState({ error: "Password length must be greater than 8" });
       return false;
     }
 
     if (password !== secondpassword) {
+      console.log("Password does not matched");
       this.setState({ error: "Password does not matched" });
       return false;
     }
@@ -166,7 +170,7 @@ class NewEmailRegister extends Component {
         }
       });
     } else {
-      this.setState({ error: "Register failed" });
+      this.setState({ error: "Register failed, Check if you have already Registered." });
     }
   };
 
@@ -179,6 +183,7 @@ class NewEmailRegister extends Component {
         handlePasswordChange={this.handlePasswordChange}
         handlePasswordConfirmationChange={this.handlePasswordConfirmationChange}
         handleSubmit={this.handleSubmit}
+        err={this.state.err}
       />
       
       </div>

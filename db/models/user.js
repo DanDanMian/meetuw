@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new Schema({
+  name: String,
   email: {
     type: String,
     required: true,

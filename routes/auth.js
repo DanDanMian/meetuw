@@ -66,6 +66,7 @@ router.post("/api/passwordactivitereset", function(req, res) {
 router.post("/api/register", function(req, res) {
   //email verification
   var email = req.body.email;
+  email = email.substr(0, email.indexOf('@'));
   //encrypt password
   var token = md5(req.body.password);
   var verified = false;
@@ -73,6 +74,7 @@ router.post("/api/register", function(req, res) {
 
   var userByEmail = { email: `${req.body.email}` };
   var userObj = {
+    name: `${req.body.name}`,
     email: `${req.body.email}`,
     token: `${token}`,
     confirmToken: `${confirmToken}`,
@@ -96,9 +98,13 @@ router.post("/api/register", function(req, res) {
         var from_email = new helper.Email("app113928750@heroku.com");
         var to_email = new helper.Email(email);
         var subject = "Confirm your MeetUW account";
+        // var content = new helper.Content(
+        //   "text/plain",
+        //   "Click to confirm http://meetuw.herokuapp.com/activite?t=" + confirmToken
+        // );
         var content = new helper.Content(
           "text/plain",
-          "Click to confirm http://meetuw.herokuapp.com/activite?t=" + confirmToken
+          "Click to confirm http://http://localhost:5000//activite?t=" + confirmToken
         );
         var mail = new helper.Mail(from_email, subject, to_email, content);
 
@@ -150,9 +156,14 @@ router.post("/api/resetpassword", function(req, res) {
       var from_email = new helper.Email("app113928750@heroku.com");
       var to_email = new helper.Email(email);
       var subject = "Reset your MeetUW password";
+      // var content = new helper.Content(
+      //   "text/plain",
+      //   "Click to reset your password http://meetuw.herokuapp.com/passwordActivite?t=" +
+      //     resetToken
+      // );
       var content = new helper.Content(
         "text/plain",
-        "Click to reset your password http://meetuw.herokuapp.com/passwordActivite?t=" +
+        "Click to reset your password http://http://localhost:5000/passwordActivite?t=" +
           resetToken
       );
       var mail = new helper.Mail(from_email, subject, to_email, content);
