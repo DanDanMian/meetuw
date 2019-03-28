@@ -391,7 +391,7 @@ router.post("/api/match_request", function(req, res) {
           };
 
           const matches = [];
-          const len = (result.length > 3)? 3: len; 
+          const len = (result.length > 3)? 3: result.length; 
           for (let i = 0; i < len; ++i) {
             matches.push(result[i].email);
           }
@@ -492,7 +492,7 @@ router.post("/api/match_request", function(req, res) {
       };
 
       const matches = [];
-      const len = (result.length > 3)? 3: len; 
+      const len = (result.length > 3)? 3: result.length; 
       for (let i = 0; i < len; ++i) {
         matches.push(result[i].email);
       }
