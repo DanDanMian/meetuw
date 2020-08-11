@@ -1,6 +1,6 @@
 # meetuw
 
-A tool to help you find exactly the person you are looking for within University of Waterloo. A group project for CS493, Fall 2018.
+A tool to help you find exactly the person you are looking for within University of Waterloo.
 
 ## API Documentation
 
